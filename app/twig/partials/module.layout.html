@@ -1,0 +1,69 @@
+
+{# Set name and module #}
+{% set name = module %}
+{% set module = page[module] %}
+
+{# Get width var #}
+{% if module.width and module.width != 'width-default' %}
+	{% set width = module.width %}
+{% elseif layout.width and layout.width != 'width-default' %}
+  {% set width = layout.width %}
+{% else %}
+	{% set width = "" %}
+{% endif %}
+
+{# Set columns #}
+{% if width == "wide" or name == "disqus" %}
+	{% set columns = "" %}
+{% elseif width == "narrow" %}
+	{% set columns = "small-12 large-10 small-centered columns" %}
+{% elseif width == "narrower" %}
+	{% set columns = "small-12 medium-10 large-8 small-centered columns" %}
+{% elseif width == "narrowest" %}
+	{% set columns = "small-12 medium-9 large-6 small-centered columns" %}
+{% else %}
+	{% set columns = "small-12 small-centered columns" %}
+{% endif %}
+
+{# start row container #}
+{% if width == "wide" or name == "disqus" %}
+	<div class=module>
+{% else %}
+	<div class='module row'>
+{% endif %}
+
+{# schema for gallery #}
+{% set schema %}
+{% if name == 'gallery' %}itemscope itemtype='http://schema.org/ImageGallery'{% endif %}
+{% endset %}
+
+{# caption classes #}
+{% if module.caption.enabled %}
+	{% set caption_classes = module.caption.align %}
+	{% if module.caption.hover %}{% set caption_classes = caption_classes ~ " caption-hover" %}{% endif %}
+{% endif %}
+
+{# Horizontal rule class 'hr' #}
+{% if module.layout == "vertical" and module.vertical.horizontal_rule %}
+	{% set hr = 'hr' %}
+{% endif %}
+
+{# Module Separator #}
+{#{% if page.layout.separator %}
+	{% set separator = '<hr class=module-separator />' %}
+	{% set separator_class = 'separator' %}
+{% endif %}#}
+
+{# classes #}
+{% set module_classes %}clearfix {{ name }} {{ columns }} {% if module.layout %}layout-{{ module.layout }}{% endif %} {{ page.include.layout }} {{ layout.classes }} {{ page.include[name] }} {{ module.classes }} {{ caption_classes }} {{ class }} title-{{module.title_size|default('normal')}} {{ width }} {{ hr }} {{ module.text_align|default(page.context.text_align) }}{# {{ separator_class }} #}{% endset %}
+{% set module_classes = module_classes|cleanData|textAlign %}
+
+{# module container #}
+<div class='{{ module_classes }}' {{ schema }}>
+	{% include 'partials/module.'~name~'.html' %}
+	<hr class=module-separator />
+	{#{{ separator }}#}
+</div>
+
+{# End row container #}
+</div>

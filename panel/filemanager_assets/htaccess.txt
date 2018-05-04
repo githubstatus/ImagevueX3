@@ -1,0 +1,46 @@
+# START FILEMANAGER
+# Disable Directory Listings in this Directory and Subdirectories
+# This will hide the files from the public unless they know direct URLs  
+Options -Indexes
+<Files *.gif>
+    Order allow,deny
+    deny from all
+</Files>
+<Files *.jpeg>
+    Order allow,deny
+    deny from all
+</Files>
+<Files *.jpg>
+    deny from all
+</Files>
+<Files *.png>
+    deny from all
+</Files>
+<Files *.txt>
+    Order allow,deny
+    deny from all
+</Files>
+<Files *.zip>
+    Order allow,deny
+    deny from all
+</Files>
+<Files *.rar>
+    Order allow,deny
+    deny from all
+</Files>
+<Files *.psd>
+    Order allow,deny
+    deny from all
+</Files>
+<Files *.flv>
+    Order allow,deny
+    deny from all
+</Files>
+
+
+
+
+
+
+
+

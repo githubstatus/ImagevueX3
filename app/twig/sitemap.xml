@@ -1,0 +1,18 @@
+{% spaceless %}
+
+{# base_url from page.settings.server.base_url #}
+{#{% set baseurl = page.settings.base_url|replace({'http://': '', 'https://': ''})|trim('/')|default(page.base_url) %}#}
+{% set baseurl = page.base_url %}
+
+{# Global page vars #}
+{% set absolutepath = baseurl|addprotocol %}
+{% set rootpath = baseurl|replace({(page.domain_name): ''}) %}
+{% set absolutepath_page = page.permalink|setpath(absolutepath) %}
+{% set rootpath_page = page.permalink|setpath(rootpath) %}
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<?xml-stylesheet type="text/xsl" href="{{ rootpath }}/app/public/xsl/xml-sitemap.xsl" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+{% include 'partials/sitemap/sitemap-url.xml' %}
+</urlset>
+{% endspaceless %}

@@ -1,0 +1,326 @@
+{
+  "folders": {
+    "Vertical [split]": {
+      "folders": {
+        "width": "narrow",
+        "title_size": "small",
+        "items": "preview,title,date,description",
+        "classes": "hover,frame,text-left",
+        "hide": false,
+        "crop": {
+          "enabled": false
+        },
+        "caption": {
+          "enabled": false
+        },
+        "split": {
+          "enabled": true,
+          "ratio": 6,
+          "invert": true
+        },
+        "layout": "vertical"
+      }
+    },
+    "Grid": {
+      "folders": {
+        "width": "width-default",
+        "items": "title,amount,preview",
+        "classes": "frame,text-center",
+        "hide": false,
+        "crop": {
+          "enabled": true,
+          "crop": [
+            3,
+            2
+          ]
+        },
+        "split": {
+          "enabled": false
+        },
+        "caption": {
+          "enabled": false
+        },
+        "layout": "grid",
+        "grid": {
+          "use_width": false,
+          "space": -1
+        }
+      }
+    },
+    "Justified [wide + caption]": {
+      "folders": {
+        "width": "wide",
+        "items": "preview",
+        "classes": "text-center,hover",
+        "hide": false,
+        "crop": {
+          "enabled": false
+        },
+        "caption": {
+          "enabled": true,
+          "items": "title,amount",
+          "hover": false,
+          "align": "caption-bottom-left"
+        },
+        "split": {
+          "enabled": false
+        },
+        "layout": "justified",
+        "justified": {
+          "row_height": 350,
+          "space": 10
+        }
+      }
+    },
+    "Columns [wide + card]": {
+      "folders": {
+        "width": "wide",
+        "items": "preview,title,description",
+        "classes": "text-center,hover,card",
+        "hide": false,
+        "crop": {
+          "enabled": false
+        },
+        "caption": {
+          "enabled": true,
+          "items": "amount",
+          "hover": false,
+          "align": "caption-bottom-left"
+        },
+        "split": {
+          "enabled": false
+        },
+        "layout": "columns",
+        "columns": {
+          "use_width": true,
+          "column_width": 350,
+          "space": 20
+        }
+      }
+    },
+    "Grid [list]": {
+      "folders": {
+        "width": "width-default",
+        "items": "preview,title,amount,description",
+        "classes": "frame,text-left,hover,hr",
+        "hide": false,
+        "title_size": "xsmall",
+        "crop": {
+          "enabled": true,
+          "crop": [
+            3,
+            2
+          ]
+        },
+        "caption": {
+          "enabled": false
+        },
+        "split": {
+          "enabled": true,
+          "ratio": 6,
+          "invert": true
+        },
+        "layout": "grid",
+        "grid": {
+          "use_width": false,
+          "columns": "2,2,1",
+          "space": -1
+        }
+      }
+    },
+    "Carousel": {
+      "folders": {
+        "width": "wide",
+        "items": "title,preview",
+        "classes": "frame,text-center",
+        "hide": false,
+        "title_size": "small",
+        "crop": {
+          "enabled": true,
+          "crop": [
+            3,
+            2
+          ]
+        },
+        "caption": {
+          "enabled": true,
+          "items": "amount",
+          "hover": false,
+          "align": "caption-bottom-left"
+        },
+        "split": {
+          "enabled": false
+        },
+        "layout": "carousel",
+        "carousel": {
+          "margin": 30
+        }
+      }
+    }
+  },
+  "gallery": {
+    "Vertical": {
+      "gallery": {
+        "width": "narrower",
+        "title_size": "small",
+        "items": "preview,title,description",
+        "classes": "hover,frame,text-center",
+        "hide": false,
+        "crop": {
+          "enabled": false
+        },
+        "split": {
+          "enabled": false
+        },
+        "layout": "vertical"
+      }
+    },
+    "Vertical [split]": {
+      "gallery": {
+        "width": "narrow",
+        "title_size": "small",
+        "items": "preview,title,date,description",
+        "classes": "hover,frame,text-left",
+        "hide": false,
+        "crop": {
+          "enabled": false
+        },
+        "split": {
+          "enabled": true,
+          "ratio": 6,
+          "invert": true
+        },
+        "layout": "vertical"
+      }
+    },
+    "Justified [wide]": {
+      "gallery": {
+        "width": "wide",
+        "items": "preview",
+        "classes": "text-center,hover",
+        "hide": false,
+        "crop": {
+          "enabled": false
+        },
+        "split": {
+          "enabled": false
+        },
+        "layout": "justified"
+      }
+    },
+    "Grid": {
+      "gallery": {
+        "width": "width-default",
+        "items": "preview",
+        "classes": "frame,text-center,hover",
+        "hide": false,
+        "crop": {
+          "enabled": true,
+          "crop": [
+            1,
+            1
+          ]
+        },
+        "split": {
+          "enabled": false
+        },
+        "layout": "grid",
+        "grid": {
+          "use_width": false,
+          "space": -1
+        }
+      }
+    },
+    "Grid [wide + small]": {
+      "gallery": {
+        "width": "wide",
+        "items": "preview",
+        "classes": "text-center",
+        "hide": false,
+        "crop": {
+          "enabled": true,
+          "crop": [
+            1,
+            1
+          ]
+        },
+        "split": {
+          "enabled": false
+        },
+        "layout": "grid",
+        "grid": {
+          "use_width": true,
+          "column_width": 100,
+          "space": 1
+        }
+      }
+    },
+    "Columns [wide]": {
+      "gallery": {
+        "width": "wide",
+        "items": "preview",
+        "classes": "text-center,hover",
+        "hide": false,
+        "crop": {
+          "enabled": false
+        },
+        "split": {
+          "enabled": false
+        },
+        "layout": "columns"
+      }
+    },
+    "Slideshow [cover]": {
+      "gallery": {
+        "classes": "scrollbutton",
+        "hide": false,
+        "width": "wide",
+        "crop": {
+          "enabled": false
+        },
+        "layout": "slideshow",
+        "slideshow": {
+          "nav": "none",
+          "fit": "cover"
+        }
+      }
+    },
+    "Slideshow [contain + thumbs]": {
+      "gallery": {
+        "classes": "scrollbutton",
+        "hide": false,
+        "width": "wide",
+        "crop": {
+          "enabled": false
+        },
+        "layout": "slideshow",
+        "slideshow": {
+          "nav": "thumbs",
+          "fit": "contain"
+        }
+      }
+    },
+    "Carousel": {
+      "gallery": {
+        "width": "wide",
+        "items": "preview",
+        "classes": "hover,text-center",
+        "hide": false,
+        "crop": {
+          "enabled": true,
+          "crop": [
+            1,
+            1
+          ]
+        },
+        "caption": {
+          "enabled": false
+        },
+        "split": {
+          "enabled": false
+        },
+        "layout": "carousel"
+      }
+    }
+  }
+}

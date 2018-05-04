@@ -1,0 +1,113 @@
+
+# ---------------------------------------------------------------------------
+# X3 REQUIRED
+# Below rewrite rules are strictly required by X3 for pages to work properly.
+# ---------------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+
+	# RewriteEngine enabled
+	RewriteEngine on
+
+	# RewriteBase (required for some hosts)
+	# If X3 is installed in root: RewriteBase /
+	# If X3 is installed in sub-directory x3:  RewriteBase /x3
+	# RewriteBase /
+
+	# Rewrite any calls to html|json|xml|atom|rss if a folder matching * exists
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule (.+)\.(html|json|xml|atom|rss)$ $1/ [L]
+
+	# Rewrite any calls to /render to the X3 image resizer
+	RewriteCond %{REQUEST_URI} render/
+	RewriteRule ^render/. app/parsers/slir/ [L]
+
+	# Rewrite routes to X3 application index.php if they are non-existent files/dirs
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^(.*)/$ index.php?/$1/ [L,QSA]
+	#RewriteRule ^(.*)$ index.php?/$1 [L,QSA]
+
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# OPTIONAL X3 APACHE SERVER CONFIG (if you have your own Apache server)
+# https://gist.github.com/mjau-mjau/f4acd76bef4c1d33fba22913a9ff488e
+# https://gist.github.com/mjau-mjau/b8fe3d3719bc400528945b194706e6f5
+# ---------------------------------------------------------------------------
+# X3 OPTIONAL
+# Below rules are optional, but included by default for best practice.
+# Many of the rules below should already be default from your Apache server.
+# https://github.com/h5bp/server-configs-apache/blob/master/dist/.htaccess
+# --------------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+
+	# Add a trailing slash to directories (/dir -> /dir/)
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_URI} !(\.|\?)
+	RewriteCond %{REQUEST_URI} !(.*)/$
+	RewriteRule ([^/]+)$ $1/ [L]
+
+	# Set HTTP_MOD_REWRITE flag for X3 diagnostics, used to detect mod_rewrite
+	<IfModule mod_env.c>
+		SetEnv HTTP_MOD_REWRITE On
+	</IfModule>
+
+	# Allow basic authentication in X3 for servers running PHP as FastCGI
+	RewriteCond %{HTTP:Authorization} ^(.+)$
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+
+# Prevent X3 Diagnostics from showing server information
+# <IfModule mod_env.c>
+#		SetEnv X3_HIDE_DIAGNOSTICS On
+# </IfModule>
+
+# Block directory listing.
+# This should already be default on your server, and is disabled here because it creates errors on some servers.
+# <IfModule mod_autoindex.c>
+# 	Options -Indexes
+# </IfModule>
+
+# Serve resources labeled as text/html with media type charset set to UTF-8 (unicode).
+AddDefaultCharset utf-8
+
+# Serve resources with the proper media types (MIME types).
+<IfModule mod_mime.c>
+  AddType application/json                            json
+  AddType application/javascript                      js
+  AddType image/svg+xml                               svg
+  AddType image/webp                                  webp
+  AddType video/mp4                                   mp4
+
+  # Serve some extensions with media type charset set to UTF-8 (unicode).
+  AddCharset utf-8 .css .js .xml .json
+</IfModule>
+
+# Compress output (GZIP).
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE application/javascript \
+                                application/json \
+                                application/xml \
+                                image/svg+xml \
+                                text/css \
+                                text/html \
+                                text/xml
+</IfModule>
+
+# Remove ETags as resources are sent with far-future expires headers.
+<IfModule mod_headers.c>
+	Header unset ETag
+</IfModule>
+FileETag None
+
+# Agressive cache expires headers
+<IfModule mod_expires.c>
+	ExpiresActive on
+	ExpiresDefault                                      "access plus 10 years"
+	ExpiresByType text/html                             "access plus 0 seconds"
+	ExpiresByType text/xml                              "access plus 3600 seconds"
+	ExpiresByType application/xml                       "access plus 3600 seconds"
+</IfModule>

@@ -1,0 +1,19 @@
+# Disable Directory Listings in this Directory and Subdirectories  
+# This will hide the files from the public unless they know direct URLs  
+Options -Indexes
+<Files *.php> 
+    deny from all
+</Files>
+<Files *.zip> 
+    deny from all
+</Files>
+<Files *.rar> 
+    deny from all
+</Files>
+<Files *.txt> 
+    deny from all
+</Files>
+<Files "backups.php">
+    Order Allow,Deny
+    Allow from all
+</Files>

@@ -1,0 +1,84 @@
+{% spaceless %}
+
+{# base_url from page.settings.base_url #}
+{#{% set baseurl = page.settings.base_url|replace({'http://': '', 'https://': ''})|trim('/')|default(page.base_url) %}#}
+{% set baseurl = page.base_url %}
+
+{# Global page vars #}
+{% set absolutepath = baseurl|addprotocol %}
+{% set rootpath = baseurl|replace({(page.domain_name): ''}) %}
+{% set assetspath = page.settings.cdn_files|trim('/')|default(rootpath) %}
+{% set absolutepath_page = page.permalink|setpath(absolutepath) %}
+{% set rootpath_page = page.permalink|setpath(rootpath) %}
+
+{# Preview image #}
+{% set preview_image %}{% include 'partials/preview-image.html' %}{% endset %}
+{% if preview_image is empty %}{% set preview_image = get_default_preview_image() %}{% endif %}
+
+{# Preview image full path #}
+{% set preview_image_full = page.settings.cdn_files|trim('/')|default(absolutepath) ~ preview_image|trim('.') %}
+
+{# VARS #}
+{% set page_title = '' %}
+{% set page_description = '' %}
+
+{# FILE #}
+{% if page.template_name == 'file' %}
+
+	{# Get parent dirname #}
+	{% set dirname = page.permalink|dirname %}
+	{% if dirname == '.' or dirname is empty %}{% set dirname = '/' %}{% endif %}
+	{% set parent = get(dirname) %}
+	{% set parent_images = sortby(parent.images, parent.gallery.sortby, (parent.gallery.sort == 'desc' ? true : false)) %}
+
+	{# image vars #}
+	{% set this = page.file_path %}
+	{% set image_description = '' %}
+	{% set file_index = 0 %}
+	{% set myimage = '' %}
+	{% set next_image = false %}
+	{% set prev_image = false %}
+
+	{# find image #}
+	{% for image in parent_images %}
+
+		{# siblings #}
+		{% if get_next_image %}
+			{% set next_image = image %}
+			{% set get_next_image = false %}
+		{% endif %}
+
+		{# current image match #}
+		{% if this == image.url %}
+
+			{# create meta #}
+	    {% set page_title = getDefault(image.title, parent.gallery.image.title, parent.gallery.image.title_include, image.name)|striptags('<a><span><em><i><b><strong><small><s><mark>')|replace({'{file_name}': image.file_name|removeExtension, '{file_name_ext}': image.file_name})|default(image.name) %}
+			{% set image_description = getDefault(image.description, parent.gallery.image.description, parent.gallery.image.description_include, image.name)|striptags('<a><span><em><i><b><strong><small><s><br><mark><img><kbd><code><button>')|replace({'{file_name}': image.file_name|removeExtension, '{file_name_ext}': image.file_name}) %}
+			{% set page_description = image_description|default(page_title~' | '~parent.title) %}
+			{% set file_index = loop.index0 %}
+
+			{# siblings #}
+			{% if current_image %}{% set prev_image = current_image %}{% endif %}
+			{% set get_next_image = true %}
+
+			{% set myimage = image %}
+		{% endif %}
+
+		{# siblings #}
+		{% set current_image = image %}
+	{% endfor %}
+
+	{# set file template #}
+	{% set template = 'partials/file.html' %}
+
+{# PAGE #}
+{% else %}
+	{% set page_title = page.title %}
+	{% set page_description = page.description %}
+	{% set template = 'partials/content.html' %}
+{% endif %}
+
+{% endspaceless %}
+{# BUILD #}
+{% set content %}{% spaceless %}{% include template %}{% endspaceless %}{% endset %}
+{{ pageJson(page_title, page_description, content, page.template_name, page.id, preview_image_full, page.permalink, page.file_path) }}

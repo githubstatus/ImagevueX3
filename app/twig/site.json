@@ -1,0 +1,1 @@
+{% set data %}{% include "partials/site.json" %}{% endset %}{"pages": [{{ data|trim|trim(',') }}]}

@@ -1,0 +1,16 @@
+{
+    "title": "Mother Nature",
+    "description": "A few images displaying in a justified grid.",
+    "image": "butterfly.jpg",
+    "gallery": {
+        "justified": {
+            "space": 1
+        },
+        "classes": "text-center",
+        "width": "wide",
+        "caption": {
+            "enabled": true,
+            "hover": true
+        }
+    }
+}

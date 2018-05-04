@@ -1,0 +1,18 @@
+{
+    "title": "Background Image",
+    "label": "Background Image",
+    "description": "Use the background plugin to add a background image to your page.",
+    "image": "background.jpg",
+    "content": "---\n\nThe background plugin allows you to add an image, gradient or color as background for your page. In this example, we have attached a full-size background-image to top, at 100% width, with fixed scroll.\n\n  * *To add a background-image to any page, simply navigate to **page › plugins › background**.*\n\n---\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut accumsan eros. Suspendisse tempus velit purus, sed faucibus dolor euismod vel. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur vestibulum bibendum massa vitae viverra. Integer quis ultrices nulla, ut ullamcorper justo. Nullam id erat ut velit efficitur efficitur. Etiam sit amet urna non nunc posuere luctus fringilla vitae tortor. Maecenas ultricies, elit sit amet imperdiet placerat, orci orci interdum libero, a pellentesque metus urna eu magna.\n\nDonec ultrices interdum urna non fringilla. Ut quis finibus dolor, vel porta augue. Vivamus eleifend lobortis sem, eget bibendum est commodo id. Proin fermentum sem sed iaculis sagittis. Maecenas ut odio ultricies, condimentum est a, fermentum est. Aliquam dignissim elit ut arcu tincidunt malesuada. Ut tempus, augue tempor molestie facilisis, risus sapien porta arcu, at aliquam libero ante non dolor. Phasellus viverra eleifend semper. Pellentesque vel auctor nibh, congue rutrum lacus. Mauris pretium mi quam, ut posuere enim pretium ut.\n\nSed fermentum massa dignissim scelerisque varius. In et dui pharetra, tristique purus eget, tempor ante. Aenean imperdiet nibh ac lectus malesuada, volutpat congue lacus aliquam. Praesent ultrices lectus sed malesuada tincidunt. In ut purus in lorem venenatis fermentum sit amet ut turpis. Vestibulum at justo viverra, pretium justo at, lobortis eros. Cras eget posuere dolor. Praesent leo purus, semper congue fringilla non, mattis eget dolor. Quisque a nisi a tortor viverra laoreet nec vel dolor. Aliquam quis velit id eros facilisis suscipit at a enim.",
+    "plugins": {
+        "background": {
+            "enabled": true,
+            "src": "background.jpg",
+            "repeat": "no-repeat",
+            "fixed": true
+        }
+    },
+    "background.jpg": {
+        "hidden": true
+    }
+}

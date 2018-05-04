@@ -1,0 +1,12 @@
+{
+    "title": "Page could not be found.",
+    "description": "This page returned a \"404 Not Found\" error.",
+    "content": "<i class=\"fa fa-ban fa-5x color-primary\"><\/i>\n",
+    "layout": {
+        "width": "narrower"
+    },
+    "context": {
+        "items": "content,title,description",
+        "text_align": "module-center"
+    }
+}

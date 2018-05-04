@@ -1,0 +1,38 @@
+<?php
+
+Class Data {
+
+	static $data = array();
+
+	static function make_dir_tree($directory){
+		$dirs = glob($directory, GLOB_ONLYDIR|GLOB_NOSORT);
+		if(count($dirs) > 0){
+			foreach($dirs as $dir){
+				if($dir === './content/custom') continue;
+				self::make_dir_tree($dir."/*");
+				self::$data[preg_replace(array('/\d+?\./', '/(\.+\/)*content\/*/'), '', $dir)] = str_replace('../', './', $dir);
+			}
+		}
+	}
+
+	static function make(){
+
+		if(is_writable('./_cache/pages')){
+			self::make_dir_tree('./content/*');
+			$json = phpversion() < 5.4 ? json_encode(self::$data) : json_encode(self::$data, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
+			file_put_contents('./_cache/pages/data.json', $json);
+
+			if(empty(self::$data)){
+				return false;
+			} else {
+				return self::$data;
+			}
+
+		} else {
+			return false;
+		}
+	}
+
+}
+
+?>

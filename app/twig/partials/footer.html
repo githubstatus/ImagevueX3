@@ -1,0 +1,43 @@
+</main>
+</div>
+</div>
+
+<footer class="footer">
+
+	{# Add custom footer #}
+	{{ page.back.custom.footer|removeComments|replace({'{{copy}}': '<p>&copy; ' ~ page.current_year ~ ' <a href="' ~ rootpath ~ '/">' ~ page.base_url ~ '</a></p>'})|trim }}
+
+	{# Below link will NOT display for licensed X3 websites.
+		 Removing the below code will break the X3 application. Get a license! #}
+	<p class="x3-footer-link">X3 {{ random(['Photo Gallery Website', 'Photography Website', 'Image Gallery CMS', 'Website for Photographers', 'Online Portfolio']) }} by <a href="https://www.photo.gallery">www.photo.gallery</a></p>
+</footer>
+
+{# X3 Settings + JS #}
+<script>
+var x3_settings = {{ jsonSettings(page) }};
+var x3_page = {{ pageJson(page_title, page_description, '', page.template_name, page.id, preview_image_full, page.permalink, page.file_path) }};
+{% if page.settings.cdn_core %}
+function jsFail(){
+	var s = document.createElement('script');
+	s.type = 'text/javascript';
+	s.onload = imagevue_;
+	s.src = '{{ rootpath }}/app/public/js/{{ page.stacey_version }}/x3.min.js';
+	document.getElementsByTagName('head')[0].appendChild(s);
+}
+{% endif %}
+</script>
+
+{# Custom Javascript files from /content/custom/javascript #}
+{% set custom_js_files = x3_glob('./content/custom/files/javascript/*include*.js', '<script id="custom_javascript_{{index}}" src="' ~ assetspath ~ '/content/custom/files/javascript/{{basename}}"></script>') %}
+{% if custom_js_files %}{{ custom_js_files }}{% endif %}
+
+{# Custom Javascript #}
+{% if page.back.custom.js|trim is not empty %}
+<script id="custom-javascript">{{ page.back.custom.js|trim }}</script>
+{% endif %}
+
+{# Imagevue X3 JS App #}
+<script src="{{ cdn_core }}/js/{{ page.stacey_version }}/x3.min.js" async{% if page.settings.cdn_core %} onerror="jsFail()"{% endif %} onload="imagevue{% if page.settings.cdn_core %}_{% endif %}();"></script>
+
+</body>
+</html>

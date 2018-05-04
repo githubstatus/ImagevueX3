@@ -1,0 +1,64 @@
+
+{# Video #}
+
+<section class="x3-video-container">
+
+{# loop #}
+{% for video in gallery_videos %}
+
+	{# title #}
+	{% set title = getDefault(video.title, settings.image.title, settings.image.title_include)|striptags('<a><span><em><i><b><strong><small><s><mark>')|replace({'{file_name}': video.file_name|removeExtension, '{file_name_ext}': video.file_name})|default(video.name) %}
+	{% set title_pseudo = title|replace({'<a': '<span', '</a>': '</span>', ' href=': ' data-href=', ' target=': ' data-target='}) %}
+
+	{# description #}
+	{% set image_description = getDefault(video.description, settings.image.description, settings.image.description_include) %}
+	{% if image_description is empty %}
+		{% set description = '' %}
+		{% set description_pseudo = '' %}
+	{% else %}
+		{% set description = image_description|striptags('<a><span><em><i><b><strong><small><s><br><mark><img><kbd><code><button>')|replace({'{file_name}': video.file_name|removeExtension, '{file_name_ext}': video.file_name}) %}
+		{% set description_pseudo = description|replace({'<a': '<span', '</a>': '</span>', ' href=': ' data-href=', ' target=': ' data-target='}) %}
+	{% endif %}
+
+	{# video.date #}
+	{% set date = video.date %}
+	{% if page.settings.date_format == 'timeago' %}
+		{% set date_formatted = date|date("d F Y") %}
+		{% set date_class = 'date timeago' %}
+	{% else %}
+		{% set date_formatted = date|date(page.settings.date_format|default('d F Y')) %}
+		{% set date_class = 'date' %}
+	{% endif %}
+	{% set time_tag = '<time itemprop=dateCreated datetime="' ~ date|date('c') ~ '" class="' ~ date_class ~ '">' ~ date_formatted ~ '</time>' %}
+
+	{# container #}
+	<div class="x3-video">
+
+	{# Meta #}
+	{% for item in items %}
+		{% if item == 'title' %}
+			<h2 class='title' itemprop='caption'>{{ title_pseudo }}</h2>
+		{% elseif item == 'description' and description is not empty %}
+		<p itemprop='description'>{{ description_pseudo }}</p>
+		{% elseif item == 'date' %}
+			<h6 class=date>{{time_tag}}</h6>
+		{% endif %}
+	{% endfor %}
+
+	{# embed #}
+	<video width="100%" preload="metadata" class="x3-style-frame" controls>
+		<source src="{{ assetspath ~ (gallery.file_path ~ "/" ~ video.file_name)|trim(".") }}" type="video/mp4">
+	</video>
+
+	{# container end #}
+	</div>
+
+	{# <hr> if !last video #}
+	{% if loop.index < gallery_videos|length %}
+		<hr>
+	{% endif %}
+
+{# loop end #}
+{% endfor %}
+
+</section>

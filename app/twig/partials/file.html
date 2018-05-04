@@ -1,0 +1,113 @@
+
+{# vars #}
+{% set image_page = page.permalink|setpath(rootpath) %}
+{% set preview_image_url = assetspath ~ preview_image|trim('.') %}
+{% set image_ratio = (myimage.height/myimage.width * 100) %}
+{% set date = myimage.exif["date_taken"] %}
+{#{% set date = myimage.date %}#}
+
+{# Image nav #}
+{% if parent_images|length > 1 %}
+<div class=article-nav>
+
+	{# next #}
+	{% if next_image %}
+		{% set url = '../' ~ getSibling(next_image.file_name|removeExtension) ~ '/' %}
+		<a href='{{ url }}' class='next'><span>{{ next_image.title|default(next_image.name) }}</span></a>
+	{% endif %}
+
+	{# previous #}
+	{% if prev_image %}
+		{% set url = '../' ~ getSibling(prev_image.file_name|removeExtension) ~ '/' %}
+		<a href='{{ url }}' class='previous'><span>{{ prev_image.title|default(prev_image.name) }}</span></a>
+	{% endif %}
+
+
+	{#{% set next = parent_images|keys[(file_index + 1)]  %}
+	{% if next is not empty %}
+	{% set url = '../' ~ getSibling(next|removeExtension) ~ '/' %}
+	<a href='{{ url }}' class='next'><span>{{ parent_images[next].title|default(parent_images[next].name) }}</span></a>
+	{% endif %}
+	{% set prev = parent_images|keys[(file_index - 1)] %}
+	{% if prev is not empty %}
+	{% set url = '../' ~ getSibling(prev|removeExtension) ~ '/' %}
+	<a href='{{ url }}' class='previous'><span>{{ parent_images[prev].title|default(parent_images[prev].name) }}</span></a>
+	{% endif %}#}
+</div>
+{% endif %}
+
+{# Fotomoto #}
+{% set fotomoto = '' %}
+{% set fotomoto_collection = '' %}
+{% if parent.plugins.fotomoto.enabled and parent.plugins.fotomoto.store_id and parent.plugins.fotomoto.enabled_page %}
+	{% if parent.plugins.fotomoto.buy_button %}
+		{% set fotomoto = ' file-fotomoto file-fotomoto-buybutton' %}
+	{% else %}
+		{% set fotomoto = ' file-fotomoto' %}
+	{% endif %}
+	{% if parent.plugins.fotomoto.collection|trim %}
+		{% set fotomoto_collection = ' data-fotomoto-collection="' ~ parent.plugins.fotomoto.collection|trim ~ '"' %}
+	{% endif %}
+{% endif %}
+
+{# File template #}
+<div class='module row file gallery{{ fotomoto }}'{{fotomoto_collection}}>
+  <div data-options='caption:' class='images clearfix context small-12 medium-10 large-8 small-centered columns narrower text-center frame{% if page.popup.enabled == true %} x3-hover-icon-primary{% endif %}'>
+
+  {# Comments icon with comments count #}
+
+  <h1 class='title'>{{ page_title }}</h1>
+  {% if image_description is not empty %}<h2 class='subheader'>{{ image_description }}</h2>{% endif %}
+  {% if date is not empty %}<h6 class=date><time itemprop="dateCreated" datetime='{{ date|date('c') }}'>{{ date|date('d F Y') }}</time></h6>{% endif %}
+
+  {# close (back) button #}
+	<a href={{ parent.permalink|setpath(rootpath) }} class='back'></a>
+
+	{# Popup EXIF #}
+	{% set exif = '' %}
+	{% if parent.popup.caption.exif and myimage.exif %}
+		{% for key, val in myimage.exif if val is not empty %}
+	    {% set exif = exif ~ key ~ ':' ~ val ~ ';' %}
+		{% endfor %}
+		{% if exif %}
+			{% set exif = 'data-exif="' ~ exif ~ '"' %}
+		{% endif %}
+	{% endif %}
+
+	{# Image element #}
+	<div class=gallery>
+		<a class='item img-link item-link{% if page.popup.enabled == true %} x3-popup{% endif %}' {{ exif }} id='{{ page.slug|replace({"_": "-"})|lower }}' data-options='w:{{ myimage.width }};h:{{ myimage.height }}' href='{{ image_page }}' data-image='{{ preview_image_url }}' data-title='{{ page_title|e('html') }}' data-description='{{ image_description|e('html') }}' data-date='{{ date|date("d F Y") }}'>
+
+			<figure>
+				<div class='image-container' style='padding-bottom:{{ image_ratio }}%;'>
+					<img data-src='{{ preview_image_url }}' alt='{{ page_title|striptags|e('html') }}'>
+				</div>
+			</figure>
+		</a>
+	</div>
+
+	{# EXIF #}
+	{% if myimage.exif is not empty %}
+	<div class=meta>
+		{% for key, val in myimage.exif if val is not empty %}
+			<div class='row {{ key }}'>
+	    	<div class='small-6 columns meta-key'><span>{{ key|title|replace({'_':' '}) }}</span></div>
+	    	<div class='small-6 columns meta-value styled'>{{ val }}</div>
+	    </div>
+		{% endfor %}
+	</div>
+	{% endif %}
+
+	{# Disqus comments? #}
+	{% if page.accounts.disqus_shortname and page.plugins.disqus.image %}
+		<hr>
+		<div id="comments">
+			<div>
+				<h2>Comments</h2>
+				<div id="disqus_thread"></div>
+			</div>
+		</div>
+	{% endif %}
+
+	</div>
+</div>

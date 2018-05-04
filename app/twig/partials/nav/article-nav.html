@@ -1,0 +1,40 @@
+{% spaceless %}
+
+{% if page.settings.pagenav and page.slug is not empty
+ and (page.plugins.pagenav.hide_has_children is empty or page.children_count == 0)
+ and (page.plugins.pagenav.hide_root is empty or page.permalink|split('/')|length > 2) %}
+
+{# get siblings #}
+{% set siblings = get_adjacent_siblings(page.file_path) %}
+{% if siblings and (siblings[0] or siblings[1]) %}
+
+{# get parent folder and append / unless == / #}
+{% set href_base = rootpath_page|dirname %}
+{% if href_base|last != '/' %}{% set href_base = href_base ~ '/' %}{% endif %}
+
+{# start article nav element #}
+<div class=article-nav>
+
+	{% if siblings[1] %}
+		<a href='{{ href_base ~ siblings[1].slug ~ '/' }}' class='next'><span>{{ siblings[1].label|title }}</span></a>
+	{% endif %}
+
+	{% if siblings[0] %}
+		<a href='{{ href_base ~ siblings[0].slug ~ '/' }}' class='previous'><span>{{ siblings[0].label|title }}</span></a>
+	{% endif %}
+
+	{#{% if not page.next_sibling[0] is empty %}
+		{% set next = getSibling(page.next_sibling[0]) %}
+		<a href='{{ href_base ~ next ~ '/' }}' class='next'><span>{{ next|title }}</span></a>
+	{% endif %}
+
+	{% if not page.previous_sibling[0] is empty %}
+		{% set previous = getSibling(page.previous_sibling[0]) %}
+		<a href='{{ href_base ~ previous ~ '/' }}' class='previous'><span>{{ previous|title }}</span></a>
+	{% endif %}#}
+
+</div>
+{% endif %}
+{% endif %}
+
+{% endspaceless %}

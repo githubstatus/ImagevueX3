@@ -1,0 +1,39 @@
+{% spaceless %}
+
+{# page element #}
+{% set page = p|default(page) %}
+
+{# set page_image #}
+{% if page.image is not empty %}
+	{% if "/" in page.image %}
+		{% set page_image = "./content" ~ ("/" ~ page.image|trim)|replace({'{{files}}': 'custom/files', 'content/': '', './': ''})|replace({'//': '/'}) %}
+	{% else %}
+		{% set page_image = page.file_path ~ "/" ~ page.image|trim %}
+	{% endif %}
+
+	{# Check if extension is included #}
+	{% if page_image and page_image|split('.')|last|length > 4 %}
+		{% set page_image = page_image ~ '.jpg' %}
+	{% endif %}
+{% endif %}
+
+{# Check if page template is file #}
+{% if page.template_name == 'file' %}
+	{% set url = page.file_path %}
+
+{# Check if page_image is set and exists #}
+{% elseif page_image and exists(page_image) %}
+	{% set url = page_image %}
+
+{# preview.jpg exists? #}
+{% elseif exists(page.file_path ~ '/preview.jpg') %}
+	{% set url = page.file_path ~ '/preview.jpg' %}
+
+{# Get page.image from first image in folder #}
+{% elseif not page.images|first is empty %}
+	{% set url = page.images|first %}
+{% endif %}
+
+{# Output URL #}
+{{ url }}
+{% endspaceless %}

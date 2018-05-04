@@ -1,0 +1,11 @@
+{
+    "title": "Contact",
+    "description": "Hey why don't you go ahead and contact us?",
+    "content": "---\n<form data-abide class=contactform>\n\t<div>\n\t\t<input required type=text name=\"name\" placeholder=\"Name\">\n\t<\/div>\n\t<div>\n\t\t<input required type=\"email\" name=\"email\" placeholder=\"Email\">\n\t<\/div>\n\t<div>\n\t\t<textarea required rows=6 name=\"message\" placeholder=\"Message\"><\/textarea>\n\t<\/div>\n\t<button type=submit>Send<\/button>\n<\/form>",
+    "menu": {
+        "type": "data"
+    },
+    "context": {
+        "width": "narrowest"
+    }
+}

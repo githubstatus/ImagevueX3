@@ -1,0 +1,32 @@
+{
+    "title": "Sweet Landscapes",
+    "description": "A few images displaying in a vertical layout.",
+    "image": "ridge.jpg",
+    "context": {
+        "classes": "separator"
+    },
+    "gallery": {
+        "layout": "vertical",
+        "classes": "hover,frame,text-center",
+        "width": "narrow",
+        "items": "preview,title,description"
+    },
+    "antarctica.jpg": {
+        "description": "A virtually uninhabited, ice-covered landmass."
+    },
+    "hills.jpg": {
+        "description": "Rolling hills."
+    },
+    "mountains.jpg": {
+        "description": "Mountains sunset."
+    },
+    "ridge.jpg": {
+        "description": "Mountain ridge."
+    },
+    "sheep.jpg": {
+        "description": "Sheep in the foothills."
+    },
+    "wheat.jpg": {
+        "description": "Wheat growing."
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "title": "Popup Link",
+    "label": "Popup Link  <i class=\"fa fa-external-link-square\"><\/i>",
+    "description": "Using the link-feature combined with popup, allows you to open menu links in a popup interface.",
+    "image": "preview.jpg",
+    "link": {
+        "url": "https:\/\/www.youtube.com\/embed\/G46ygBKsTZI",
+        "target": "x3_popup"
+    }
+}

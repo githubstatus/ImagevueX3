@@ -1,0 +1,166 @@
+body, input, button {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	font-family: 'Source Sans Pro', sans-serif;
+	font-size: 14px;
+}
+body {
+	background: #333;
+	line-height: 140%;
+	padding-bottom: 5em;
+}
+h1, h2 {
+	text-align: center;
+	font-weight: normal;
+	font-weight: 300;
+	margin: 1em 0;
+	color: #EEE;
+}
+h1 > small {
+	font-size: 12px;
+}
+h2 {
+	margin: 1.5em 0 1em;
+}
+code {
+  background-color: rgba(0,0,0,.1);
+  padding: .2em .4em;
+  border-radius: 3px;
+}
+.x3-diagnostics {
+	padding: 1px 0 2px;
+	color: white;
+}
+.x3-diagnostics-wrapper {
+	max-width: 600px;
+	margin: 0 auto;
+}
+.x3-diagnostics-item {
+	padding: .5em 1em .7em;
+	border-radius: 3px;
+	margin-top: 1px;
+}
+.x3-diagnostics-item > strong {
+	background: rgba(0,0,0,.1);
+	padding: .2em .5em;
+	border-radius: 3px;
+	display: inline-block;
+	margin: 0 0 .2em -.5em;
+}
+.x3-diagnostics-item a {
+	color: rgba(255,255,255,.9) !important;
+	text-decoration: underline !important;
+}
+.x3-diagnostics-description {
+	color: rgba(255,255,255,.9);
+}
+.x3-diagnostics-danger {
+	background: brown;
+}
+.x3-diagnostics-warning {
+	background: darkorange;
+}
+.x3-diagnostics-success {
+	background: #78a642;
+}
+.x3-diagnostics-neutral {
+	background: #222;
+	padding: 1em;
+	margin-bottom: .5em;
+}
+.x3-diagnostics-info {
+	background: #222;
+	padding: .5em;
+}
+.x3-diagnostics-info strong {
+	margin:0 .5em 0 0;
+	background: #333;
+}
+table.info tr:first-child td {
+	background: #111;
+}
+table.info {
+	width: 100%;
+	font-size: 15px;
+	border-spacing: 1px;
+}
+table.info tr:hover td {
+	background-color: #111;
+}
+table.info td {
+	padding: .5em .8em;
+	background-color: #222;
+	color: #DDD;
+}
+table.info td.info-title {
+	border-left: 3px solid #555;
+}
+table.info tr.good td.info-title {
+	border-left: 3px solid yellowgreen;
+}
+table.info tr.bad td.info-title {
+	border-left: 3px solid tomato;
+}
+td.info-title {
+	white-space: nowrap;
+}
+td.info-description {
+	width: 100%;
+}
+tr.info-header td {
+	background: #111;
+	text-transform: uppercase;
+	border-left: 3px solid transparent;
+}
+
+/* DB Checker */
+.form-container {
+	padding: 2em;
+	background: rgba(0,0,0,.1);
+	margin: .5em 0 5em;
+	border-radius: 3px;
+}
+.form-container > * {
+	display: block;
+}
+input {
+	transition: background-color 200ms;
+	width: 100%;
+	border-radius: 3px;
+	background: #222;
+	padding: .6em .9em;
+	border: none;
+	color: #DDD;
+	margin-bottom: 1em;
+	font-size: 18px;
+}
+label {
+	margin-bottom: .5em;
+	color: #AAA;
+}
+input.error {
+	background-color: tomato;
+}
+button, a.button {
+	padding: .8em 1.2em;
+	background: #78a642;
+	border: 1px solid olivedrab;
+	border-radius: 3px;
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+	margin-top: 1.6em;
+	-webkit-user-select: none;
+	display: inline-block;
+	text-decoration: none !important;
+}
+.checking button {
+	background: #222;
+	pointer-events: none;
+}
+.checking input {
+	opacity: .5;
+}
+.checking {
+	opacity: 1;
+}

@@ -1,0 +1,23 @@
+{
+    "title": "Femme Fatale",
+    "description": "A few images displaying in a columns grid.",
+    "image": "swirl.jpg",
+    "gallery": {
+        "crop": {
+            "enabled": true,
+            "crop": [
+                2,
+                3
+            ]
+        },
+        "layout": "columns",
+        "columns": {
+            "space": 16
+        },
+        "caption": {
+            "items": "title,description",
+            "hover": true
+        },
+        "classes": "hover"
+    }
+}

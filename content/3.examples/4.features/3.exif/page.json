@@ -1,0 +1,36 @@
+{
+    "title": "Image Exif Tags",
+    "label": "Image Exif",
+    "description": "Click the images below to view photos with EXIF data tags.",
+    "image": "1.thailand.jpg",
+    "gallery": {
+        "width": "wide",
+        "crop": {
+            "enabled": true
+        },
+        "layout": "grid",
+        "grid": {
+            "space": 0
+        },
+        "caption": {
+            "enabled": true,
+            "items": "title,description",
+            "align": "caption-bottom-right"
+        },
+        "classes": "null"
+    },
+    "popup": {
+        "caption": {
+            "exif": true
+        }
+    },
+    "1.thailand.jpg": {
+        "description": "Photo by Pornsak Na Nakorn \/ <em><a href=http:\/\/pornsaknanakorn.com target=_blank>pornsaknanakorn.com<\/a><\/em>"
+    },
+    "2.misty-mountains.jpg": {
+        "description": "Photo by Franck Ehret \/ <em><a href=http:\/\/www.ehretic.com\/ target=_blank>www.ehretic.com<\/a><\/em>"
+    },
+    "3.buddha.jpg": {
+        "description": "Photo by Łukasz Kulicki \/ <em><a href=http:\/\/www.kulicki.com\/ target=_blank>www.kulicki.com<\/a><\/em>"
+    }
+}

@@ -1,0 +1,36 @@
+{% spaceless %}
+
+<h1>Search &nbsp;<span class='fa fa-search' style='color:#CCC;'></span></h1>
+<p>Search pages, folders and galleries.</p>
+<hr class=small>
+<form>
+  <input type='text' value='{{ page.query.q }}' name='q' id='search-field' autocomplete='off' spellcheck='false' placeholder='search' />
+</form>
+
+{% set results = search(page.query.q) %}
+
+{% if page.query.q is not empty %}
+<p></p>
+
+	{% if page.query.q|length < 3 %}
+	<p><span class='inlabel-left'>!</span><span class='inlabel-right'>Please search a phrase with more than 3 characters!</span></p>
+
+	{% else %}
+	<p><span class='inlabel-left'>{{ results|length }}</span><span class='inlabel-right'>search results for '{{ page.query.q }}'</span></p>
+
+	{% endif %}
+{% else %}
+	<p></p>
+	<p style='font-size:.9em; font-weight:bold;'>Try searching <a href='?q=slideshow'>'slideshow'</a></p>
+{% endif %}
+{% if results|length > 0 %}
+{% for result in results %}
+<hr class=small>
+
+{% set url =  result.url|replace({"../":"/", "./":"/"})|replace({"////":"/", "///":"/", "//":"/"}) %}
+<a href='{{ rootpath ~ url }}'><h3>{{ result.title }}</h3></a>
+<p>{{ result.search_match }}<br><a href='{{ rootpath ~ url }}' style='font-size:.9em; font-weight:bold;'>{{ page.base_url ~ url }}</a></p>
+{% endfor %}
+{% endif %}
+
+{% endspaceless %}

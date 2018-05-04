@@ -1,0 +1,1 @@
+{"title":"Columns Comfy","label":"Columns Comfy","description":"A columns layout with larger images, more space and frames.","image":"3.examples\/assets\/turbines.jpg","gallery":{"width":"wide","layout":"columns","columns":{"column_width":400,"space":30},"sort":"shuffle","caption":{"items":"title,description"},"classes":"frame,hover","assets":"examples\/assets\/"}}

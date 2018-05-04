@@ -1,0 +1,294 @@
+
+{# FOLDERS MODULE #}
+
+{# GLOBAL VARS #}
+{% set folders = page.folders %}
+{% set assets = folder %}
+{% set items = folders.items|split(',') %}
+{% set limit = folders.limit %}
+{% if limit is empty or limit < 1 %}{% set limit = 99999 %}{% endif %}
+
+{# split #}
+{% set folders_split_view = folders.split.enabled and folders.layout != "justified" and folders.layout != "columns" %}
+{% if folders_split_view %}
+	{# invert #}
+	{% if folders.split.invert %}
+		{% set push = 'medium-push-' ~ (12 - folders.split.ratio) %}
+		{% set pull = 'medium-pull-' ~ folders.split.ratio %}
+	{% endif %}
+{% endif %}
+
+{# Set crop ratio if defined #}
+{% if folders.crop.enabled %}
+	{% set crop_ratio = folders.crop.crop[1] / folders.crop.crop[0] * 100 %}
+{% endif %}
+
+{# Set block-grid #}
+{% if folders.layout == "grid" %}
+	{% if folders.grid.use_width %}
+		{% set block_grid = ['3','2','1'] %}
+	{% else %}
+		{% set block_grid = folders.grid.columns|split(",") %}
+	{% endif %}
+	{% set columns_limit = min(limit, assets.children_count) %}
+	{% set small_grid = min(block_grid[2]|default(block_grid[1])|default(block_grid[0])|default('1'), columns_limit) %}
+	{% set medium_grid = min(block_grid[1]|default(block_grid[0])|default('2'), columns_limit) %}
+	{% set large_grid = min(block_grid[0]|default('3'), columns_limit) %}
+
+	{% set ul_open = "<ul class='small-block-grid-"~small_grid~" medium-block-grid-"~medium_grid~" large-block-grid-"~large_grid~" items'>" %}
+	{% set li_open = '<li>' %}
+	{% set li_close = '</li>' %}
+	{% set ul_close = '</ul>' %}
+{% endif %}
+
+{# Set sort #}
+{% set children = sortby(folder.children, page.folders.sortby, (page.folders.sort == 'desc' ? true : false)) %}
+{#{% set children = sortby(folder.children, 'date', true) %}#}
+
+{# Do folders loop #}
+{#{% if assets.children_count > 0 %}#}
+{% if children|length > 0 %}
+	{{ ul_open }}
+	{% for child in children %}
+	{% if loop.index0 < limit %}
+		{{ li_open }}
+
+		{# SET ALL ITEM VARS #}
+		{% set title = child.title %}
+		{% set title_pseudo = title|replace({'<a': '<span', '</a>': '</span>', ' href=': ' data-href=', ' target=': ' data-target='}) %}
+		{% set label = child.label %}
+
+		{# Date #}
+		{% set date = child.date|default(child.updated) %}
+		{% if page.settings.date_format == 'timeago' %}
+			{% set date_formatted = date|date("c") %}
+			{% set date_class = 'date timeago' %}
+		{% else %}
+			{% set date_formatted = date|date(page.settings.date_format|default('d F Y')) %}
+			{% set date_class = 'date' %}
+		{% endif %}
+		{% set time_tag = '<time itemprop=dateCreated datetime="' ~ date|date("c") ~ '" class="' ~ date_class ~ '">' ~ date_formatted ~ '</time>' %}
+
+		{% if child.description is not empty %}
+			{% set description = child.description %}
+			{% set description_pseudo = description|replace({'<a': '<span', '</a>': '</span>', ' href=': ' data-href=', ' target=': ' data-target='}) %}
+		{% endif %}
+
+		{# Set Amount from child folder or child folder assets if defined and exists #}
+		{% if child.gallery.assets is not empty %}
+			{% set amount = get(child.gallery.assets).images|length %}
+		{% else %}
+			{% set amount = child.images|length %}
+		{% endif %}
+
+		{# Set Folders Amount from child folder or child folder assets if defined and exists #}
+		{% if child.folders.assets is not empty %}
+			{% set folders_amount = get(child.folders.assets).children_count %}
+		{% else %}
+			{% set folders_amount = child.children_count %}
+		{% endif %}
+
+		{# Set link title attr if tooltip #}
+		{% if folders.tooltip.enabled %}
+			{% set tooltip_items = folders.tooltip.items|split(',') %}
+			{% set link_title_content %}
+			{% for item in tooltip_items %}
+				{% if item == 'title' %}<span class=title>{{ title }}</span>
+				{% elseif item == 'label' %}<span class=title>{{ label }}</span>
+				{% elseif item == 'date' %}{{time_tag}}
+				{% elseif item == 'amount' and amount > 0 %}<span class=amount>{{ amount }} {{ pluralize(amount, 'image', 'images') }}</span>
+				{% elseif item == 'folders_amount' and folders_amount > 0 %}<span class=folder_amount>{{ folders_amount }} {{ pluralize(folders_amount, 'album', 'albums') }}</span>
+				{% elseif item == 'description' and child.description is not empty %}<span class=description>{{ description }}</span>
+				{% endif %}
+			{% endfor %}
+			{% endset %}
+			{% set link_title_content = link_title_content|e('html')|trim %}
+			{% if link_title_content is not empty %}{% set link_title %}title='{{ link_title_content }}'{% endset %}{% endif %}
+		{% endif %}
+
+		{# See if custom page.link is defined #}
+		{% set link_target = '' %}
+		{% set link_class = '' %}
+		{% set data_popup = false %}
+		{% set data_popup_content = false %}
+		{% set data_popup_window = '' %}
+		{% if child.link.url is not empty %}
+			{% set link = child.link.url|trim %}
+			{% set hasExtension = hasExtension(link) %}
+
+			{# add rootpath if relative url #}
+			{% if link|first != '/' and 'http' not in link %}
+				{% if hasExtension %}
+					{% set link = child.file_path|trim('./')|setpath(rootpath) ~ '/' ~ link %}
+				{% else %}
+					{% set link = child.permalink|setpath(rootpath) ~ link %}
+				{% endif %}
+
+			{# Ensure trailing slash for root-relative urls #}
+			{% elseif link|first == '/' and link|last != '/' and not hasExtension %}
+				{% set link = link ~ '/' %}
+			{% endif %}
+
+			{# Detect link target #}
+			{% if child.link.target and child.link.target != 'auto' %}
+				{% if child.link.target == 'popup' %}
+					{# popup #}
+					{% set data_popup_window = child.slug ~ ',' ~ child.link.width|default('600') ~ ',' ~ child.link.height|default('500') %}
+				{% elseif child.link.target == 'x3_popup' %}
+					{# x3 popup #}
+					{% set data_popup = true %}
+					{% if child.link.content %}
+						{% set data_popup_content = true %}
+						{% set link = '#' %}
+					{% endif %}
+				{% else %}
+					{% set link_target = child.link.target %}
+				{% endif %}
+			{% elseif 'http' in link or hasExtension %}
+				{% set link_target = '_blank' %}
+			{% endif %}
+
+			{# detect no-ajax #}
+			{% if hasExtension %}
+				{% set link_class = link_class~' no-ajax' %}
+			{% endif %}
+
+		{% elseif child.link.content and child.link.target == 'x3_popup' %}
+			{% set data_popup = true %}
+			{% set data_popup_content = true %}
+			{% set link = '#' %}
+		{% else %}
+			{% set link = child.permalink|setpath(rootpath) %}
+		{% endif %}
+
+		{# Set tags #}
+		{% set href_tag %}<a href='{{ link }}' class='item-link{{ link_class }}'{% if link_target is not empty %} target={{ link_target }}{% endif %}{% if data_popup_window is not empty %} data-popup-window="{{data_popup_window}}"{% endif %}{% if data_popup %} data-popup{% endif %}{% if child.link.popup_class %} data-popup-class="{{ child.link.popup_class }}"{% endif %}{% if data_popup_content %} data-popup-content="{{ child.content|e('html') }}"{% endif %} {{ link_title }}>{% endset %}
+
+		{# PREVIEW IMAGE #}
+		{% set preview_img %}{% include 'partials/preview-image.html' with {'page':child} %}{% endset %}
+
+		{# if preview is empty, default to parent page preview #}
+		{% if preview_img is empty %}{% set preview_img = preview_image %}{% endif %}
+
+		{# preview image url #}
+		{% set preview_img_url = assetspath ~ preview_img|trim(".") %}
+
+		{# preset dimensions and ratio if using default preview from /app/ #}
+    {% if preview_img == './app/public/images/default.png' %}
+    	{% set imgInfo = [1280, 1280] %}
+    	{% set image_ratio = 100 %}
+    	{% set default_preview_class = ' default-preview-image' %}
+    {% else %}
+			{% set imgInfo = getimginfo(preview_img) %}
+    	{% set image_ratio = crop_ratio|default(imgInfo[1]|default(3)/imgInfo[0]|default(2) * 100) %}
+    {% endif %}
+
+    {# set tags #}
+    {% set title_tag %}
+    	<h2 id='{{ child.slug }}-title' data-file='{{preview_img}}' class='title'>{{ title_pseudo }}</h2>
+    {% endset %}
+    {% set label_tag %}
+    	<h2 id='{{ child.slug }}-title' class='title'>{{ label }}</h2>
+    {% endset %}
+    {% set date_tag %}
+    	<h6 class=date>{{time_tag}}</h6>
+    {% endset %}
+    {% set amount_tag %}
+    	{% if amount > 0 %}
+    	<h6 class=amount><span>{{ amount }} {{ pluralize(amount, 'image', 'images') }}</span></h6>
+    	{% endif %}
+    {% endset %}
+    {% set folders_amount_tag %}
+    	{% if folders_amount > 0 %}
+    	<h6 class=folder_amount><span>{{ folders_amount }} {{ pluralize(folders_amount, 'album', 'albums') }}</span></h6>
+    	{% endif %}
+    {% endset %}
+    {% if child.description is not empty %}
+      {% set description_tag %}
+      	<p>{{ description_pseudo }}</p>
+      {% endset %}
+    {% endif %}
+    {% set figure %}
+    <figure>
+			<div class='img-link{{ default_preview_class }}'>
+				<div class=image-container style='padding-bottom:{{ image_ratio }}%;'>
+        	<img data-src='{{ preview_img_url }}' alt='{{ title|striptags|e('html') }}'>
+        </div>
+
+        {% if folders.caption.enabled %}
+        	{% set figcaption %}
+	        	{% for item in folders.caption.items|split(",") %}
+	        		{% if item == 'title' %}<span class='title'>{{ title_pseudo }}</span>
+	        		{% elseif item == 'label' %}<span class='title'>{{ label }}</span>
+	        		{% elseif item == 'amount' and amount > 0 %}<span class='amount'>{{ amount }} {{ pluralize(amount, 'image', 'images') }}</span>
+	        		{% elseif item == 'folders_amount' and folders_amount > 0 %}<span class='folder_amount'>{{ folders_amount }} {{ pluralize(folders_amount, 'album', 'albums') }}</span>
+	        		{% elseif item == 'date' %}{{time_tag}}
+	        		{% elseif item == 'description' and child.description is not empty %}<span class='description'>{{ description_pseudo }}</span>{% endif %}
+	        	{% endfor %}
+        	{% endset %}
+        {% if figcaption|trim is not empty %}<figcaption>{{ figcaption|trim }}</figcaption>{% endif %}
+        {% endif %}
+			</div>
+		</figure>
+		{% endset %}
+
+		{# default+split layout #}
+		<section data-options='w:{{ imgInfo[0] }};h:{{ imgInfo[1] }}' id="{{ label|default(child.slug) }}" aria-labelledby='{{ child.slug }}-title' class='item{% if folders_split_view %} row{% endif %}'>
+		{{ href_tag }}
+
+		{# SPLIT #}
+		{% if folders_split_view %}
+
+		{# split text-align #}
+		{% if folders.split.invert %}
+			{% set text_align = 'medium-text-left' %}
+		{% elseif 'text-right' not in folders.classes and 'text-left' not in folders.classes %}
+			{% set text_align = 'medium-text-right' %}
+		{% endif %}
+
+		{# split layout #}
+		<div class='medium-{{ folders.split.ratio }} columns {{ push }} {{ text_align }}'>
+		{% for item in items %}
+			{% if item == 'title' %}{{ title_tag }}
+			{% elseif item == 'label' %}{{ label_tag }}
+			{% elseif item == 'date' %}{{ date_tag }}
+			{% elseif item == 'amount' %}{{ amount_tag }}
+			{% elseif item == 'folders_amount' %}{{ folders_amount_tag }}
+			{% elseif item == 'description' and child.description is not empty %}{{ description_tag }}{% endif %}
+		{% endfor %}
+		</div>
+		<div class='medium-{{ (12 - folders.split.ratio) }} columns {{ pull }}'>
+			{{ figure }}
+		</div>
+
+		{# Sort all items from items: #}
+		{% elseif folders.layout != 'justified' %}
+		{% for item in items %}
+			{% if item == 'title' %}{{ title_tag }}
+			{% elseif item == 'label' %}{{ label_tag }}
+			{% elseif item == 'date' %}{{ date_tag }}
+			{% elseif item == 'amount' %}{{ amount_tag }}
+			{% elseif item == 'folders_amount' %}{{ folders_amount_tag }}
+			{% elseif item == 'description' and child.description is not empty %}{{ description_tag }}
+			{% elseif item == 'preview' %}{{ figure }}{% endif %}
+		{% endfor %}
+
+		{# Layouts that only support preview #}
+		{% else %}
+			{{ figure }}
+		{% endif %}
+
+		</a>
+		</section>
+
+		{# Add <hr> tag if set, only if not last item and not justified #}
+		{% if (folders.layout == "vertical" and folders.vertical.horizontal_rule and not loop.last and loop.index < limit) or (folders_split_view and folders.layout == "grid") %}
+		<hr class=hr />
+		{% endif %}
+
+		{{ li_close }}
+	{% endif %}
+	{% endfor %}
+	{{ ul_close }}
+
+{% endif %}

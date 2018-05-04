@@ -1,0 +1,185 @@
+{% spaceless %}
+
+{# Vars #}
+{% if rootpath is empty %}
+	{% set baseurl = page.settings.base_url|replace({'http://': '', 'https://': ''})|trim('/')|default(page.base_url) %}
+	{% set rootpath = baseurl|replace({(page.domain_name): ''}) %}
+{% endif %}
+
+{% set p = node.children|default(page.root) %}
+{% set menu = node.menu|default(page.menu) %}{# |default(page.root.menu) #}
+
+{# Settings #}
+{% if menu.reverse %}{% set p = p|reverse %}{% endif %}
+{% set limit = menu.limit %}
+
+{% for child in p %}
+{% set child_menu = child.menu|default(page.menu) %}
+{% if (loop.index0 < limit or limit == 0) and not child_menu.hide %}
+
+{# has children? #}
+{% set has_children = (child.children_count > 0 and not child_menu.hide_children) %}
+
+{# mega item details #}
+{% if mega and (child.menu.type != 'normal' and child.menu.type is not empty or node.page.menu.type is not empty or forceData) %}
+	{% set preview %}{% include ('partials/preview-image.html') with {'p': child} %}{% endset %}
+	{% set limit_node = child.menu.limit %}
+	{% set limited %}{{ (limit_node > 0 and limit_node < child.children_count) ? ';limited:true' }}{% endset %}
+	{% if child.menu.crop.enabled %}
+		{% set crop = "crop:"~child.menu.crop.crop[0]~","~child.menu.crop.crop[1]~";" %}
+	{% else %}
+		{% set crop = "" %}
+	{% endif %}
+
+	{# Set items from either data- or carousel #}
+	{% if child.menu.type == 'data' %}
+		{% set myitems = child.menu.data_items %}
+	{% elseif child.menu.type == 'carousel' %}
+		{% set myitems = child.menu.carousel_items %}
+		{% set carousel_amount = ";carousel_amount:"~child.menu.carousel_amount %}
+	{% else %}
+		{% set myitems = "" %}
+		{% set carousel_amount = "" %}
+	{% endif %}
+
+	{# List config #}
+	{% if child.menu.type == 'list' and child.menu.list %}
+		{% set list = ";list:"~child.menu.list %}
+	{% else %}
+		{% set list = "" %}
+	{% endif %}
+
+	{# Date #}
+	{% set date = child.date|default(child.updated) %}
+	{% if page.settings.date_format == 'timeago' %}
+		{% set date_formatted = date|date("c") %}
+		{% set timeago = 'timeago:' %}
+	{% else %}
+		{% set date_formatted = date|date(page.settings.date_format|default('d F Y')) %}
+	{% endif %}
+
+	{# Add to dataoptions #}
+	{% set dataOptions = "mega:"~child.menu.type~";"~crop~"items:"~myitems~";title:"~child.title|striptags|e('html')~";description:"~child.description|striptags|e('html')~";preview:"~preview|trim('.')~";date:"~timeago~date_formatted~";amount:"~child.images|length~";width:"~child.menu.width~limited~carousel_amount~list %}
+
+	{% set force = true %}
+{% else %}
+	{% set dataOptions = '' %}
+	{% set force = false %}
+{% endif %}
+
+{# class #}
+{% set class %}{% if has_children %}has-dropdown{% endif %}{% if child.permalink|default('/') == page.permalink %} active{% endif %}{% if child_menu.click_toggle %} clicktoggle{% endif %}{% if child_menu.classes %} {{child_menu.classes|replace({',':' '})}}{% endif %}{% if child_menu.hide_children_mobile %} hide-children-mobile{% endif %}{% endset %}
+
+{# create menu node #}
+<li {% if class is not empty %}class="{{ class }}"{% endif %} {% if dataOptions %}data-options="{{ dataOptions }}"{% endif %} >
+
+	{# link + class #}
+	{% set link = '' %}
+	{% set link_class = '' %}
+	{% set link_target = '' %}
+	{% set data_popup = false %}
+	{% set data_popup_content = false %}
+	{% set data_popup_window = '' %}
+	{% if has_children %}{% set link_class = 'node' %}{% endif %}
+	{% if has_children or force %}{% set link_class = link_class~' needsclick' %}{% endif %}
+	{% if child_menu.nolink %}{% set link_class = link_class~' nolink' %}{% endif %}
+
+	{# See if custom page.link is defined #}
+	{% if child.link.url is not empty %}
+		{% set link = child.link.url|trim %}
+		{% set hasExtension = hasExtension(link) %}
+
+		{# add rootpath if relative url #}
+		{% if link|first != '/' and 'http' not in link %}
+			{% if hasExtension %}
+				{% set link = child.file_path|trim('./')|setpath(rootpath) ~ '/' ~ link %}
+			{% else %}
+				{% set link = child.permalink|setpath(rootpath) ~ link %}
+			{% endif %}
+
+		{# Ensure trailing slash for root-relative urls #}
+		{% elseif link|first == '/' and link|last != '/' and not hasExtension %}
+			{% set link = link ~ '/' %}
+		{% endif %}
+
+		{# Detect link target #}
+		{% if child.link.target and child.link.target != 'auto' %}
+			{% if child.link.target == 'popup' %}
+				{# popup #}
+				{% set data_popup_window = child.slug ~ ',' ~ child.link.width|default('600') ~ ',' ~ child.link.height|default('500') %}
+			{% elseif child.link.target == 'x3_popup' %}
+				{# x3 popup #}
+				{% set data_popup = true %}
+				{% if child.link.content %}
+					{% set data_popup_content = true %}
+					{% set link = '#' %}
+				{% endif %}
+			{% else %}
+				{% set link_target = child.link.target %}
+			{% endif %}
+		{% elseif 'http' in link or hasExtension %}
+			{% set link_target = '_blank' %}
+		{% endif %}
+
+		{# detect no-ajax #}
+		{% if hasExtension %}
+			{% set link_class = link_class~' no-ajax' %}
+		{% endif %}
+
+		{# append isLink to class #}
+		{% set link_class = link_class~' is-link' %}
+
+	{% elseif child.link.content and child.link.target == 'x3_popup' %}
+		{% set data_popup = true %}
+		{% set data_popup_content = true %}
+		{% set link = '#' %}
+	{% else %}
+		{% set link = child.permalink|setpath(rootpath) %}
+	{% endif %}
+
+<a href="{{ link }}"{% if link_class is not empty %} class="{{ link_class }}"{% endif %}
+{% if link_target is not empty %} target={{ link_target }}{% endif %}
+{% if data_popup_window is not empty %} data-popup-window="{{data_popup_window}}"{% endif %}
+{% if data_popup %} data-popup{% endif %}
+{% if child.link.popup_class %} data-popup-class="{{ child.link.popup_class }}"{% endif %}
+{% if data_popup_content %} data-popup-content="{{ child.content|e('html') }}"{% endif %}
+>{{ child.label }}</a>
+
+	{# content in menu item #}
+	{% if child.menu.type == "data" %}
+		<div class='hide'>
+
+		{% set items = child.menu.data_items|split(',') %}
+
+		{% for item in items %}
+			{% if item == 'title' %}
+				<h2>{{ child.title }}</h2>
+			{% elseif item == 'description' and child.description is not empty %}
+				<p>{{ child.description }}</p>
+			{% elseif item == 'social' or item == 'icon-buttons' %}{#and page.accounts.social is not empty#}
+				<div class=menu-icon-buttons></div>
+			{% elseif item == 'contactform' and page.back.custom.contact_widget is not empty %}
+				{{ page.back.custom.contact_widget|replace({'<xinput': '<input'})|removeComments|trim }}
+			{% elseif item == 'hr' %}
+				<hr>
+			{% elseif 'margin' in item %}
+				{% set m = item|split('margin')|last %}
+				<div style='margin:{{ m }}px;'></div>
+			{% endif %}
+		{% endfor %}
+
+		</div>
+	{% endif %}
+
+	{# children #}
+	{% if has_children %}
+	<ul class=dropdown>
+		{% include "partials/nav/root-menu.html" with {'node': child, 'forceData':force} %}
+	</ul>
+	{% endif %}
+
+</li>
+{% endif %}
+{% endfor %}
+
+{% endspaceless %}

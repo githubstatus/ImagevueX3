@@ -1,0 +1,27 @@
+<?php
+
+// require xmlhttprequest POST from same domain
+if(isset($_SERVER['HTTP_X_REQUESTED_WITH']) 
+	&& strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest' 
+	&& $_SERVER["REQUEST_METHOD"] == 'POST' 
+	){
+
+	// get dir
+	$default = '../../content/*';
+	$dir = isset($_POST['dir']) ? $_POST['dir'] . '*' : $default;
+	if(!$dir || strpos($dir, '../content') === false || substr_count($dir, '../') > 2) exit();
+
+	// get X3 class
+	require '../X3.php';
+
+	// echo panel menu
+	echo X3::make_dir_tree($dir);
+
+	// flush output
+	flush();
+
+	// lazy merge folders.json // only intersect if root is content
+	X3::merge_folders(X3::$data, $dir === $default);
+}
+
+?>

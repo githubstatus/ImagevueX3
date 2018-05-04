@@ -1,0 +1,25 @@
+{
+    "title": "Grid Layout",
+    "description": "A basic grid layout, which gracefully responds to screen size.",
+    "image": "3.examples\/assets\/city-lights.jpg",
+    "context": {
+        "classes": "separator"
+    },
+    "gallery": {
+        "crop": {
+            "enabled": true,
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "layout": "grid",
+        "caption": {
+            "enabled": true,
+            "items": "title,description",
+            "hover": true
+        },
+        "classes": "frame,x3-hover-scale",
+        "assets": "examples\/assets\/"
+    }
+}

@@ -1,0 +1,17 @@
+{% for child in node|default(page.root) %}
+<url>
+    <loc>{{ child.permalink|setpath(absolutepath) }}</loc>
+    <lastmod>{{ child.updated|date('c') }}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    {% set preview_image %}{% include 'partials/preview-image.html' with { 'page':child } %}{% endset %}
+    {% if preview_image %}
+  	<image:image>
+       <image:loc>{{ absolutepath }}{{ preview_image|trim('.') }}</image:loc>
+    </image:image>
+  	{% endif %}
+</url>
+{% if child.children_count > 0 %}
+{% include "partials/sitemap/sitemap-url.xml" with {'node': child.children} %}
+{% endif %}
+{% endfor %}

@@ -1,0 +1,56 @@
+{% include 'partials/nav/article-nav.html' with {'page': page } %}
+
+{# Vars #}
+{% set layout = page.layout %}
+{#{% set items = layout.items|replace({' ':''})|split(',') %}#}
+{% set items = layout.items|split(',') %}
+
+{# Add Disqus #}
+{% if page.accounts.disqus_shortname and layout.disqus %}{% set items = items|merge(['disqus']) %}{% endif %}
+
+{# Container template #}
+{% set container = 'partials/module.layout.html' %}
+
+{# Set folder assets #}
+{% if page.folders.assets and exists(page.folders.assets|trim('/')) %}
+	{% set folder = get(page.folders.assets|trim('/')) %}
+{% else %}
+	{% set folder = page %}
+{% endif %}
+
+{# Set gallery assets #}
+{% if page.gallery.assets and exists(page.gallery.assets|trim('/')) %}
+	{% set gallery = get(page.gallery.assets|trim('/')) %}
+{% else %}
+	{% set gallery = page %}
+{% endif %}
+
+{# Set gallery images sorted and filtered (hidden) #}
+{% set gallery_images = sortby(gallery.images, page.gallery.sortby, (page.gallery.sort == 'desc' ? true : false)) %}
+
+{# Set gallery videos sorted and filtered (hidden) #}
+{% set gallery_videos = sortby(gallery.video, page.gallery.sortby, (page.gallery.sort == 'desc' ? true : false)) %}
+
+{# Layout modules #}
+{% for module in items if not page[module].hide %}
+
+	{# Context #}
+	{% if module == 'context' %}
+	{% include container with {'module': module, 'default':true } %}
+
+	{# Folders #}
+	{% elseif module == 'folders' and folder.children_count > 0 %}
+	{% include container with {'module': module, 'default':true, 'class':'images' } %}
+
+	{# Gallery #}
+	{#{% elseif module == 'gallery' and (gallery.images|length > 0 or page.gallery.embed or gallery.video|length > 0) %}#}
+	{#{% elseif module == 'gallery' and (gallery_images|length > 0 or page.gallery.embed or gallery.video|length > 0) %}#}
+	{% elseif module == 'gallery' and (gallery_images|length > 0 or page.gallery.embed or gallery_videos|length > 0) %}
+		{% include container with {'module': module, 'default':true, 'class':'images' } %}
+
+	{# Disqus #}
+	{% elseif module == 'disqus' %}
+	{% include container with {'module': module, 'default':false } %}
+	{% endif %}
+
+{% endfor %}

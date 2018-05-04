@@ -1,0 +1,40 @@
+{% spaceless %}
+
+{# base_url from page.settings.base_url #}
+{#{% set baseurl = page.settings.base_url|replace({'http://': '', 'https://': ''})|trim('/')|default(page.base_url) %}#}
+{% set baseurl = page.base_url %}
+
+{# Global page vars #}
+{% set absolutepath = baseurl|addprotocol %}
+{% set absolutepath_page = page.permalink|setpath(absolutepath) %}
+
+{# Get index for <title> and <subtitle> #}
+{% set index = get("index") %}
+{# Get favicon #}
+{% set favicon = firstImage('./content/custom/favicon') %}
+{# Get logo #}
+{% if page.style.logo.use_image %}
+	{% set logo = firstImage('./content/custom/logo') %}
+{% endif %}
+{% set logo = logo|default(favicon) %}
+
+{# start xml output #}
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">
+<title>{{ index.title|striptags|e('html') }}</title>
+{% if index.description is not empty %}<subtitle>{{ index.description|striptags|e('html') }}</subtitle>{% endif %}
+<link href="{{ absolutepath_page }}" rel="self" type="application/atom+xml"/>
+<link href="{{ absolutepath }}/" rel="alternate" type="text/html" />
+<updated>{{ page.site_updated }}</updated>
+<id>{{ absolutepath }}/</id>
+<generator uri="https://www.photo.gallery" version="X3">X3</generator>
+{% if favicon %}<icon>{{ absolutepath ~ favicon|trim('.') }}</icon>{% endif %}
+{% if logo %}<logo>{{ absolutepath ~ logo|trim('.') }}</logo>{% endif %}
+<rights>{{ page.current_year ~ ' ' ~ page.domain_name }}</rights>
+<author>
+<name>{{ page.domain_name }}</name>
+<uri>{{ absolutepath }}/</uri>
+</author>
+{% include 'partials/feed/feed-loop.atom' %}
+</feed>
+{% endspaceless %}

@@ -1,0 +1,13 @@
+
+# ADMIN STRONG PROTECTION BY IP
+# Add a strong layer of protection to your admin by allowing access only from a range of IP's.
+# This method is only practical if there is a single admin-user accessing the admin from the same location.
+# more info @ http://imagevuex.com/forum/viewtopic.php?p=37897#p37897
+
+# 1. Uncomment the 3 lines below
+# 2. Change the IP pattern on line 2 to match your own IP
+# 3. Make sure to rename this file from 'disabled.htaccess' to '.htaccess'
+
+# RewriteCond %{REQUEST_URI} ^(.*)panel
+# RewriteCond %{REMOTE_ADDR} !^10\.1\.1\.[0-9]+
+# RewriteRule .* - [F,NS]

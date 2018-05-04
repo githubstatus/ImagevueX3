@@ -1,0 +1,9 @@
+{% for child in node|default(page.root) %}
+{#{% if child.protected is not sameas("recursive") and child.protected is empty and child.link.url is empty %}#}
+{% if child.protected is empty and child.link.url is empty %}
+{% include 'page.json' with {'page': child} %},
+{% endif %}
+{% if child.children_count > 0 %}
+{% include "partials/site.json" with {'node': child.children} %}
+{% endif %}
+{% endfor %}

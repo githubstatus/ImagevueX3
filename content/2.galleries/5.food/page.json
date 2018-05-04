@@ -1,0 +1,40 @@
+{
+    "title": "Food Lover",
+    "description": "A few images displaying in a slideshow.",
+    "image": "coffee-n-cookies.jpg",
+    "gallery": {
+        "width": "wide",
+        "layout": "slideshow",
+        "slideshow": {
+            "ratio": "3\/2",
+            "fit": "contain",
+            "captions": true,
+            "captions_hover": true
+        },
+        "classes": "scrollbutton,contain,loop"
+    },
+    "cake.jpg": {
+        "title": "Cake",
+        "description": "I love cake!"
+    },
+    "coffee-n-cookies.jpg": {
+        "title": "Coffee & Cookies",
+        "description": "Nothing like a set of cookies with your coffee."
+    },
+    "crispy-cake.jpg": {
+        "title": "Crispy Cake",
+        "description": "Mmm ... Crispy layered chocolate cake."
+    },
+    "fruits.jpg": {
+        "title": "Fruits",
+        "description": "The healthy snack option!"
+    },
+    "honey-cake.jpg": {
+        "title": "Honey Cake",
+        "description": "Honey Cake with Cream oh la la."
+    },
+    "pizza.jpg": {
+        "title": "Pizza",
+        "description": "Italian crust pizza."
+    }
+}
