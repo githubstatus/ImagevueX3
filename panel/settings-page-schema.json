@@ -1273,7 +1273,18 @@
 		          "type": "boolean"
 		        }
       		}
-      	}
+      	},
+        "panorama":{
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "auto_open": {
+              "type": "boolean"
+            }
+          }
+        }
       }
     }
   },
@@ -3188,6 +3199,28 @@
             {
               "key": "layout.disqus",
               "inlinetitle": "Enabled <a href=# class=show-help></a><div class=hidden><h3>Enable Disqus comments for this page</h3><p>Enable or disable Disqus comments for this page.</p><p>You can set the default from global <em>settings &rsaquo; plugins &rsaquo; Disqus &rsaquo; Add to pages by default</em>.</p></div>"
+            }
+          ]
+        },
+        {
+          "type": "fieldset",
+          "title": "Panorama",
+          "expandable": true,
+          "htmlClass": "group-bg inner-zebra x3-pro-only",
+          "items": [
+            {
+              "type": "help",
+              "helpvalue": "<a href=\"#\" class=\"text-help\" data-help=\"panorama\">X3 panorama plugin</a> / Find global settings in Settings &rsaquo; Plugins &rsaquo; Panorama."
+            },
+            {
+              "key": "plugins.panorama.enabled",
+              "htmlClass": "",
+              "inlinetitle": "Enabled <span class=\"x3-not-pro\"></span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Panorama Enabled</h3><p>For X3 to be able to process your gallery images as panorama scenes, you must first enable the panorama plugin for the page. This is necessary so that X3 can detect and automatically process your gallery items as panorama formats.</p><p><em>* It is not necessary to enable the panorama plugin for panoramas added to your content section.</em></p></div>",
+              "toggleNext": 1
+            },
+            {
+              "key": "plugins.panorama.auto_open",
+              "inlinetitle": "Auto-open <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Auto-open</h3><p>First scene will automatically open when navigating to a page with panorama scenes.</p><p>You can also set a specific panorama to open from a panorama's parameters:<br><code>open=true</code></p></div>"
             }
           ]
         }

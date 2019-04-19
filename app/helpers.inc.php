@@ -224,6 +224,16 @@ Class Helpers {
     return str_replace(array_keys($mapping), $mapping, $string);
   }
 
+  // javascript html attribute friendly
+  public static function attribute_friendly($str){
+    if(empty($str)) return '';
+    $name = function_exists('mb_strtolower') ? mb_strtolower($str, mb_detect_encoding($str)) : strtolower($str);
+    // remove 1.number and extension.jpg and lowercase
+    $name = preg_replace(array('/\.[\w\d]+?$/', '/^\d+?\./'), '', $name);
+    return trim(preg_replace('/\-+/', '-', str_replace(str_split(' .,()[]/"\\\'!?#`~@_$%^&*+=:;<>{}'), '-', $name)), '-');
+    // preg_split('//u', ' .,()[]/"“’\\\'!?#`~@_$%^&*+=:;<>{}', -1, PREG_SPLIT_NO_EMPTY)
+  }
+
 }
 
 ?>

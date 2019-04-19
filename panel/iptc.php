@@ -58,10 +58,11 @@ class Iptc
     const LOCAL_CAPTION                   = '121';
     const CAPTION_WRITER                  = '122';
 
-    const X3_INDEX					              = '216';
-    const X3_LINK					                = '217';
+    const X3_INDEX					      = '216';
+    const X3_LINK                         = '217';
     const X3_LINK_TARGET                  = '218';
-    const X3_HIDDEN                  			= '219';
+    const X3_HIDDEN                       = '219';
+    const X3_PARAMS                       = '220';
 
     /**
      * variable that stores the IPTC tags

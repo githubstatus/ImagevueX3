@@ -77,6 +77,9 @@ Class Image extends Asset {
 
 	      # image custom index
 	      if(isset($iptc["2#216"][0])) $this->data['index'] = intval($iptc["2#216"][0]);
+
+        # image params
+        if(isset($iptc["2#220"][0])) $this->data['params'] = $iptc["2#220"][0];
     	}
     }
 

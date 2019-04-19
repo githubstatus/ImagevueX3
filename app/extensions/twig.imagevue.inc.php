@@ -12,8 +12,10 @@ class Imagevue_Twig_Extension extends Twig_Extension {
 
   var $sortby_value;
 
+  static $data_js_paths = array();
+
   public function getName() {
-    return 'Imagevue';
+    return 'X3 Photo Gallery // www.photo.gallery';
   }
 
   public function getFilters() {
@@ -54,7 +56,8 @@ class Imagevue_Twig_Extension extends Twig_Extension {
       'getDefault' => new Twig_Function_Method($this, 'getDefault'),
       'getSibling' => new Twig_Function_Method($this, 'getSibling'),
       'x3_glob' => new Twig_Function_Method($this, 'x3_glob'),
-      'get_default_preview_image' => new Twig_Function_Method($this, 'get_default_preview_image')
+      'get_default_preview_image' => new Twig_Function_Method($this, 'get_default_preview_image'),
+      'pano_params' => new Twig_Function_Method($this, 'pano_params')
     );
   }
 
@@ -93,12 +96,7 @@ class Imagevue_Twig_Extension extends Twig_Extension {
 
   // javascript html attribute friendly
   function attribute_friendly($str){
-    if(empty($str)) return '';
-    $name = function_exists('mb_strtolower') ? mb_strtolower($str, mb_detect_encoding($str)) : strtolower($str);
-    // remove 1.number and extension.jpg and lowercase
-    $name = preg_replace(array('/\.[\w\d]+?$/', '/^\d+?\./'), '', $name);
-    return trim(preg_replace('/\-+/', '-', str_replace(str_split(' .,()[]/"\\\'!?#`~@_$%^&*+=:;<>{}'), '-', $name)), '-');
-    // preg_split('//u', ' .,()[]/"“’\\\'!?#`~@_$%^&*+=:;<>{}', -1, PREG_SPLIT_NO_EMPTY)
+    return Helpers::attribute_friendly($str);
   }
 
   function cleanData($value) {
@@ -283,6 +281,270 @@ class Imagevue_Twig_Extension extends Twig_Extension {
   	}
   	return false;
 	}
+
+  /*{
+    ["width"]=>string(4) "4096"
+    ["height"]=>string(4) "2048"
+    ["params"]=>string(89) "option=true&tilesize=2048&width=1024,3072,6144,12288,23552&height=404,1208,2416,4832,9260"
+    ["url"]=>string(48) "./content/examples/plugins/panorama/1.church.jpg"
+    ["file_name"]=>string(12) "1.church.jpg"
+  }*/
+
+  // pano convert path
+  private function convert_path($path, $dir){
+    $path = trim($path, './');
+    if(strpos($path, 'http') === 0) return $path;
+    if(strpos($path, 'content/') === 0) return './' . $path;
+    if(strpos($path, '/content/') > -1){
+      $arr = explode('/content/', $path, 2);
+      return './content/' . $arr[1];
+    }
+    return $dir . '/' . $path;
+  }
+
+  // pano convert path
+  private function convert_path_out($path, $assetspath){
+    if(strpos($path, './content/') !== 0) return $path;
+    return $assetspath . trim($path, '.');
+  }
+
+  // pano params
+  function pano_params($image, $assetspath){
+
+    // vars 
+    $width = intval($image['width']);
+    $height = intval($image['height']);
+    $file_name = strtolower($image['file_name']);
+
+    // params
+    $params = array();
+    //if(isset($image['params']) && !empty($image['params'])) parse_str($image['params'], $params);
+    if(isset($image['params']) && !empty($image['params'])) parse_str(html_entity_decode($image['params']), $params);
+
+    // id
+    $params['id'] = $image['id'] ? $image['id'] : $image['file_name'];
+
+    /*
+    date: 1538474197
+    file_name: "2.yosemite.jpg"
+    id: "yosemite"
+    name: "yosemite"
+    title: "nada"
+    description: "nada"
+    url: "./content/examples/plugins/panorama/2.yosemite.jpg"
+    exif
+      exif.longtitude exif.latitude
+    */
+
+    // type param detection
+    $type = false;
+    if(isset($params['type'])){
+      $type = in_array($params['type'], array('equirect', 'cube', 'flat')) ? $params['type'] : false;
+      if(!$type) return ' data-panorama-error="Invalid panorama type [' . $params['type'] . ']"';
+    }
+
+    // multi vars
+    $multi_dir = join('.', explode('.', $image['url'], -1));
+    $is_multi = $type !== 'equirect' && (isset($params['path']) || is_dir($multi_dir));
+
+    // detect type
+    if(!$type){
+      if(strpos($file_name, 'flat') !== false){
+        $type = 'flat';
+      } else if(strpos($file_name, 'cube') !== false){
+        $type = 'cube';
+      } else if(strpos($file_name, 'equirect') !== false || ($width >= 4096 && $width/$height === 2 && !$is_multi)){
+        $type = 'equirect';
+      }
+    }
+
+    // flat or cube
+    if($type !== 'equirect' && $is_multi){
+
+      // get path
+      if(isset($params['path'])){
+        $path = self::convert_path($params['path'], dirname($image['url']));
+        $is_content_path = strpos($path, './content/') === 0 ? true : false;
+        if($is_content_path && !is_dir($path)) return ' data-panorama-error="Invalid panorama path"';
+      } else {
+        $path = $multi_dir;
+        $is_content_path = true;
+      }
+      $params['path'] = self::convert_path_out($path, $assetspath);
+
+      // flat
+      if($type === 'flat' || isset($params['width'])){
+
+        // error no width or height array
+        if(!isset($params['width']) || !isset($params['height'])) return ' data-panorama-error="Missing [width] or [height] array for flat panorama."';
+
+        // Convert to levels for flat
+        $width_array = explode(',', $params['width']);
+        $height_array = explode(',', $params['height']);
+        if(count($width_array) === count($height_array)){
+          $params['levels'] = array_map(function($w, $h){
+            return array('width' => $w, 'height' => $h);
+          }, $width_array, $height_array);
+          unset($params['width']);
+          unset($params['height']);
+
+        // width/height does not match
+        } else {
+          return ' data-panorama-error="Width array count does not match height array count."';
+        }
+
+        // type flat
+        $params['type'] = 'flat';
+
+      // cube
+      } else {
+
+        // data.js stored
+        $data_js = isset(self::$data_js_paths[$path]) ? self::$data_js_paths[$path] : array();
+
+        // check for data.js
+        if(empty($data_js)){
+
+          // check if data.js file exists
+          if(@file_exists($path . '/data.js')){
+            $data_js['path'] = $path;
+          } else if(@file_exists($path . '/app-files/data.js')){
+            $data_js['path'] = $path . '/app-files';
+          }
+
+          // get data.js
+          if(isset($data_js['path'])){
+            $data_js_content = @file_get_contents($data_js['path'] . '/data.js');
+            $begin = strpos($data_js_content, '{');
+            $json_string = substr($data_js_content, $begin, strrpos($data_js_content, '}') + 1 - $begin);
+            $data_js['data'] = json_decode($json_string, true);
+            self::$data_js_paths[$path] = $data_js;
+          }
+        }
+
+        // data from data.js exists
+        if(!empty($data_js)){
+
+          // Default scene_index 0
+          $scene_index = 0;
+
+          // Get scene index from scene_id
+          if(isset($params['scene_id'])){
+            foreach($data_js['data']['scenes'] as $index => $val) {
+              if($val['id'] === $params['scene_id'] || $val['name'] === $params['scene_id']) {
+                $scene_index = $index;
+                break;
+              }
+            }
+
+          // Get scene index from scene_index
+          } else if(isset($params['scene_index']) && $params['scene_index'] < count($data_js['data']['scenes'])){
+            $scene_index = $params['scene_index'];
+          }
+
+          // Get scene index from name
+          if($scene_index === 0){
+            foreach($data_js['data']['scenes'] as $index => $val) {
+              if($val['name'] === basename($multi_dir)) {
+                $scene_index = $index;
+                break;
+              }
+            }
+          }
+
+          // assign scene from scene_index
+          $scene = $data_js['data']['scenes'][$scene_index];
+
+          // params
+          $params['path'] = self::convert_path_out($data_js['path'] . '/tiles/' . $scene['id'], $assetspath);
+          $params['levels'] = $scene['levels'];
+          foreach($scene['initialViewParameters'] as $key => $value) {
+            if(!isset($params[$key])) $params[$key] = $value;
+          }
+          $params['face_size'] = $scene['faceSize'];
+
+        // else get levels
+        } else if(!isset($params['levels']) && $is_content_path) {
+
+          $path_dirs = @glob($path . '/*', GLOB_NOSORT|GLOB_ONLYDIR);
+          if(!$path_dirs || !count($path_dirs)) return ' data-panorama-error="Cannot find any dirs inside ' . $path . '"';
+          $params['levels'] = count($path_dirs);
+
+        // error no levels
+        } else if(!isset($params['levels'])){
+          return ' data-panorama-error="Cannot locate assigned path [' . $path . ']. If the path is remote, [levels] parameter must be provided."';
+        }
+
+        // type cube
+        $params['type'] = 'cube';
+      }
+
+    // equirect or nope
+    } else {
+
+      // vars
+      $source = false;
+      $exists = false;
+      $extension = pathinfo($image['url'], PATHINFO_EXTENSION);
+      $large = $multi_dir . '_large.' . $extension;
+
+      // source param
+      if(isset($params['source'])) {
+        $source = self::convert_path($params['source'], dirname($image['url']));
+        $exists = strpos($source, './content/') === 0 && file_exists($source) ? true : false;
+
+      // _large
+      } else if(file_exists($large)){
+        $source = $large;
+        $exists = true;
+      }
+
+      // source get width / height
+      if($source){
+        if(isset($params['width'])){
+          $width = intval($params['width']);
+          $height = isset($params['height']) ? intval($params['height']) : round($width / 2);
+        } else if(isset($params['height'])){
+          $height = intval($params['height']);
+          $width = isset($params['width']) ? intval($params['width']) : round($height * 2);
+        } else if($exists){
+          list($width, $height) = @getimagesize($source);
+        } else {
+          $width = 4096;
+          $height = 2048;
+          //return ' data-panorama-error="Cannot locate assigned source [' . $source . ']. If the source is remote, [width] and [height] parameters must be provided."';
+        }
+
+      // is self
+      } else {
+        $source = $image['url'];
+      }
+
+      // not 2:1
+      if($width/$height != 2) return ' data-panorama-error="Cannot detect equirectangular panorama. Image is not 360/180 2:1 ratio."';
+
+      // add source_4096 size if $width > 4096 and $medium exists
+      if($width > 4096 && !isset($params['source_4096'])){
+        $medium = $multi_dir . '_4096.' . $extension;
+        if(file_exists($medium)) $params['source_4096'] = self::convert_path_out($medium, $assetspath);
+      }
+
+      // type equirect
+      $params['type'] = 'equirect';
+      $params['width'] = $width;
+      $params['height'] = $height;
+      $params['source'] = self::convert_path_out($source, $assetspath);
+    }
+
+    // convert booleans
+    $params = array_map(function($val){
+      return $val === 'true' ? true : ($val === 'false' ? false : $val);
+    }, $params);
+
+    // return data json
+    return ' data-panorama="' . htmlspecialchars(json_encode($params, JSON_NUMERIC_CHECK)) . '"';
+    //return ' data-panorama="' . http_build_query($params) . '"';
+  }
 
 	// json Settings
 	function jsonSettings($page){

@@ -4,9 +4,9 @@
 
 // Get config
 require_once dirname(__DIR__) . "/app/x3.config.inc.php";
-X3Config::$config["x3_version"] = '3.25.1';
-X3Config::$config["x3_version_date"] = 1533617962210;
-X3Config::$config["x3_panel_version"] = '3.25.1';
+X3Config::$config["x3_version"] = '3.26.0';
+X3Config::$config["x3_version_date"] = 1544339270230;
+X3Config::$config["x3_panel_version"] = '3.26.0';
 $x3_panel_config = X3Config::$config["back"]["panel"];
 $x3_mail = X3Config::$config["back"]["mail"];
 

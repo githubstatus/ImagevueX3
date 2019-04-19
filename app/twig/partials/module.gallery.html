@@ -191,7 +191,7 @@
 		{% endfor %}
 		{% endset %}
 		{% set link_title_content = link_title_content|e('html')|trim %}
-		{% if link_title_content is not empty %}{% set link_title %}title="{{ link_title_content }}"{% endset %}{% endif %}
+		{% if link_title_content is not empty %}{% set link_title %} title="{{ link_title_content }}"{% endset %}{% endif %}
 	{% endif %}
 
 	{# Set figure #}
@@ -243,8 +243,14 @@
 		{# clickable #}
 		{% set link_tag = settings.clickable ? 'a' : 'span' %}
 
+		{# panorama #}
+		{% if page.plugins.panorama.enabled %}
+			{% set data_pano = pano_params(image, assetspath) %}
+			{% if data_pano starts with ' data-panorama=' %}{% set anchor_class = anchor_class ~ ' x3-panorama' %}{% endif %}
+		{% endif %}
+
 		{# anchor #}
-		<{{link_tag}} class="{{ anchor_class }}"{{ exif }}{{ data_geo }} data-options="w:{{ image.width }};h:{{ image.height }}" data-image="{{ url_escaped }}" data-title="{{ title|e('html') }}" data-description="{{ description|e('html') }}" data-date="{{ date_formatted }}" href="{{ link_href|e }}"{{link_target}}{{data_link_target}} id="image-{{ image.file_name|attribute_friendly|default(loop.index) }}" {{ link_title }} itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject"{{ nofollow }}>
+		<{{link_tag}} class="{{ anchor_class }}"{{ exif }}{{ data_geo }} data-options="w:{{ image.width }};h:{{ image.height }}" data-image="{{ url_escaped }}" data-title="{{ title|e('html') }}" data-description="{{ description|e('html') }}" data-date="{{ date_formatted }}" href="{{ link_href|e }}"{{link_target}}{{data_link_target}} id="image-{{ image.id|default(loop.index) }}"{{ link_title }} itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject"{{ nofollow }}{{ data_pano }}>
 
 		{# Lets just set anchor text if slideshow #}
 		{% if settings.layout == "slideshow" %}

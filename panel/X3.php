@@ -13,6 +13,7 @@ class X3 {
 		// only add X3 IPTC if "use iptc"
   	if(X3Config::$config['back']['use_iptc']) $data .= self::iptc_data($iptc, '217', 'link', true)
 					. self::iptc_data($iptc, '218', 'link-target', false)
+					. self::iptc_data($iptc, '220', 'params', true)
 					. self::iptc_data($iptc, '219', 'hidden', false)
 					. self::iptc_data($iptc, '216', 'custom', false)
 					. self::iptc_data($iptc, '216', 'index', false);

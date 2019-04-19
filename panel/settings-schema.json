@@ -1604,7 +1604,154 @@
 		          "type": "boolean"
 		        }
       		}
-      	}
+      	},
+        "panorama":{
+          "type": "object",
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "index": {
+              "type": "boolean"
+            },
+            "title": {
+              "type": "boolean"
+            },
+            "buttons": {
+              "type": "string"
+            },
+            "scene_nav": {
+              "type": "boolean"
+            },
+            "scene_loop": {
+              "type": "boolean"
+            },
+            "zoom": {
+              "type": "string",
+              "enum": [
+                "show",
+                "auto",
+                "hide"
+              ]
+            },
+            "nav": {
+              "type": "boolean"
+            },
+            "keyboard": {
+              "type": "boolean"
+            },
+            "lookto_taps": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "fullscreen_taps": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 2
+            },
+            "transition": {
+              "type": "string",
+              "enum": [
+                "black",
+                "opacity"
+              ]
+            },
+            "transition_duration": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5000
+            },
+            "transition_scale": {
+              "type": "number",
+              "minimum": -1,
+              "maximum": 1
+            },
+            "auto_open": {
+              "type": "boolean"
+            },
+            "equirect_preview": {
+              "type": "boolean"
+            },
+            "equirect_resize": {
+              "type": "boolean"
+            },
+            "hide_interface": {
+              "type": "boolean"
+            },
+            "hide_interface_timeout": {
+              "type": "integer",
+              "minimum": 2000,
+              "maximum": 5000
+            },
+            "show_interface_after_nav": {
+              "type": "boolean"
+            },
+            "yaw": {
+              "type": "number",
+              "minimum": -3.14,
+              "maximum": 3.14
+            },
+            "pitch": {
+              "type": "number",
+              "minimum": -3.14,
+              "maximum": 3.14
+            },
+            "fov": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 3.14
+            },
+            "maxres_multiplier": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 5
+            },
+            "max_vfov": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 3.14
+            },
+            "max_hfov": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 3.14
+            },
+            "reset_view": {
+              "type": "boolean"
+            },
+            "autorotate_start": {
+              "type": "boolean"
+            },
+            "autorotate_restart": {
+              "type": "boolean"
+            },
+            "autorotate_idlemovement_timeout": {
+              "type": "integer",
+              "minimum": 500,
+              "maximum": 5000
+            },
+            "autorotate_speed": {
+              "type": "number",
+              "minimum": 0.01,
+              "maximum": 1.00
+            },
+            "flat_tile_size": {
+              "type": "integer"
+            },
+            "flat_url_format": {
+              "type": "string"
+            },
+            "flat_zero_padding": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "flat_index_start": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
       }
     },
     "back": {
@@ -3568,7 +3715,7 @@
 	            "items": [
 	              {
 	                "type": "help",
-	                "helpvalue": "Use the <a href=# class='text-help'>Fotomoto Plugin</a> to add e-commerce to your website. <a href=\"https://demo.photo.gallery/examples/plugins/fotomoto/\" target=\"_blank\">[demo]</a><div class=hidden><h2>Fotomoto Plugin</h2><p>Integrate <a href=\"http://www.fotomoto.com/\" target=\"_blank\">Fotomoto</a> e-commerce seamlessly into your X3 website with this plugin.</p><div class=\"embed-responsive embed-responsive-16by9 fa fa-play\" style=\"background:#EEE; font-size: 4em; text-align:center; cursor:pointer; line-height:5.5em; display: block;\" onclick=\"$(this).append('<iframe src=\"https://www.youtube.com/embed/DDG83B_ZFug\" frameborder=0 allowfullscreen></iframe>')\"></div><h3>Instructions</h3><ol><li>Create a <a href=\"http://www.fotomoto.com/\" target=\"_blank\">Fotomoto</a> account.</li><li>Enable X3 Fotomoto plugin.</li><li>Add your Fotomoto Store ID.</li><li>Done!</li></ol><p><em>* Prices and product management is done from your Fotomoto Dashboard.</em></p></div>"
+	                "helpvalue": "Use the <a href=# class='text-help'>Fotomoto Plugin</a> to add e-commerce to your website. <a href=\"https://demo.photo.gallery/examples/plugins/fotomoto/\" target=\"_blank\">[demo]</a><div class=hidden><h2>Fotomoto Plugin</h2><p>Integrate <a href=\"http://www.fotomoto.com/\" target=\"_blank\">Fotomoto</a> e-commerce seamlessly into your X3 website with this plugin.</p><div class=\"embed-responsive embed-responsive-16by9 fa fa-play\" style=\"background:#EEE; font-size: 4em; text-align:center; cursor:pointer; line-height:5.5em; display: block;\" onclick=\"$(this).append('<iframe src=https://www.youtube.com/embed/DDG83B_ZFug frameborder=0 allowfullscreen></iframe>')\"></div><h3>Instructions</h3><ol><li>Create a <a href=\"http://www.fotomoto.com/\" target=\"_blank\">Fotomoto</a> account.</li><li>Enable X3 Fotomoto plugin.</li><li>Add your Fotomoto Store ID.</li><li>Done!</li></ol><p><em>* Prices and product management is done from your Fotomoto Dashboard.</em></p></div>"
 	              },
 	              {
 		              "key": "plugins.fotomoto.enabled",
@@ -3701,6 +3848,255 @@
 				          ]
 				        }
 	            ]
+            },
+            {
+              "type": "fieldset",
+              "title": "Panorama",
+              "expandable": true,
+              "htmlClass": "group-bg inner-zebra x3-pro-only",
+              "items": [
+                {
+                  "type": "help",
+                  "helpvalue": "Global settings for the <a href=\"#\" class=\"text-help\" data-help=\"panorama\">X3 panorama plugin</a>. The panorama plugin must be enabled for each page from Page Settings &rsaquo; Plugins &rsaquo; Panorama.<br><span class=\"x3-not-pro\"></span>"
+                },
+                {
+                  "type": "section",
+                  "htmlClass": "help-title group-bg",
+                  "items": [
+                    {
+                      "type": "help",
+                      "helpvalue": "Interface"
+                    },
+                    {
+                      "key": "plugins.panorama.index",
+                      "inlinetitle": "Show scene index <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Show scene index</h3><p>Display current scene [index / count] in top left corner of the interface.</p><p><em>* Only displays if you have more than one scene.</em></p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.title",
+                      "inlinetitle": "Show title <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Show title</h3><p>Display scene title in top left corner of the interface.</p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.buttons",
+                      "htmlClass": "settings_selectize",
+                      "title": "Interface controls <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Interface control buttons</h3><p>Select interface control buttons to display in top right corner of the interface.</p><p><code>close</code><br>Close the panorama modal popup.</p><code>fullscreen</code><br>Toggle fullscreen mode.<em>* Only displays for devices that support native fullscreen mode.</em></p><p><code>deviceorientation</code><br>Toggle deviceorientation gyroscope view mode.<em>* Only displays for spherical panoramas on mobile devices that support deviceorientation.</em></p><p><code>reset-view</code><br>Reset the view of current scene to it's original view coordinates.</p></div><span class='hidden selectize-items'>reset-view,deviceorientation,rotate,fullscreen,close</span>"
+                    },
+                    {
+                      "key": "plugins.panorama.nav",
+                      "inlinetitle": "Show panorama controls <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Show panorama controls</h3><p>Display panorama control buttons at bottom center of interface. Panorama control buttons consist of <code>up</code><code>down</code><code>left</code> and <code>right</code>.</p><p><em>* Panorama controls do not display on touch-only devices.</em></p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.zoom",
+                      "title": "Zoom buttons <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Show zoom controls</h3><p>Display panorama zoom in/out buttons at bottom center of interface.</p><p><em>* Panorama zoom buttons do not display on touch-only devices.</em><br><em>* Even if hidden, visitors will still be able to zoom with swipe gestures, key controls and mousewheel, subject to the max resolution of the panorama vs visitors screen resolution.</em></p><p><code>show</code><br>Show zoom buttons.</p><p><code>auto</code><br>Auto will attempt to automatically toggle zoom buttons on-demand based on panorama type, max resolution and visitors screen resolution.</p><p><code>hide</code><br>Hide zoom buttons.</p></div>",
+                      "type": "radiobuttons",
+                      "activeClass": "btn-primary"
+                    },
+                    {
+                      "key": "plugins.panorama.keyboard",
+                      "inlinetitle": "Keyboard controls <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Allow keyboard controls.</h3><p>Keyboard controls available to devices with keyboard:</p><p><code>[space]</code> Toggle interface<br><code>[escape]</code> Close panorama<br><code>[shift]</code><code><i class=\"fa fa-arrow-right\"></i></code> Next scene<br><code>[shift]</code><code><i class=\"fa fa-arrow-left\"></i></code> Previous scene<br><code><i class=\"fa fa-arrow-up\"></i></code><code><i class=\"fa fa-arrow-down\"></i></code><code><i class=\"fa fa-arrow-left\"></i></code><code><i class=\"fa fa-arrow-right\"></i></code> View up, down, left and right<br><code><i class=\"fa fa-plus\"></i></code><code><i class=\"fa fa-minus\"></i></code> Zoom in / out<br><code>w</code><code>a</code><code>s</code><code>d</code><code>q</code><code>e</code> Up, left, down, right, roll left, roll right</p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.lookto_taps",
+                      "title": "\"lookto\" taps <span>[0 = disabled]</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>\"lookto\" taps</h3><p>Navigate to coordinates after specified amount of taps or clicks on stage. Set to 0 to disable.</p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.fullscreen_taps",
+                      "title": "Fullscreen taps <span>[0 = disabled]</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Enter fullscreen taps</h3><p>Enter fullscreen mode after specified amount of taps or clicks on stage. Set to 0 to disable.</p><p><em>* Only applies for devices that support native fullscreen mode.</em></p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.hide_interface",
+                      "inlinetitle": "<strong>Autohide Interface</strong> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Autohide interface</h3><p>Autohide interface after mouse/touch inactivity.</p></div>",
+                      "toggleNext": 2
+                    },
+                    {
+                      "key": "plugins.panorama.hide_interface_timeout",
+                      "title": "Timeout <span>[milliseconds]</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Autohide timeout</h3><p>Autohide timeout interval in milliseconds.</p></div>",
+                      "step": 100
+                    },
+                    {
+                      "key": "plugins.panorama.show_interface_after_nav",
+                      "inlinetitle": "Always show interface after scene open <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Always show interface after scene open</h3><p>When enabled, interface will always display after navigating to a new panorama scene.</p></div>"
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "htmlClass": "help-title group-bg",
+                  "items": [
+                    {
+                      "type": "help",
+                      "helpvalue": "Scenes"
+                    },
+                    {
+                      "key": "plugins.panorama.auto_open",
+                      "inlinetitle": "Auto-open <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Auto-open</h3><p>First scene will automatically open when navigating to a page with panorama scenes.</p><p>You can also set a specific panorama to open from a panorama's parameters:<br><code>open=true</code></p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.reset_view",
+                      "inlinetitle": "Reset scene view <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Reset view</h3><p>When enabled, a scene's view will reset to it's original view when opened. If disabled, a scene will retain it's current view until visitor navigates away from page.</p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.scene_nav",
+                      "inlinetitle": "Navigate scenes <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Navigate scenes</h3><p>Allow scene navigation with PREVIOUS and NEXT buttons at bottom of interface.</p><p><em>* Does not apply if there is only one scene.</em></p></div>",
+                      "toggleNext": 1
+                    },
+                    {
+                      "key": "plugins.panorama.scene_loop",
+                      "inlinetitle": "Scene loop <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Scene loop</h3><p>Allow navigation between last scene and first scene.</p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.transition",
+                      "title": "Transition <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Transition type</h3><p><code>Fade to black</code><br>Will first fade current scene to black before fading new scene into view from black.</p><p><code>Crossfade</code><br>Will crossfade (opacity) between current scene and new scene.</p></div>",
+                      "type": "radiobuttons",
+                      "activeClass": "btn-primary",
+                      "titleMap": {
+                        "black": "Fade to black",
+                        "opacity": "Crossfade"
+                      }
+                    },
+                    {
+                      "key": "plugins.panorama.transition_duration",
+                      "title": "Transition duration <span>[milliseconds]</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Transition duration</h3><p>Time in milliseconds for the transition to complete.</p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.transition_scale",
+                      "title": "Transition zoom factor <span>[-1.00 - 1.00]</span><a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Transition zoom factor</h3><p>Amount of zoom (scale) to include in the transition. You can also apply a negative value, although that might result in visible margins for a brief moment. Set to 0 to disable zoom transition.</p></div>",
+                      "step": 0.01
+                    }
+                  ]
+                },
+                {
+                  "type": "section",
+                  "htmlClass": "help-title group-bg",
+                  "items": [
+                    {
+                      "type": "help",
+                      "helpvalue": "Autorotate <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Autorotate</h3><p>The autorotate feature allows a spherical panorama to slowly rotate by itself. When visitor interacts with the scene, autorotate will temporarily pause.</p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.autorotate_start",
+                      "inlinetitle": "Start autorotate <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Start autorotate</h3><p>Autorotate will automatically start as soon as first scene opens.</p></div>",
+                      "toggleNext": 1
+                    },
+                    {
+                      "key": "plugins.panorama.autorotate_restart",
+                      "inlinetitle": "Always restart autorotate <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Autorotate restart</h3><p>Autorotate will always restart after navigating to a new scene, even if visitor has stopped autorotate.</p></div>"
+                    },
+                    {
+                      "key": "plugins.panorama.autorotate_idlemovement_timeout",
+                      "title": "Idlemovement timeout <span>[milliseconds]</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Autorotate Idlemovement timeout</h3><p>Amount of time in milliseconds before autorotate restarts after visitor input is idle.</p></div>",
+                      "step": 100
+                    },
+                    {
+                      "key": "plugins.panorama.autorotate_speed",
+                      "title": "Speed <span>[0.01 - 1.00]</span><a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Autorotate speed</h3><p>Autorotate speed. We recommended a slow speed, to prevent visitor motion-sickness.</p></div>",
+                      "step": 0.01
+                    }
+                  ]
+                },
+                {
+                  "type": "fieldset",
+                  "title": "Advanced Panorama Settings",
+                  "expandable": true,
+                  "items": [
+                    {
+                      "type": "section",
+                      "htmlClass": "help-title group-bg",
+                      "items": [
+                        {
+                          "type": "help",
+                          "helpvalue": "View"
+                        },
+                        {
+                          "type": "help",
+                          "helpvalue": "Default view parameters for spherical panoramas."
+                        },
+                        {
+                          "key": "plugins.panorama.yaw",
+                          "title": "Yaw <span>[-π, π] [default 0]</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Yaw</h3><p>Default yaw (horizontal rotation) for spherial panoramas in radians. Default value 0 is equivalent to the horizontal center of the panorama.</p><p>You can also assign yaw directly from a panorama's parameters:<br><code>yaw=0.27</code></p></div>",
+                          "step": 0.01
+                        },
+                        {
+                          "key": "plugins.panorama.pitch",
+                          "title": "Pitch <span>[-π, π] [default 0]</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Pitch</h3><p>Default pitch (vertical rotation) for spherial panoramas in radians. Default value 0 is equivalent to the vertical center of the panorama.</p><p>You can also assign pitch directly from a panorama's parameters:<br><code>pitch=-0.15</code></p></div>",
+                          "step": 0.01
+                        },
+                        {
+                          "key": "plugins.panorama.fov",
+                          "title": "Fov <span>[0 - π] [default 1.2]</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Fov</h3><p>Default fov (field of view) for spherial panoramas in radians.</p><p>You can also assign fov directly from a panorama's parameters:<br><code>fov=0.5</code></p><p><code>Note</code> Actual FOV will be affected by several factors like screen resolution, screen aspect, max resolution, maxVFov and maxHFov.</p></div>",
+                          "step": 0.01
+                        },
+                        {
+                          "key": "plugins.panorama.maxres_multiplier",
+                          "title": "Max resolution multiplier <span>[0 - 5] (default 1)</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Max resolution multiplier</h3><p>To prevent pixelation, a spherical panorama's zoom amount is limited to it's maximum resolution vs screen pixel-resolution. Set a value higher than 1 if you want to increase the zoom threshhold, although some pixelation may then occur on maximimum zoom.</p><p>Optionally, you can assign a specific max resolution directly from a panorama's parameters:<br><code>maxResolution=2048</code></p></div>",
+                          "step": 0.1
+                        },
+                        {
+                          "key": "plugins.panorama.max_vfov",
+                          "title": "Max Vertical FOV <span>[0 - π] (default 1.75)</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Max Vertical FOV</h3><p>Maximum vertical field of view.</p><p>Optionally, you can assign maxVFov directly from a panorama's parameters:<br><code>maxVFov=1.5</code></p></div>",
+                          "step": 0.01
+                        },
+                        {
+                          "key": "plugins.panorama.max_hfov",
+                          "title": "Max Horizontal FOV <span>[0 - π] (0 = disabled, inherit from maxVFov)</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Max Horizontal FOV</h3><p>Maximum horizontal field of view. By default, this option is disabled [0] and max horizontal FOV will be inherited from max vertical FOV.</p><p>Optionally, you can assign maxHFov directly from a panorama's parameters:<br><code>maxHFov=2.1</code></p></div>",
+                          "step": 0.01
+                        }
+                      ]
+                    },
+                    {
+                      "type": "section",
+                      "htmlClass": "help-title group-bg",
+                      "items": [
+                        {
+                          "type": "help",
+                          "helpvalue": "Equirectangular"
+                        },
+                        {
+                          "type": "help",
+                          "helpvalue": "Options for single-file equirectangular format."
+                        },
+                        {
+                          "key": "plugins.panorama.equirect_preview",
+                          "inlinetitle": "Create preview <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Create equirectangular preview</h3><p>Because single-file equirectangular panoramas are usually very large, X3 will attempt to create a small preview image to display while the large version is loading.</p><p><code>Warning!</code><br>Resizing large equirectangular images requires a lot of server memory. If you are seeing errors, you will need to disable this option.</p></div>"
+                        },
+                        {
+                          "key": "plugins.panorama.equirect_resize",
+                          "inlinetitle": "Allow resize <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Allow equirectangular resize</h3><p>Although some devices support 8192 px, most devices (~70%) are limited to 4096 px textures <a href=\"http://webglstats.com/webgl/parameter/MAX_TEXTURE_SIZE\" target=\"_blank\">[ref]</a>. If you are uploading equirectangular images larger than 4096 px wide, X3 will need to serve resized versions to devices that only support 4096 px.</p><p><code>Warning!</code><br>Resizing large equirectangular images requires a lot of server memory. If you are seeing errors, you will need to disable this option. You can manually create resized versions of your 8192 px equirectangular format images by uploading a resized <strong>filename_4096.jpg</strong>, or assigning the resized version from parameters:<br><code>source_4096=resized_version.jpg</code></p></div>"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "section",
+                      "htmlClass": "help-title group-bg",
+                      "items": [
+                        {
+                          "type": "help",
+                          "helpvalue": "Flat <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Flat panorama options</h3><p>Multi-resolution flat gigapixel images are normally exported FROM and FOR third party tools like Krpano and Pano2VR. For X3 to understand the URL/image structure of these exports, you will need to feed X3 with necessary information. This info can usually be extrapolated from the projects XML file.</p></div>"
+                        },
+                        {
+                          "type": "help",
+                          "helpvalue": "Default options for flat (non-spherical) gigapixel images."
+                        },
+                        {
+                          "key": "plugins.panorama.flat_tile_size",
+                          "title": "Tile size <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Tile size</h3><p>Tilesize value can normally be found the exported projects XML file.</p></div>"
+                        },
+                        {
+                          "key": "plugins.panorama.flat_url_format",
+                          "title": "Url format <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Url format</h3><p>Url format can normally be extrapolated from the exported projects XML file. For example krpano url's like <code>l5/%0v/l5_%0v_%0h.jpg</code> would require an url format <code>l{z}/{y}/l{z}_{y}_{x}.jpg</code>, which is the default.</p></div>"
+                        },
+                        {
+                          "key": "plugins.panorama.flat_zero_padding",
+                          "title": "Zero padding <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Zero padding</h3><p>The amount of ciphers used in the project's numbering structure padded by 0. For example <code>/03/l4_03_04.jpg</code> is padded by 2 ciphers, while <code>/003/l4_003_004.jpg</code> is padded by 3.</p></div>"
+                        },
+                        {
+                          "key": "plugins.panorama.flat_index_start",
+                          "title": "Index start <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Index start</h3><p>Some projects start count from 1 (krpano example <code>l1/01/l1_01_01.jpg</code>), while others start from 0 (pano2vr example <code>l_0/c_0/tile_0.jpg</code>).</p></div>"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
             },
             {
 	            "type": "fieldset",

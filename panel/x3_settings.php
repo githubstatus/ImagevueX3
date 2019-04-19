@@ -66,6 +66,7 @@ if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower(
 			$write += x3_set_iptc($file, $iptc, 'description', Iptc::CAPTION);
 			$write += x3_set_iptc($file, $iptc, 'link', Iptc::X3_LINK);
 			$write += x3_set_iptc($file, $iptc, 'target', Iptc::X3_LINK_TARGET);
+			$write += x3_set_iptc($file, $iptc, 'params', Iptc::X3_PARAMS);
 			$write += x3_set_iptc($file, $iptc, 'index', Iptc::X3_INDEX);
 
 			// store reference date

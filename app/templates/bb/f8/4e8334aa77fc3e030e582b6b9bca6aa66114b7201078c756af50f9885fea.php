@@ -63,7 +63,7 @@ gtag('config', '";
         }
         // line 23
         echo "
-  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">
+  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">
   <link rel=\"canonical\" href=\"";
         // line 25
         echo (isset($context["absolutepath_page"]) ? $context["absolutepath_page"] : null);

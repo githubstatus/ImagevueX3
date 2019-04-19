@@ -3,8 +3,8 @@
 # X3
 Class Stacey {
 
-  static $version = '3.25.1';
-  static $version_date = 1533617962210;
+  static $version = '3.26.0';
+  static $version_date = 1544339270230;
   static $server_protocol = 'http://';
 
   var $route;

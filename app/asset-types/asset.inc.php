@@ -35,6 +35,7 @@ Class Asset {
     //$this->data['url'] = $this->link_path;
     $this->data['url'] = $file_path;
     $this->data['file_name'] = $this->file_name;
+    $this->data['id'] = Helpers::attribute_friendly($this->file_name);
     $this->data['name'] = ucfirst(preg_replace(array('/[-_]/', '/\.[\w\d]+?$/', '/^\d+?\./'), array(' ', '', ''), $this->file_name));
     if(!isset($this->data['index'])) $this->data['index'] = 0;
     //if(!isset($this->data['title'])) $this->data['title'] = $this->data['name']; // <- messes with page default image titles

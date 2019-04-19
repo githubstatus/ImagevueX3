@@ -144,7 +144,7 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 			}*/
 
 			// CUSTOM fields
-			$ignore = array('honey1', 'honey2', 'template', 'template_strict', 'template_subject', 'action', 'to_email');
+			$ignore = array('honey1', 'honey2', 'template', 'template_strict', 'template_subject', 'action', 'recipient');
 			$custom = array_filter_key($_POST, function($a) use ($ignore){
 				return !in_array($a, $ignore);
 			});

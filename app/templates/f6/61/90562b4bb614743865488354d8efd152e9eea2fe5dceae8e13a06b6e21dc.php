@@ -527,7 +527,7 @@ class __TwigTemplate_f66190562b4bb614743865488354d8efd152e9eea2fe5dceae8e13a06b6
                     echo "\t\t";
                     if ((!call_user_func_array($this->env->getTest('empty')->getCallable(), array((isset($context["link_title_content"]) ? $context["link_title_content"] : null))))) {
                         ob_start();
-                        echo "title=\"";
+                        echo " title=\"";
                         echo (isset($context["link_title_content"]) ? $context["link_title_content"] : null);
                         echo "\"";
                         $context["link_title"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
@@ -677,6 +677,23 @@ class __TwigTemplate_f66190562b4bb614743865488354d8efd152e9eea2fe5dceae8e13a06b6
                 echo "
 \t\t";
                 // line 247
+                echo "\t\t";
+                if ($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["page"]) ? $context["page"] : null), "plugins"), "panorama"), "enabled")) {
+                    // line 248
+                    echo "\t\t\t";
+                    $context["data_pano"] = call_user_func_array($this->env->getFunction('pano_params')->getCallable(), array((isset($context["image"]) ? $context["image"] : null), (isset($context["assetspath"]) ? $context["assetspath"] : null)));
+                    // line 249
+                    echo "\t\t\t";
+                    if ((0 === strpos((isset($context["data_pano"]) ? $context["data_pano"] : null), " data-panorama="))) {
+                        $context["anchor_class"] = ((isset($context["anchor_class"]) ? $context["anchor_class"] : null) . " x3-panorama");
+                    }
+                    // line 250
+                    echo "\t\t";
+                }
+                // line 251
+                echo "
+\t\t";
+                // line 253
                 echo "\t\t<";
                 echo (isset($context["link_tag"]) ? $context["link_tag"] : null);
                 echo " class=\"";
@@ -702,31 +719,32 @@ class __TwigTemplate_f66190562b4bb614743865488354d8efd152e9eea2fe5dceae8e13a06b6
                 echo (isset($context["link_target"]) ? $context["link_target"] : null);
                 echo (isset($context["data_link_target"]) ? $context["data_link_target"] : null);
                 echo " id=\"image-";
-                echo call_user_func_array($this->env->getFilter('default')->getCallable(), array(call_user_func_array($this->env->getFilter('attribute_friendly')->getCallable(), array($this->getAttribute((isset($context["image"]) ? $context["image"] : null), "file_name"))), $this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index")));
-                echo "\" ";
+                echo (($this->getAttribute((isset($context["image"]) ? $context["image"] : null), "id", array(), "any", true, true)) ? (call_user_func_array($this->env->getFilter('default')->getCallable(), array($this->getAttribute((isset($context["image"]) ? $context["image"] : null), "id"), $this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index")))) : ($this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index")));
+                echo "\"";
                 echo (isset($context["link_title"]) ? $context["link_title"] : null);
                 echo " itemprop=\"associatedMedia\" itemscope itemtype=\"http://schema.org/ImageObject\"";
                 echo (isset($context["nofollow"]) ? $context["nofollow"] : null);
+                echo (isset($context["data_pano"]) ? $context["data_pano"] : null);
                 echo ">
 
 \t\t";
-                // line 250
+                // line 256
                 echo "\t\t";
                 if (($this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "layout") == "slideshow")) {
-                    // line 251
+                    // line 257
                     echo "\t\t\t<span itemprop=\"caption description\" data-image=\"";
                     echo (isset($context["url_escaped"]) ? $context["url_escaped"] : null);
                     echo "\">
 \t\t\t";
-                    // line 252
+                    // line 258
                     if (call_user_func_array($this->env->getTest('empty')->getCallable(), array((isset($context["description"]) ? $context["description"] : null)))) {
-                        // line 253
+                        // line 259
                         echo "\t\t\t\t";
                         echo (isset($context["title_pseudo"]) ? $context["title_pseudo"] : null);
                         echo "
 \t\t\t";
                     } else {
-                        // line 255
+                        // line 261
                         echo "\t\t\t\t<strong>";
                         echo (isset($context["title_pseudo"]) ? $context["title_pseudo"] : null);
                         echo "</strong>&nbsp; — &nbsp;";
@@ -734,38 +752,38 @@ class __TwigTemplate_f66190562b4bb614743865488354d8efd152e9eea2fe5dceae8e13a06b6
                         echo "
 \t\t\t";
                     }
-                    // line 257
+                    // line 263
                     echo "\t\t\t</span>
 \t\t";
                 } else {
-                    // line 259
+                    // line 265
                     echo "
 \t\t";
-                    // line 261
+                    // line 267
                     echo "\t\t";
                     if ((isset($context["gallery_split_view"]) ? $context["gallery_split_view"] : null)) {
-                        // line 262
+                        // line 268
                         echo "
 \t\t";
-                        // line 264
+                        // line 270
                         echo "\t\t";
                         if ($this->getAttribute($this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "split"), "invert")) {
-                            // line 265
+                            // line 271
                             echo "\t\t\t";
                             $context["text_align"] = "medium-text-left";
-                            // line 266
+                            // line 272
                             echo "\t\t";
                         } elseif ((!twig_in_filter("text-right", $this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "classes")) && !twig_in_filter("text-left", $this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "classes")))) {
-                            // line 267
+                            // line 273
                             echo "\t\t\t";
                             $context["text_align"] = "medium-text-right";
-                            // line 268
+                            // line 274
                             echo "\t\t";
                         }
-                        // line 269
+                        // line 275
                         echo "
 \t\t";
-                        // line 271
+                        // line 277
                         echo "\t\t<div class=\"medium-";
                         echo $this->getAttribute($this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "split"), "ratio");
                         echo " columns ";
@@ -774,188 +792,188 @@ class __TwigTemplate_f66190562b4bb614743865488354d8efd152e9eea2fe5dceae8e13a06b6
                         echo (isset($context["text_align"]) ? $context["text_align"] : null);
                         echo "\">
 \t\t\t";
-                        // line 273
+                        // line 279
                         echo "\t\t\t";
                         if ((call_user_func_array($this->env->getFilter('length')->getCallable(), array($this->env, (isset($context["items"]) ? $context["items"] : null))) < 2)) {
                             $context["items"] = call_user_func_array($this->env->getFilter('merge')->getCallable(), array((isset($context["items"]) ? $context["items"] : null), array(0 => "title", 1 => "description")));
                         }
-                        // line 274
+                        // line 280
                         echo "\t\t\t";
                         $context['_parent'] = (array) $context;
                         $context['_seq'] = twig_ensure_traversable((isset($context["items"]) ? $context["items"] : null));
                         foreach ($context['_seq'] as $context["_key"] => $context["item"]) {
-                            // line 275
+                            // line 281
                             echo "\t\t\t\t";
                             if (((isset($context["item"]) ? $context["item"] : null) == "title")) {
-                                // line 276
+                                // line 282
                                 echo "\t\t\t\t\t<h2 class=\"title\" itemprop=\"caption\">";
                                 echo (isset($context["title_pseudo"]) ? $context["title_pseudo"] : null);
                                 echo "</h2>
 \t\t\t\t";
                             } elseif ((((isset($context["item"]) ? $context["item"] : null) == "description") && (!call_user_func_array($this->env->getTest('empty')->getCallable(), array((isset($context["description"]) ? $context["description"] : null)))))) {
-                                // line 278
+                                // line 284
                                 echo "\t\t\t\t\t<p itemprop=\"description\">";
                                 echo (isset($context["description_pseudo"]) ? $context["description_pseudo"] : null);
                                 echo "</p>
 \t\t\t\t";
                             } elseif (((isset($context["item"]) ? $context["item"] : null) == "date")) {
-                                // line 280
+                                // line 286
                                 echo "\t\t\t\t\t<h6 class=\"date\">";
                                 echo (isset($context["time_tag"]) ? $context["time_tag"] : null);
                                 echo "</h6>
 \t\t\t\t";
                             } elseif ((((isset($context["item"]) ? $context["item"] : null) == "maplink") && (isset($context["geo"]) ? $context["geo"] : null))) {
-                                // line 282
+                                // line 288
                                 echo "\t\t\t\t\t";
                                 echo (isset($context["map_embed_button_item"]) ? $context["map_embed_button_item"] : null);
                                 echo "
 \t\t\t\t";
                             }
-                            // line 284
+                            // line 290
                             echo "\t\t\t";
                         }
                         $_parent = $context['_parent'];
                         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['item'], $context['_parent'], $context['loop']);
                         $context = array_intersect_key($context, $_parent) + $_parent;
-                        // line 285
+                        // line 291
                         echo "
 \t\t\t";
-                        // line 287
+                        // line 293
                         echo "\t\t\t";
-                        // line 297
+                        // line 303
                         echo "
 \t\t</div>
 \t\t<div class=\"medium-";
-                        // line 299
+                        // line 305
                         echo (12 - $this->getAttribute($this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "split"), "ratio"));
                         echo " columns ";
                         echo (isset($context["pull"]) ? $context["pull"] : null);
                         echo "\">
 \t\t\t";
-                        // line 300
+                        // line 306
                         echo (isset($context["figure"]) ? $context["figure"] : null);
                         echo "
 \t\t</div>
 
 \t\t";
-                        // line 304
+                        // line 310
                         echo "\t\t";
                     } elseif (($this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "layout") != "justified")) {
-                        // line 305
+                        // line 311
                         echo "\t\t\t";
                         $context['_parent'] = (array) $context;
                         $context['_seq'] = twig_ensure_traversable((isset($context["items"]) ? $context["items"] : null));
                         foreach ($context['_seq'] as $context["_key"] => $context["item"]) {
-                            // line 306
+                            // line 312
                             echo "\t\t\t\t";
                             if (((isset($context["item"]) ? $context["item"] : null) == "title")) {
-                                // line 307
+                                // line 313
                                 echo "\t\t\t\t\t<h2 class=\"title\" itemprop=\"caption\">";
                                 echo (isset($context["title_pseudo"]) ? $context["title_pseudo"] : null);
                                 echo "</h2>
 \t\t\t\t";
                             } elseif ((((isset($context["item"]) ? $context["item"] : null) == "description") && (!call_user_func_array($this->env->getTest('empty')->getCallable(), array((isset($context["description"]) ? $context["description"] : null)))))) {
-                                // line 309
+                                // line 315
                                 echo "\t\t\t\t\t<p itemprop=\"description\">";
                                 echo (isset($context["description_pseudo"]) ? $context["description_pseudo"] : null);
                                 echo "</p>
 \t\t\t\t";
                             } elseif (((isset($context["item"]) ? $context["item"] : null) == "date")) {
-                                // line 311
+                                // line 317
                                 echo "\t\t\t\t\t<h6 class=\"date\">";
                                 echo (isset($context["time_tag"]) ? $context["time_tag"] : null);
                                 echo "</h6>
 \t\t\t\t";
                             } elseif ((((isset($context["item"]) ? $context["item"] : null) == "maplink") && (isset($context["geo"]) ? $context["geo"] : null))) {
-                                // line 313
+                                // line 319
                                 echo "\t\t\t\t\t";
                                 echo (isset($context["map_embed_button_item"]) ? $context["map_embed_button_item"] : null);
                                 echo "
 \t\t\t\t";
                             } elseif (((isset($context["item"]) ? $context["item"] : null) == "preview")) {
-                                // line 315
+                                // line 321
                                 echo "\t\t\t\t\t";
                                 echo (isset($context["figure"]) ? $context["figure"] : null);
                                 echo "
 \t\t\t\t";
                             }
-                            // line 317
+                            // line 323
                             echo "\t\t\t";
                         }
                         $_parent = $context['_parent'];
                         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['item'], $context['_parent'], $context['loop']);
                         $context = array_intersect_key($context, $_parent) + $_parent;
-                        // line 318
+                        // line 324
                         echo "
 \t\t";
-                        // line 320
+                        // line 326
                         echo "\t\t";
                     } else {
-                        // line 321
+                        // line 327
                         echo "\t\t\t";
                         echo (isset($context["figure"]) ? $context["figure"] : null);
                         echo "
 \t\t";
                     }
-                    // line 323
+                    // line 329
                     echo "
 \t\t";
                 }
-                // line 325
+                // line 331
                 echo "
 \t\t</";
-                // line 326
+                // line 332
                 echo (isset($context["link_tag"]) ? $context["link_tag"] : null);
                 echo ">
 
 \t\t";
-                // line 329
+                // line 335
                 echo "\t\t";
                 if ((((!$this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "last")) && ($this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "layout") == "vertical")) && $this->getAttribute($this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "vertical"), "horizontal_rule"))) {
-                    // line 330
+                    // line 336
                     echo "\t\t\t<hr class=\"hr\">
 \t\t";
                 }
-                // line 332
+                // line 338
                 echo "
 \t\t";
-                // line 333
+                // line 339
                 echo (isset($context["li_close"]) ? $context["li_close"] : null);
                 echo "
 
 \t";
                 $context["item"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-                // line 336
+                // line 342
                 echo "
 \t";
-                // line 338
+                // line 344
                 echo "\t";
                 if ((twig_in_filter("landscape", (isset($context["module_classes"]) ? $context["module_classes"] : null)) || twig_in_filter("portrait", (isset($context["module_classes"]) ? $context["module_classes"] : null)))) {
-                    // line 339
+                    // line 345
                     echo "\t\t";
                     if ((twig_in_filter("landscape", (isset($context["module_classes"]) ? $context["module_classes"] : null)) && ($this->getAttribute((isset($context["image"]) ? $context["image"] : null), "width") > $this->getAttribute((isset($context["image"]) ? $context["image"] : null), "height")))) {
-                        // line 340
+                        // line 346
                         echo "\t\t\t";
                         echo (isset($context["item"]) ? $context["item"] : null);
                         echo "
 \t\t";
                     } elseif ((twig_in_filter("portrait", (isset($context["module_classes"]) ? $context["module_classes"] : null)) && ($this->getAttribute((isset($context["image"]) ? $context["image"] : null), "height") > $this->getAttribute((isset($context["image"]) ? $context["image"] : null), "width")))) {
-                        // line 342
+                        // line 348
                         echo "\t\t\t";
                         echo (isset($context["item"]) ? $context["item"] : null);
                         echo "
 \t\t";
                     }
-                    // line 344
+                    // line 350
                     echo "\t";
                 } else {
-                    // line 345
+                    // line 351
                     echo "\t\t";
                     echo (isset($context["item"]) ? $context["item"] : null);
                     echo "
 \t";
                 }
-                // line 347
+                // line 353
                 echo "
 ";
             }
@@ -971,22 +989,22 @@ class __TwigTemplate_f66190562b4bb614743865488354d8efd152e9eea2fe5dceae8e13a06b6
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['image'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 350
+        // line 356
         echo "
 ";
-        // line 352
+        // line 358
         echo (isset($context["ul_close"]) ? $context["ul_close"] : null);
         echo "
 
 ";
-        // line 355
+        // line 361
         if ((((call_user_func_array($this->env->getFilter('length')->getCallable(), array($this->env, (isset($context["gallery_videos"]) ? $context["gallery_videos"] : null))) > 0) && !twig_in_filter("hide-video", $this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "classes"))) && twig_in_filter("video-bottom", $this->getAttribute((isset($context["settings"]) ? $context["settings"] : null), "classes")))) {
-            // line 356
+            // line 362
             echo "\t";
             if ((call_user_func_array($this->env->getFilter('length')->getCallable(), array($this->env, (isset($context["gallery_images"]) ? $context["gallery_images"] : null))) > 0)) {
                 echo "<hr>";
             }
-            // line 357
+            // line 363
             echo "\t";
             $this->env->loadTemplate("partials/module.video.html")->display($context);
         }
@@ -1004,6 +1022,6 @@ class __TwigTemplate_f66190562b4bb614743865488354d8efd152e9eea2fe5dceae8e13a06b6
 
     public function getDebugInfo()
     {
-        return array (  990 => 357,  985 => 356,  983 => 355,  978 => 352,  975 => 350,  959 => 347,  929 => 336,  920 => 332,  916 => 330,  905 => 325,  901 => 323,  895 => 321,  892 => 320,  889 => 318,  865 => 311,  853 => 307,  850 => 306,  845 => 305,  842 => 304,  836 => 300,  830 => 299,  826 => 297,  824 => 287,  821 => 285,  815 => 284,  809 => 282,  803 => 280,  797 => 278,  791 => 276,  788 => 275,  783 => 274,  778 => 273,  769 => 271,  766 => 269,  763 => 268,  760 => 267,  751 => 264,  745 => 261,  742 => 259,  724 => 253,  717 => 251,  714 => 250,  680 => 247,  677 => 245,  674 => 244,  671 => 242,  668 => 241,  665 => 240,  662 => 239,  659 => 238,  656 => 237,  653 => 236,  645 => 232,  642 => 231,  639 => 230,  636 => 228,  629 => 225,  625 => 223,  619 => 221,  616 => 220,  613 => 218,  601 => 215,  596 => 214,  590 => 213,  577 => 211,  572 => 210,  569 => 209,  566 => 207,  563 => 206,  555 => 202,  551 => 201,  548 => 200,  539 => 196,  536 => 195,  527 => 194,  524 => 193,  521 => 192,  515 => 191,  510 => 190,  505 => 189,  492 => 187,  489 => 186,  486 => 185,  483 => 184,  480 => 182,  477 => 181,  474 => 179,  471 => 178,  468 => 177,  465 => 176,  462 => 175,  459 => 174,  456 => 173,  453 => 172,  450 => 171,  447 => 170,  444 => 168,  441 => 167,  438 => 166,  433 => 165,  430 => 164,  427 => 163,  424 => 162,  421 => 161,  418 => 160,  415 => 159,  412 => 157,  409 => 156,  404 => 155,  401 => 154,  398 => 152,  395 => 151,  392 => 150,  324 => 130,  321 => 128,  309 => 123,  291 => 116,  288 => 114,  285 => 113,  282 => 112,  270 => 107,  267 => 105,  264 => 104,  261 => 103,  258 => 101,  255 => 100,  252 => 99,  249 => 97,  237 => 93,  234 => 92,  231 => 91,  219 => 85,  216 => 84,  213 => 83,  210 => 82,  207 => 80,  139 => 56,  135 => 54,  132 => 53,  129 => 52,  121 => 49,  109 => 45,  75 => 31,  979 => 304,  965 => 303,  960 => 301,  957 => 300,  953 => 345,  950 => 344,  944 => 342,  938 => 340,  935 => 339,  932 => 338,  926 => 286,  923 => 333,  918 => 284,  913 => 329,  908 => 326,  903 => 281,  898 => 280,  891 => 279,  886 => 278,  883 => 317,  877 => 315,  871 => 313,  868 => 271,  862 => 270,  859 => 309,  854 => 268,  849 => 267,  844 => 266,  839 => 265,  832 => 264,  828 => 263,  819 => 262,  816 => 260,  813 => 259,  810 => 258,  807 => 257,  804 => 256,  801 => 255,  798 => 253,  795 => 252,  790 => 249,  775 => 248,  772 => 246,  767 => 243,  764 => 242,  757 => 266,  754 => 265,  748 => 262,  743 => 238,  738 => 257,  730 => 255,  722 => 252,  716 => 234,  708 => 233,  703 => 232,  700 => 231,  698 => 230,  690 => 227,  686 => 226,  682 => 225,  679 => 224,  676 => 223,  673 => 222,  667 => 220,  664 => 219,  661 => 218,  658 => 217,  650 => 235,  647 => 214,  644 => 213,  641 => 212,  633 => 227,  630 => 209,  627 => 208,  621 => 206,  618 => 205,  610 => 217,  607 => 216,  597 => 200,  594 => 199,  591 => 197,  588 => 196,  585 => 212,  582 => 194,  579 => 193,  576 => 192,  573 => 191,  570 => 190,  567 => 189,  564 => 187,  561 => 186,  558 => 184,  553 => 183,  550 => 181,  545 => 199,  542 => 198,  506 => 177,  503 => 175,  500 => 174,  497 => 188,  494 => 172,  491 => 171,  488 => 170,  485 => 169,  481 => 167,  478 => 166,  475 => 165,  472 => 164,  469 => 162,  466 => 161,  463 => 160,  460 => 159,  457 => 158,  454 => 157,  451 => 156,  448 => 155,  445 => 154,  442 => 153,  439 => 152,  436 => 151,  434 => 150,  431 => 149,  428 => 148,  426 => 147,  423 => 146,  420 => 145,  417 => 143,  414 => 142,  411 => 141,  408 => 140,  405 => 138,  402 => 137,  399 => 136,  396 => 135,  393 => 134,  390 => 133,  387 => 149,  384 => 148,  378 => 146,  372 => 144,  369 => 143,  366 => 142,  363 => 141,  357 => 138,  354 => 137,  351 => 136,  348 => 114,  345 => 113,  342 => 112,  339 => 134,  336 => 133,  330 => 132,  327 => 131,  318 => 127,  315 => 125,  312 => 124,  306 => 122,  292 => 99,  279 => 111,  260 => 94,  248 => 89,  245 => 88,  224 => 80,  221 => 79,  218 => 78,  215 => 77,  212 => 75,  209 => 74,  206 => 73,  203 => 72,  189 => 67,  186 => 66,  183 => 65,  180 => 64,  177 => 63,  165 => 58,  156 => 55,  150 => 52,  147 => 61,  123 => 48,  118 => 48,  82 => 34,  381 => 147,  375 => 145,  373 => 146,  370 => 145,  367 => 143,  360 => 140,  349 => 134,  340 => 131,  328 => 126,  319 => 122,  316 => 121,  313 => 119,  303 => 120,  300 => 119,  297 => 118,  294 => 117,  275 => 107,  257 => 93,  246 => 96,  240 => 94,  227 => 81,  199 => 77,  196 => 76,  193 => 74,  190 => 73,  187 => 72,  184 => 71,  181 => 70,  175 => 68,  172 => 67,  169 => 65,  166 => 65,  163 => 64,  160 => 62,  148 => 57,  145 => 56,  133 => 51,  111 => 41,  80 => 32,  174 => 62,  157 => 61,  154 => 59,  114 => 45,  99 => 43,  94 => 35,  60 => 23,  48 => 16,  87 => 41,  51 => 17,  42 => 13,  127 => 51,  124 => 50,  120 => 46,  117 => 46,  110 => 48,  106 => 44,  103 => 43,  58 => 22,  45 => 15,  38 => 11,  96 => 42,  84 => 36,  61 => 23,  56 => 20,  44 => 14,  36 => 11,  27 => 6,  359 => 135,  356 => 136,  346 => 135,  343 => 132,  341 => 126,  337 => 129,  333 => 109,  331 => 127,  325 => 124,  322 => 117,  317 => 116,  314 => 115,  311 => 113,  305 => 111,  302 => 110,  299 => 108,  293 => 106,  290 => 105,  286 => 102,  280 => 99,  277 => 97,  271 => 95,  268 => 94,  265 => 95,  254 => 92,  251 => 91,  243 => 95,  226 => 71,  223 => 84,  220 => 68,  201 => 71,  198 => 70,  195 => 69,  192 => 68,  178 => 69,  171 => 61,  168 => 59,  162 => 57,  159 => 56,  152 => 59,  146 => 46,  142 => 58,  136 => 52,  130 => 50,  115 => 47,  112 => 46,  91 => 34,  77 => 32,  69 => 28,  65 => 23,  53 => 19,  47 => 16,  32 => 9,  22 => 3,  101 => 41,  98 => 40,  92 => 38,  88 => 36,  85 => 35,  78 => 27,  74 => 30,  71 => 27,  67 => 24,  55 => 18,  52 => 17,  49 => 16,  40 => 12,  34 => 10,  31 => 8,  29 => 7,  26 => 6,  24 => 4,  21 => 2,  284 => 98,  281 => 110,  278 => 109,  276 => 109,  273 => 108,  269 => 105,  266 => 104,  263 => 102,  259 => 96,  256 => 94,  242 => 87,  239 => 86,  236 => 85,  233 => 84,  230 => 82,  228 => 89,  225 => 88,  222 => 86,  217 => 84,  214 => 66,  211 => 65,  208 => 82,  205 => 81,  202 => 79,  200 => 77,  197 => 76,  194 => 75,  188 => 72,  185 => 56,  182 => 69,  179 => 68,  176 => 66,  173 => 65,  170 => 66,  167 => 64,  164 => 62,  161 => 60,  143 => 59,  140 => 57,  137 => 54,  134 => 53,  131 => 54,  128 => 53,  125 => 49,  122 => 39,  119 => 49,  116 => 48,  113 => 45,  108 => 40,  105 => 39,  102 => 43,  100 => 42,  97 => 41,  95 => 40,  93 => 37,  90 => 35,  86 => 35,  83 => 34,  81 => 34,  79 => 33,  76 => 29,  73 => 30,  70 => 28,  68 => 25,  66 => 26,  64 => 25,  62 => 22,  59 => 22,  57 => 20,  54 => 19,  50 => 17,  46 => 15,  43 => 14,  41 => 13,  39 => 12,  37 => 10,  35 => 10,  33 => 9,  30 => 8,  28 => 7,  25 => 5,  23 => 3,  19 => 1,);
+        return array (  1008 => 363,  1003 => 362,  1001 => 361,  996 => 358,  993 => 356,  977 => 353,  971 => 351,  968 => 350,  962 => 348,  956 => 346,  947 => 342,  941 => 339,  934 => 336,  931 => 335,  919 => 329,  910 => 326,  907 => 324,  901 => 323,  895 => 321,  889 => 319,  863 => 311,  860 => 310,  848 => 305,  842 => 293,  833 => 290,  827 => 288,  821 => 286,  815 => 284,  809 => 282,  806 => 281,  796 => 279,  787 => 277,  784 => 275,  781 => 274,  778 => 273,  769 => 270,  766 => 268,  763 => 267,  760 => 265,  756 => 263,  742 => 259,  740 => 258,  735 => 257,  732 => 256,  697 => 253,  694 => 251,  691 => 250,  683 => 248,  680 => 247,  677 => 245,  674 => 244,  671 => 242,  668 => 241,  665 => 240,  662 => 239,  659 => 238,  656 => 237,  653 => 236,  645 => 232,  642 => 231,  639 => 230,  636 => 228,  629 => 225,  625 => 223,  619 => 221,  616 => 220,  613 => 218,  601 => 215,  596 => 214,  590 => 213,  577 => 211,  572 => 210,  569 => 209,  566 => 207,  563 => 206,  555 => 202,  551 => 201,  548 => 200,  539 => 196,  536 => 195,  527 => 194,  524 => 193,  521 => 192,  515 => 191,  510 => 190,  505 => 189,  492 => 187,  489 => 186,  486 => 185,  483 => 184,  480 => 182,  477 => 181,  474 => 179,  471 => 178,  468 => 177,  465 => 176,  462 => 175,  459 => 174,  456 => 173,  453 => 172,  450 => 171,  447 => 170,  444 => 168,  441 => 167,  438 => 166,  433 => 165,  430 => 164,  427 => 163,  424 => 162,  421 => 161,  418 => 160,  415 => 159,  412 => 157,  409 => 156,  404 => 155,  401 => 154,  398 => 152,  395 => 151,  392 => 150,  324 => 130,  321 => 128,  309 => 123,  291 => 116,  288 => 114,  285 => 113,  282 => 112,  270 => 107,  267 => 105,  264 => 104,  261 => 103,  258 => 101,  255 => 100,  252 => 99,  249 => 97,  237 => 93,  234 => 92,  231 => 91,  219 => 85,  216 => 84,  213 => 83,  210 => 82,  207 => 80,  139 => 56,  135 => 54,  132 => 53,  129 => 52,  121 => 49,  109 => 45,  75 => 31,  979 => 304,  965 => 303,  960 => 301,  957 => 300,  953 => 345,  950 => 344,  944 => 292,  938 => 338,  935 => 289,  932 => 287,  926 => 332,  923 => 331,  918 => 284,  913 => 327,  908 => 282,  903 => 281,  898 => 280,  891 => 279,  886 => 278,  883 => 317,  877 => 315,  871 => 313,  868 => 312,  862 => 270,  859 => 269,  854 => 306,  849 => 267,  844 => 303,  839 => 291,  832 => 264,  828 => 263,  819 => 262,  816 => 260,  813 => 259,  810 => 258,  807 => 257,  804 => 256,  801 => 280,  798 => 253,  795 => 252,  790 => 249,  775 => 272,  772 => 271,  767 => 243,  764 => 242,  757 => 241,  754 => 240,  748 => 261,  743 => 238,  738 => 237,  730 => 236,  722 => 235,  716 => 234,  708 => 233,  703 => 232,  700 => 231,  698 => 230,  690 => 227,  686 => 249,  682 => 225,  679 => 224,  676 => 223,  673 => 222,  667 => 220,  664 => 219,  661 => 218,  658 => 217,  650 => 235,  647 => 214,  644 => 213,  641 => 212,  633 => 227,  630 => 209,  627 => 208,  621 => 206,  618 => 205,  610 => 217,  607 => 216,  597 => 200,  594 => 199,  591 => 197,  588 => 196,  585 => 212,  582 => 194,  579 => 193,  576 => 192,  573 => 191,  570 => 190,  567 => 189,  564 => 187,  561 => 186,  558 => 184,  553 => 183,  550 => 181,  545 => 199,  542 => 198,  506 => 177,  503 => 175,  500 => 174,  497 => 188,  494 => 172,  491 => 171,  488 => 170,  485 => 169,  481 => 167,  478 => 166,  475 => 165,  472 => 164,  469 => 162,  466 => 161,  463 => 160,  460 => 159,  457 => 158,  454 => 157,  451 => 156,  448 => 155,  445 => 154,  442 => 153,  439 => 152,  436 => 151,  434 => 150,  431 => 149,  428 => 148,  426 => 147,  423 => 146,  420 => 145,  417 => 143,  414 => 142,  411 => 141,  408 => 140,  405 => 138,  402 => 137,  399 => 136,  396 => 135,  393 => 134,  390 => 133,  387 => 149,  384 => 148,  378 => 146,  372 => 144,  369 => 143,  366 => 142,  363 => 141,  357 => 138,  354 => 137,  351 => 136,  348 => 114,  345 => 113,  342 => 112,  339 => 134,  336 => 133,  330 => 132,  327 => 131,  318 => 127,  315 => 125,  312 => 124,  306 => 122,  292 => 99,  279 => 111,  260 => 94,  248 => 89,  245 => 88,  224 => 80,  221 => 79,  218 => 78,  215 => 77,  212 => 75,  209 => 74,  206 => 73,  203 => 72,  189 => 67,  186 => 66,  183 => 65,  180 => 64,  177 => 63,  165 => 58,  156 => 55,  150 => 52,  147 => 61,  123 => 48,  118 => 48,  82 => 34,  381 => 147,  375 => 145,  373 => 146,  370 => 145,  367 => 143,  360 => 140,  349 => 134,  340 => 131,  328 => 126,  319 => 122,  316 => 121,  313 => 119,  303 => 120,  300 => 119,  297 => 118,  294 => 117,  275 => 107,  257 => 93,  246 => 96,  240 => 94,  227 => 81,  199 => 77,  196 => 76,  193 => 74,  190 => 73,  187 => 72,  184 => 71,  181 => 70,  175 => 68,  172 => 67,  169 => 65,  166 => 65,  163 => 64,  160 => 62,  148 => 57,  145 => 56,  133 => 51,  111 => 41,  80 => 32,  174 => 62,  157 => 61,  154 => 59,  114 => 45,  99 => 43,  94 => 35,  60 => 23,  48 => 16,  87 => 41,  51 => 17,  42 => 13,  127 => 51,  124 => 50,  120 => 46,  117 => 46,  110 => 48,  106 => 44,  103 => 43,  58 => 22,  45 => 15,  38 => 11,  96 => 42,  84 => 36,  61 => 23,  56 => 20,  44 => 14,  36 => 11,  27 => 6,  359 => 135,  356 => 136,  346 => 135,  343 => 132,  341 => 126,  337 => 129,  333 => 109,  331 => 127,  325 => 124,  322 => 117,  317 => 116,  314 => 115,  311 => 113,  305 => 111,  302 => 110,  299 => 108,  293 => 106,  290 => 105,  286 => 102,  280 => 99,  277 => 97,  271 => 95,  268 => 94,  265 => 95,  254 => 92,  251 => 91,  243 => 95,  226 => 71,  223 => 84,  220 => 68,  201 => 71,  198 => 70,  195 => 69,  192 => 68,  178 => 69,  171 => 61,  168 => 59,  162 => 57,  159 => 56,  152 => 59,  146 => 46,  142 => 58,  136 => 52,  130 => 50,  115 => 47,  112 => 46,  91 => 34,  77 => 32,  69 => 28,  65 => 23,  53 => 19,  47 => 16,  32 => 9,  22 => 3,  101 => 41,  98 => 40,  92 => 38,  88 => 36,  85 => 35,  78 => 27,  74 => 30,  71 => 27,  67 => 24,  55 => 18,  52 => 17,  49 => 16,  40 => 12,  34 => 10,  31 => 8,  29 => 7,  26 => 6,  24 => 4,  21 => 2,  284 => 98,  281 => 110,  278 => 109,  276 => 109,  273 => 108,  269 => 105,  266 => 104,  263 => 102,  259 => 96,  256 => 94,  242 => 87,  239 => 86,  236 => 85,  233 => 84,  230 => 82,  228 => 89,  225 => 88,  222 => 86,  217 => 84,  214 => 66,  211 => 65,  208 => 82,  205 => 81,  202 => 79,  200 => 77,  197 => 76,  194 => 75,  188 => 72,  185 => 56,  182 => 69,  179 => 68,  176 => 66,  173 => 65,  170 => 66,  167 => 64,  164 => 62,  161 => 60,  143 => 59,  140 => 57,  137 => 54,  134 => 53,  131 => 54,  128 => 53,  125 => 49,  122 => 39,  119 => 49,  116 => 48,  113 => 45,  108 => 40,  105 => 39,  102 => 43,  100 => 42,  97 => 41,  95 => 40,  93 => 37,  90 => 35,  86 => 35,  83 => 34,  81 => 34,  79 => 33,  76 => 29,  73 => 30,  70 => 28,  68 => 25,  66 => 26,  64 => 25,  62 => 22,  59 => 22,  57 => 20,  54 => 19,  50 => 17,  46 => 15,  43 => 14,  41 => 13,  39 => 12,  37 => 10,  35 => 10,  33 => 9,  30 => 8,  28 => 7,  25 => 5,  23 => 3,  19 => 1,);
     }
 }
