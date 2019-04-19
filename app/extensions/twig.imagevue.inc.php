@@ -31,7 +31,8 @@ class Imagevue_Twig_Extension extends Twig_Extension {
       'minify'  => new Twig_Filter_Method($this, 'minify'),
       'removeComments'  => new Twig_Filter_Method($this, 'removeComments'),
       'textAlign'  => new Twig_Filter_Method($this, 'textAlign'),
-      'cleanData'  => new Twig_Filter_Method($this, 'cleanData')
+      'cleanData'  => new Twig_Filter_Method($this, 'cleanData'),
+      'attribute_friendly'  => new Twig_Filter_Method($this, 'attribute_friendly')
     );
   }
 
@@ -90,6 +91,16 @@ class Imagevue_Twig_Extension extends Twig_Extension {
   	return false;
   }
 
+  // javascript html attribute friendly
+  function attribute_friendly($str){
+    if(empty($str)) return '';
+    $name = function_exists('mb_strtolower') ? mb_strtolower($str, mb_detect_encoding($str)) : strtolower($str);
+    // remove 1.number and extension.jpg and lowercase
+    $name = preg_replace(array('/\.[\w\d]+?$/', '/^\d+?\./'), '', $name);
+    return trim(preg_replace('/\-+/', '-', str_replace(str_split(' .,()[]/"\\\'!?#`~@_$%^&*+=:;<>{}'), '-', $name)), '-');
+    // preg_split('//u', ' .,()[]/"“’\\\'!?#`~@_$%^&*+=:;<>{}', -1, PREG_SPLIT_NO_EMPTY)
+  }
+
   function cleanData($value) {
   	// remove [none]
   	$spaced = str_replace('[none]', '', $value);
@@ -100,7 +111,7 @@ class Imagevue_Twig_Extension extends Twig_Extension {
   }
 
   function getSibling($path){
-  	return preg_replace('/\d+?\./', '', basename($path));
+  	return preg_replace(array('/\d+?\./', '/\s/'), array('', '_'), htmlentities(basename($path)));
   }
 
   function createMenu(){
@@ -189,7 +200,7 @@ class Imagevue_Twig_Extension extends Twig_Extension {
   // Function: Get image info, width height etc
   function getimginfo($file){
   	$imagesize = file_exists($file) ? getimagesize($file) : null;
-    return $imagesize;//getimagesize($file);
+    return $imagesize;
   }
 
   // Function: Get values from setting item show:title,description,date etc. Returns setting array.
@@ -285,7 +296,12 @@ class Imagevue_Twig_Extension extends Twig_Extension {
 
 		// Set additional vars
 		$front["x3_version"] = Stacey::$version;
-		$front["site_updated"] = Helpers::site_last_modified();//$page["site_updated"];
+		//$front["site_updated"] = Helpers::site_last_modified();//$page["site_updated"];
+    //$front["site_updated"] = $page["site_updated"];
+    $front["site_updated"] = Helpers::site_last_modified();
+
+    // site.json exists
+    $front["site_json"] = ($front["settings"]["preload"] === 'create' || $front["settings"]["preload"] === true) && file_exists('./content/site.json');
 
 		// set path
 		//$path = dirname($_SERVER['PHP_SELF']);
@@ -326,7 +342,6 @@ class Imagevue_Twig_Extension extends Twig_Extension {
 		$json_page["type"] = (string)$template;
 		$json_page["id"] = (string)$id;
 		$json_page["permalink"] = str_replace($_SERVER['HTTP_HOST'], '', $url);
-		//$json_page["canonical"] = PROTOCOL . $url;
 		$json_page["canonical"] = Stacey::$server_protocol . $url;
 		$json_page["file_path"] = str_replace('./', '/', $file_path);
 

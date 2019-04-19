@@ -1,7 +1,6 @@
 {% spaceless %}
 
 {# base_url from page.settings.server.base_url #}
-{#{% set baseurl = page.settings.base_url|replace({'http://': '', 'https://': ''})|trim('/')|default(page.base_url) %}#}
 {% set baseurl = page.base_url %}
 
 {# Global page vars #}

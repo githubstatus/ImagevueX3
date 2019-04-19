@@ -29,7 +29,7 @@
 		{% set date_formatted = date|date(page.settings.date_format|default('d F Y')) %}
 		{% set date_class = 'date' %}
 	{% endif %}
-	{% set time_tag = '<time itemprop=dateCreated datetime="' ~ date|date('c') ~ '" class="' ~ date_class ~ '">' ~ date_formatted ~ '</time>' %}
+	{% set time_tag = '<time itemprop="dateCreated" datetime="' ~ date|date('c') ~ '" class="' ~ date_class ~ '">' ~ date_formatted ~ '</time>' %}
 
 	{# container #}
 	<div class="x3-video">
@@ -46,7 +46,7 @@
 	{% endfor %}
 
 	{# embed #}
-	<video width="100%" preload="metadata" class="x3-style-frame" controls>
+	<video width="100%" preload="metadata" class="x3-style-frame" controls{% if page.settings.prevent_context %} controlsList="nodownload"{% endif %}>
 		<source src="{{ assetspath ~ (gallery.file_path ~ "/" ~ video.file_name)|trim(".") }}" type="video/mp4">
 	</video>
 

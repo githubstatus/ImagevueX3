@@ -164,7 +164,7 @@ class Iptc
      */
     public function set($tag, $data)
     {
-        $data = $this->_charset_decode($data);
+        //$data = $this->_charset_decode($data);
         $this->_meta["2#{$tag}"] = array($data);
         $this->_hasMeta        = true;
         return $this;
@@ -225,7 +225,7 @@ class Iptc
     public function fetch($tag)
     {
         if (isset($this->_meta["2#{$tag}"])) {
-            return $this->_charset_encode($this->_meta["2#{$tag}"][0]);
+            return $this->_meta["2#{$tag}"][0];//$this->_charset_encode($this->_meta["2#{$tag}"][0]);
         }
         return false;
     }

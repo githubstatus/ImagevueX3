@@ -11,6 +11,9 @@ $denied = '<strong>Permission denied</strong><br>You need to be logged in to acc
 
 if($core->isLogin()){
 
+	// exit if guest
+	if($core->is_guest()) exit('{ "error": "Guest user cannot make changes." }');
+
 	chdir('../');
 
 	# vars

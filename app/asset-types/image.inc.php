@@ -18,19 +18,22 @@ Class Image extends Asset {
 		$ext = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
     if(extension_loaded('exif') && ($ext === 'jpg' || $ext === 'jpeg' || $ext === 'png')) {
     	$image = new KEHA76_Exif_Reader();
-    	$this->data['exif'] = $image->getDetails($file_path);
+    	$exif = $image->getDetails($file_path);
 
-    	if(isset($this->data['exif']) && !empty($this->data['exif'])) {
+    	if(!empty($exif)) {
 
     		# Replace image.date
-	    	if(isset($this->data['exif']['date_taken'])) {
+	    	if(isset($exif['date_taken'])) {
 	    		$exif_date = true;
-	    		$this->data['date'] = strtotime($this->data['exif']['date_taken']);
+	    		$this->data['date'] = strtotime($exif['date_taken']);
 	    	}
 
 	    	# width/height
-	    	if(isset($this->data['exif']['width'])) $this->data['width'] = $this->data['exif']['width'];
-	    	if(isset($this->data['exif']['height'])) $this->data['height'] = $this->data['exif']['height'];
+	    	if(isset($exif['width'])) $this->data['width'] = $exif['width'];
+	    	if(isset($exif['height'])) $this->data['height'] = $exif['height'];
+
+        // store EXIF
+        $this->data['exif'] = $exif;
     	}
   	}
 

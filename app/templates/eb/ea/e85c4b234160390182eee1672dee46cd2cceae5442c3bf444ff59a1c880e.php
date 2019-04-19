@@ -71,7 +71,7 @@ class __TwigTemplate_ebeae85c4b234160390182eee1672dee46cd2cceae5442c3bf444ff59a1
         echo "/\" rel=\"alternate\" type=\"text/html\" />
 <updated>";
         // line 28
-        echo $this->getAttribute((isset($context["page"]) ? $context["page"] : null), "site_updated");
+        echo call_user_func_array($this->env->getFilter('date')->getCallable(), array($this->env, $this->getAttribute((isset($context["page"]) ? $context["page"] : null), "site_updated"), "c"));
         echo "</updated>
 <id>";
         // line 29

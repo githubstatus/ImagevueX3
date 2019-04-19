@@ -1,25 +1,24 @@
 
 {# vars #}
-{% set image_page = page.permalink|setpath(rootpath) %}
+{% set image_page = page.permalink|setpath(rootpath)|e('html') %}
 {% set preview_image_url = assetspath ~ preview_image|trim('.') %}
 {% set image_ratio = (myimage.height/myimage.width * 100) %}
 {% set date = myimage.exif["date_taken"] %}
-{#{% set date = myimage.date %}#}
 
 {# Image nav #}
 {% if parent_images|length > 1 %}
-<div class=article-nav>
+<div class="article-nav">
 
 	{# next #}
 	{% if next_image %}
 		{% set url = '../' ~ getSibling(next_image.file_name|removeExtension) ~ '/' %}
-		<a href='{{ url }}' class='next'><span>{{ next_image.title|default(next_image.name) }}</span></a>
+		<a href="{{ url }}" class="next"><span>{{ next_image.title|default(next_image.name) }}</span></a>
 	{% endif %}
 
 	{# previous #}
 	{% if prev_image %}
 		{% set url = '../' ~ getSibling(prev_image.file_name|removeExtension) ~ '/' %}
-		<a href='{{ url }}' class='previous'><span>{{ prev_image.title|default(prev_image.name) }}</span></a>
+		<a href="{{ url }}" class="previous"><span>{{ prev_image.title|default(prev_image.name) }}</span></a>
 	{% endif %}
 
 
@@ -50,53 +49,71 @@
 	{% endif %}
 {% endif %}
 
-{# File template #}
-<div class='module row file gallery{{ fotomoto }}'{{fotomoto_collection}}>
-  <div data-options='caption:' class='images clearfix context small-12 medium-10 large-8 small-centered columns narrower text-center frame{% if page.popup.enabled == true %} x3-hover-icon-primary{% endif %}'>
+{# EXIF and GEO #}
+{% set meta = '' %}
+{% set exif = '' %}
+{% if myimage.exif %}
 
-  {# Comments icon with comments count #}
-
-  <h1 class='title'>{{ page_title }}</h1>
-  {% if image_description is not empty %}<h2 class='subheader'>{{ image_description }}</h2>{% endif %}
-  {% if date is not empty %}<h6 class=date><time itemprop="dateCreated" datetime='{{ date|date('c') }}'>{{ date|date('d F Y') }}</time></h6>{% endif %}
-
-  {# close (back) button #}
-	<a href={{ parent.permalink|setpath(rootpath) }} class='back'></a>
-
-	{# Popup EXIF #}
-	{% set exif = '' %}
-	{% if parent.popup.caption.exif and myimage.exif %}
-		{% for key, val in myimage.exif if val is not empty %}
-	    {% set exif = exif ~ key ~ ':' ~ val ~ ';' %}
-		{% endfor %}
-		{% if exif %}
-			{% set exif = 'data-exif="' ~ exif ~ '"' %}
+	{# caption and meta EXIF #}
+	{% if parent.popup.caption.exif %}
+		{% set exif_items = parent.popup.caption.exif_items|split(',') %}
+		{% if exif_items|length > 0 %}
+			{% for key in exif_items if myimage.exif[key] %}
+		    {% set exif = exif ~ key ~ ':' ~ myimage.exif[key] ~ ';' %}
+		    {% set meta = meta ~ '<div class="row file-exif-' ~ key ~ '"><div class="small-6 columns file-exif-key"><span>' ~ key|title|replace({'_':' '}) ~ '</span></div><div class="small-6 columns file-exif-value styled">' ~ myimage.exif[key] ~ '</div></div>' %}
+			{% endfor %}
+			{% if exif %}{% set exif = ' data-exif="' ~ exif ~ '"' %}{% endif %}
 		{% endif %}
 	{% endif %}
 
-	{# Image element #}
-	<div class=gallery>
-		<a class='item img-link item-link{% if page.popup.enabled == true %} x3-popup{% endif %}' {{ exif }} id='{{ page.slug|replace({"_": "-"})|lower }}' data-options='w:{{ myimage.width }};h:{{ myimage.height }}' href='{{ image_page }}' data-image='{{ preview_image_url }}' data-title='{{ page_title|e('html') }}' data-description='{{ image_description|e('html') }}' data-date='{{ date|date("d F Y") }}'>
+	{# caption map button #}
+	{% if myimage.exif.latitude and myimage.exif.longitude %}
+		{% set geo = myimage.exif.latitude ~ ',' ~ myimage.exif.longitude %}
+		{% set map_embed_src = 'https://www.google.com/maps/embed/v1/place?q=' ~ geo ~ '&amp;key=AIzaSyDRp6xla9SxUmTBu6l_kprhjjI9e5-EVZk' %}
+		{% set map_link_src = 'https://www.google.com/maps/search/?api=1&query=' ~ geo %}
+		{% set map_embed_button_item = '<button data-href="' ~ map_link_src ~ '" data-popup-href="' ~ map_embed_src ~ '" class="button small button-map" data-popup-class="x3-popup-iframe-full" data-popup></button>' %}
+		{% set map_button_popup = '<a href="' ~ map_link_src ~ '" data-embed-modal="' ~ map_embed_src ~ '" class="button small button-map" target="_blank"></a>' %}
+		{% set map_link_popup = '<a href="' ~ map_link_src ~ '" data-embed-modal="' ~ map_embed_src ~ '" class="link-map" target="_blank"></a>' %}
+		{% set map_button = '<a href="' ~ map_link_src ~ '" class="button small button-map" target="_blank"></a>' %}
+		{% set map_link = '<a href="' ~ map_link_src ~ '" class="link-map" target="_blank"></a>' %}
+		{% if parent.popup.caption.map %}{% set data_geo = ' data-geo="' ~ geo ~ '"' %}{% endif %}
+	{% endif %}
+{% endif %}
 
+{# replace geo links in title and description #}
+{% if geo %}
+	{% set page_title = page_title|replace({'{latitude}': image.exif.latitude, '{longitude}': image.exif.longitude, '{map_embed_src}': map_embed_src, '{map_link_src}': map_link_src, '{map_button_popup}': map_button_popup, '{map_link_popup}': map_link_popup, '{map_button}': map_button, '{map_link}': map_link}) %}
+	{% if image_description is not empty %}
+		{% set image_description = image_description|replace({'{latitude}': image.exif.latitude, '{longitude}': image.exif.longitude, '{map_embed_src}': map_embed_src, '{map_link_src}': map_link_src, '{map_button_popup}': map_button_popup, '{map_link_popup}': map_link_popup, '{map_button}': map_button, '{map_link}': map_link}) %}
+	{% endif %}
+{% endif %}
+
+{# File template #}
+<div class="module row file gallery{{ fotomoto }}"{{fotomoto_collection}}>
+  <div data-options="caption:" class="images clearfix context small-12 medium-10 large-8 small-centered columns narrower text-center frame{% if page.popup.enabled == true %} x3-hover-icon-primary{% endif %}">
+
+  {# Comments icon with comments count #}
+
+  <h1 class="title">{{ page_title }}</h1>
+  {% if image_description is not empty %}<h2 class="subheader">{{ image_description }}</h2>{% endif %}
+  {% if date is not empty %}<h6 class="date"><time itemprop="dateCreated" datetime="{{ date|date('c') }}">{{ date|date('d F Y') }}</time></h6>{% endif %}
+
+  {# close (back) button #}
+	<a href="{{ parent.permalink|replace({' ':'_'})|e|setpath(rootpath) }}" class="file-back"></a>
+
+	{# Image element #}
+	<div class="gallery">
+		<a class="item img-link item-link{% if page.popup.enabled == true %} x3-popup{% endif %}"{{ exif }}{{ data_geo }} id="image-{{ page.slug|attribute_friendly|default('1') }}" data-options="w:{{ myimage.width }};h:{{ myimage.height }}" href="{{ image_page }}" data-image="{{ preview_image_url|e }}" data-title="{{ page_title|e('html') }}" data-description="{{ image_description|e('html') }}" data-date="{{ date|date("d F Y") }}">
 			<figure>
-				<div class='image-container' style='padding-bottom:{{ image_ratio }}%;'>
-					<img data-src='{{ preview_image_url }}' alt='{{ page_title|striptags|e('html') }}'>
+				<div class="image-container" style="padding-bottom:{{ image_ratio }}%;">
+					<img data-src="{{ preview_image_url|e }}" alt="{{ page_title|striptags|e }}">
 				</div>
 			</figure>
 		</a>
 	</div>
 
 	{# EXIF #}
-	{% if myimage.exif is not empty %}
-	<div class=meta>
-		{% for key, val in myimage.exif if val is not empty %}
-			<div class='row {{ key }}'>
-	    	<div class='small-6 columns meta-key'><span>{{ key|title|replace({'_':' '}) }}</span></div>
-	    	<div class='small-6 columns meta-value styled'>{{ val }}</div>
-	    </div>
-		{% endfor %}
-	</div>
-	{% endif %}
+	{% if meta %}<div class="file-exif">{{ meta }}</div>{% endif %}
 
 	{# Disqus comments? #}
 	{% if page.accounts.disqus_shortname and page.plugins.disqus.image %}

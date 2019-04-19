@@ -63,8 +63,19 @@ class Stacey_Twig_Extension extends Twig_Extension {
   		if($sortby === 'custom'){
 	  		$content_path = str_replace('./content/', '', $path);
 	  		$dir_object[$path]['index'] = isset(Helpers::$folders[$content_path]['index']) ? Helpers::$folders[$content_path]['index'] : $default_index++;
-	  	}
-	  	if($sortby === 'date') $dir_object[$path]['date'] = filemtime($path);
+
+      // date
+	  	} else if($sortby === 'date'){
+
+        $page_date = false;
+        $page_json_file = $path . '/page.json';
+        $page_json_content = file_exists($page_json_file) ? @file_get_contents($page_json_file) : false;
+        if(!empty($page_json_content)) {
+          $page_json = @json_decode($page_json_content, TRUE);
+          if(!empty($page_json) && isset($page_json['date'])) $page_date = @strtotime($page_json['date']);
+        }
+        $dir_object[$path]['date'] = $page_date ? $page_date : filemtime($path);
+      }
   	}
 
   	// custom sort
@@ -82,11 +93,8 @@ class Stacey_Twig_Extension extends Twig_Extension {
 	    });
   	}
 
-  	// sorted
-  	//$sorted = $this->sortby($dirs, $config['folders']['sortby'], ($config['folders']['sort'] === 'desc' ? true : false));
-
   	// reverse sort
-  	if($config['folders']['sort'] === 'desc') $dirs = array_reverse($dirs);
+    if($config['folders']['sort'] === 'desc') $dir_object = array_reverse($dir_object);
 
   	//$dirs = array_flip($dirs);
   	$keys = array_keys($dir_object);
@@ -96,13 +104,15 @@ class Stacey_Twig_Extension extends Twig_Extension {
   	// sibling previous
   	if($index > 0) {
   		$prev_dir = $keys[$index - 1];
-  		$slug = $dir_object[$prev_dir]['slug'];
+  		//$slug = $dir_object[$prev_dir]['slug'];
+      $slug = str_replace(' ', '_', $dir_object[$prev_dir]['slug']);
   		$result[0] = array('slug' => $slug, 'label' => $slug);
   	}
   	// sibling next
   	if($index < (count($keys) - 1)){
   		$next_dir = $keys[$index + 1];
-  		$slug = $dir_object[$next_dir]['slug'];
+  		//$slug = $dir_object[$next_dir]['slug'];
+      $slug = str_replace(' ', '_', $dir_object[$next_dir]['slug']);
   		$result[1] = array('slug' => $slug, 'label' => $slug);
   	}
 
@@ -248,19 +258,12 @@ class Stacey_Twig_Extension extends Twig_Extension {
     // date sort
     if($value === 'date'){
 	    uasort($sorted, function($a, $b){
-	    	/*$x = isset($a['date']) ? $a['date'] : $a['updated'];
-		  	$y = isset($b['date']) ? $b['date'] : $b['updated'];
-		  	return $x > $y;*/
 		  	return $a['date'] > $b['date'];
 	    });
 
 	  // title sort
     } else if($value === 'title'){
 	    uasort($sorted, function($a, $b){
-		  	/*$x = isset($a['title']) ? $a['title'] : $a['name'];
-		  	$y = isset($b['title']) ? $b['title'] : $b['name'];
-		    return strnatcasecmp($x, $y);*/
-		    //return strnatcasecmp($a['title'], $b['title']);
 		    return strnatcasecmp($a['sort_title'], $b['sort_title']);
 	    });
 

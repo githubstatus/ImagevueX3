@@ -19,9 +19,9 @@ class __TwigTemplate_931d1b2c373560769a870d1a4024b98bdbd5839faa1863974d31470079f
         ob_start();
         $this->env->loadTemplate("partials/site.json")->display($context);
         $context["data"] = ('' === $tmp = ob_get_clean()) ? '' : new Twig_Markup($tmp, $this->env->getCharset());
-        echo "{\"pages\": [";
+        echo "{ ";
         echo call_user_func_array($this->env->getFilter('trim')->getCallable(), array(call_user_func_array($this->env->getFilter('trim')->getCallable(), array((isset($context["data"]) ? $context["data"] : null))), ","));
-        echo "]}";
+        echo " }";
     }
 
     public function getTemplateName()

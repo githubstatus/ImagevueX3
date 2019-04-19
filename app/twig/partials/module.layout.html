@@ -27,14 +27,14 @@
 
 {# start row container #}
 {% if width == "wide" or name == "disqus" %}
-	<div class=module>
+	<div class="module">
 {% else %}
-	<div class='module row'>
+	<div class="module row">
 {% endif %}
 
 {# schema for gallery #}
 {% set schema %}
-{% if name == 'gallery' %}itemscope itemtype='http://schema.org/ImageGallery'{% endif %}
+{% if name == 'gallery' %}itemscope itemtype="http://schema.org/ImageGallery"{% endif %}
 {% endset %}
 
 {# caption classes #}
@@ -59,9 +59,9 @@
 {% set module_classes = module_classes|cleanData|textAlign %}
 
 {# module container #}
-<div class='{{ module_classes }}' {{ schema }}>
-	{% include 'partials/module.'~name~'.html' %}
-	<hr class=module-separator />
+<div class="{{ module_classes }}" {{ schema }}>
+	{% include 'partials/module.' ~ name ~ '.html' %}
+	<hr class="module-separator" />
 	{#{{ separator }}#}
 </div>
 

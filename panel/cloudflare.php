@@ -227,14 +227,6 @@ function cloudflare() {
 		$a = $_POST['action'];
 		if(isset($_POST['zone_identifier'])) $zid = $_POST['zone_identifier'];
 		if($a == 'zones') {
-
-			// Get domain name
-			/*$domainArray = explode('.', $_SERVER['HTTP_HOST']);
-			$intDomParts = count($domainArray);
-			$domain = $domainArray[$intDomParts-2]. '.' .  $domainArray[$intDomParts-1];*/
-			//$domain = $_SERVER['SERVER_NAME'] ?: $_SERVER['HTTP_HOST'];
-			//$domain = 'alanmacleod.co.uk';
-
 			//return zones($domain);
 			return zones(get_domain($_SERVER['HTTP_HOST']));
 			//return zones('flamepix.com');
@@ -346,6 +338,7 @@ function get_domain($domain)
 // Init
 if ($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
 	header('Content-Type: application/json');
+	if($core->is_guest()) exit('{ "error": "Guest user cannot make changes.", "success": false }');
 	$response = cloudflare() ?: ['success'=>false];
 	echo json_encode($response);
 } else {

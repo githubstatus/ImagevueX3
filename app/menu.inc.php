@@ -214,17 +214,17 @@ Class Menu {
 				$name = ucwords(preg_replace('/[-_]/', ' ', $name));
 
 				# url
-				$url = self::$root . str_replace('index/', '', preg_replace(array('/\d+?\./', '/(\.+\/)*content\/*/'), '', $dir) . '/');
-				if(self::$win) $url = str_replace('\\', '', $url);
+				$url = self::$root . str_replace(array('index/',' '), array('', '_'), preg_replace(array('/\d+?\./', '/(\.+\/)*content\/*/'), '', $dir) . '/');
+				if(self::$win) $url = str_replace('\\', '', $url);				
 
 				# child tree
 				$tree = self::simple_dir_tree($dir);
 
 				# output
 				if(empty($tree)){
-					$menu .= '<li><a href="'.$url.'" class="needsclick">' . $name . '</a></li>';
+					$menu .= '<li><a href="' . htmlspecialchars($url) . '" class="needsclick">' . $name . '</a></li>';
 				} else {
-					$menu .= '<li class="has-dropdown"><a href="'.$url.'" class="node needsclick">' . $name . '</a><ul class=dropdown>' . $tree . '</ul></li>';
+					$menu .= '<li class="has-dropdown"><a href="' . htmlspecialchars($url) . '" class="node needsclick">' . $name . '</a><ul class="dropdown">' . $tree . '</ul></li>';
 				}
 			}
 		}
@@ -236,12 +236,9 @@ Class Menu {
   	// menu html string
 		$menu = '';
 
-		# Set $root
-		//if(!isset(self::$root)) self::$root = rtrim(dirname(substr(__DIR__, strlen($_SERVER['DOCUMENT_ROOT']))), '/').'/';
-		//if(!isset(self::$root)) self::$root = rtrim(dirname($_SERVER['PHP_SELF']), '/') . '/';
-
 		# Glob diretories starting from $dir
-		$dir_search = X3Config::$config["settings"]["hide_folders"] ? '/[0-9]*.?*' : '/[!_]*';
+		//$dir_search = X3Config::$config["settings"]["hide_folders"] ? '/[0-9]*.?*' : '/[!_]*';
+		$dir_search = '/[!_]*';
 		$dirs = glob($directory . $dir_search, GLOB_ONLYDIR|GLOB_NOSORT);
 
 		// end if $dirs is empty
@@ -346,7 +343,6 @@ Class Menu {
 
 				# label
 				if(isset($vars['label'])){
-					//$label = htmlspecialchars(strip_tags($vars['label']));
 					$label = strip_tags($vars['label'], '<i><span><em><strong><b><small><img><svg>');
 				} else {
 					$label = preg_replace('/\d+?\./', '', basename($dir));
@@ -371,11 +367,11 @@ Class Menu {
 					if($m['type'] === 'data'){
 						$items = 'items:' . $m['data_items'] . ';';
 						$data_items = explode(',', $m['data_items']);
-						$data_data .= '<div class=hide>';
+						$data_data .= '<div class="hide">';
 						if(!empty($data_items)) {
 							foreach($data_items as &$value) {
 								if($value === 'social' || $value == 'icon-buttons'){
-									$data_data .= '<div class=menu-icon-buttons></div>';
+									$data_data .= '<div class="menu-icon-buttons"></div>';
 								} else if($value === 'contactform'){
 									$data_data .= preg_replace('/<!--.*?-->/s', '', trim(str_replace('<xinput', '<input', $vars['back']['custom']['contact_widget'])));
 								} else if($value === 'hr'){
@@ -412,7 +408,6 @@ Class Menu {
 
 						$title = empty($vars['title']) ? $label : htmlspecialchars(strip_tags($vars['title']));
 						$title = 'title:' . $title . ';';
-						//$title = 'title:' . $vars['title'] . ';';
 						$description = empty($vars['description']) ? '' : htmlspecialchars(strip_tags($vars['description']));
 						$description = 'description:' . $description . ';';
 
@@ -423,7 +418,7 @@ Class Menu {
 					}
 
 					# compile data-options
-					$data_options = ' data-options="' . $type . $items . $crop . $carousel_amount . $list . $title . $description . $width . $preview . '"';
+					$data_options = ' data-options="' . $type . $items . $crop . $carousel_amount . $list . $title . $description . $width . htmlspecialchars($preview) . '"';
 
 				# mega children
 				} else if(!empty($mega_children)){
@@ -466,7 +461,7 @@ Class Menu {
 					$description = empty($vars['description']) ? '' : htmlspecialchars(strip_tags($vars['description']));
 
 					# set data-options
-					$data_options = ' data-options="' . $type . 'title:' . $title . ';description:' . $description . ';' . $preview . $date . $amount . '"';
+					$data_options = ' data-options="' . $type . 'title:' . $title . ';description:' . $description . ';' . htmlspecialchars($preview) . $date . $amount . '"';
 
 					# stop further child iteration if carousel mega_children
 					if($mega_children === 'carousel') $m['hide_children'] = true;
@@ -476,7 +471,8 @@ Class Menu {
 				}
 
 				# url
-				$url = self::$root . str_replace('index/', '', preg_replace(array('/\d+?\./', '/(\.+\/)*content\/*/'), '', $dir) . '/');
+				//$url = self::$root . str_replace('index/', '', preg_replace(array('/\d+?\./', '/(\.+\/)*content\/*/'), '', $dir) . '/');
+				$url = self::$root . str_replace(array('index/',' '), array('', '_'), preg_replace(array('/\d+?\./', '/(\.+\/)*content\/*/'), '', $dir) . '/');
 				if(self::$win) $url = str_replace('\\', '', $url);
 
 				# children
@@ -502,7 +498,7 @@ Class Menu {
 				$data_popup_content = '';
 				$data_popup_class = '';
 				$data_popup_window = '';
-
+				$nofollow = '';
 
 				# x3 modal
 				if($link['target'] === 'x3_modal'){
@@ -519,24 +515,16 @@ Class Menu {
 				# link
 				} else if(!empty($link['url'])){
 
+					// nofollow
+					if(substr($link['url'], -strlen(':nofollow')) === ':nofollow'){
+						$nofollow = ' rel="nofollow"';
+						$link['url'] = str_replace(':nofollow', '', $link['url']);
+					}
+
 					$url = self::get_link($link, $dir, $url);
-					//$link_url = trim(str_replace('{{files}}', self::$root . 'content/custom/files', $link['url']));
 					$ext = pathinfo($url, PATHINFO_EXTENSION);
 					$ext = !empty($ext);
 					$abs = strpos(strtolower($url), 'http') === 0;
-
-					/*# add root path if relative url
-					if($link_url[0] !== '/' && !$abs) {
-						$url = $ext ? self::$root . trim($dir, './') . '/' . $link_url : $url . rtrim($link_url, '/') . '/';
-
-					# Ensure trailing slash for root-relative urls
-					} else if(!$ext && $link_url[0] === '/'){
-						$url = rtrim($link_url, '/') . '/';
-
-					# Update $url
-					} else {
-						$url = $link_url;
-					}*/
 
 					# Detect link target
 					if($link['target'] !== 'auto') {
@@ -576,10 +564,10 @@ Class Menu {
 				$link_classes = empty($link_classes) ? '' : ' class="' . implode(' ', $link_classes) . '"';
 
 				# subtree
-				$tree = empty($tree) ? '' : '<ul class=dropdown>' . $tree . '</ul>';
+				$tree = empty($tree) ? '' : '<ul class="dropdown">' . $tree . '</ul>';
 
 				# output
-				$menu .= '<li' . $classes . $data_options . '><a href="'.$url.'"'.$link_classes.$target.$data_popup.$data_popup_content.$data_popup_class.$data_popup_window. '>' . $label . '</a>' . $data_data . $tree . '</li>';
+				$menu .= '<li' . $classes . $data_options . '><a href="' . htmlspecialchars($url) . '"'.$link_classes.$target.$data_popup.$data_popup_content.$data_popup_class.$data_popup_window.$nofollow. '>' . $label . '</a>' . $data_data . $tree . '</li>';
 			}
 		}
 		return $menu;

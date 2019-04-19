@@ -567,6 +567,9 @@
 		  	"enabled": {
 		      "type": "boolean"
 		    },
+        "auto_open": {
+          "type": "boolean"
+        },
 		    "captionEl": {
 		      "type": "boolean"
 		    },
@@ -592,6 +595,9 @@
               "type": "boolean"
             },
             "download": {
+              "type": "boolean"
+            },
+            "map": {
               "type": "boolean"
             }
           }
@@ -1137,6 +1143,9 @@
 		        "page_meta_content": {
 		          "type": "boolean"
 		        },
+            "page_meta_scrollfade": {
+              "type": "boolean"
+            },
     				"button_down": {
 		          "type": "boolean"
 		        },
@@ -1352,7 +1361,7 @@
       "items": [
       	{
           "type": "help",
-          "helpvalue": "<h2>Content</h2>Add your custom page content here. <a href=# class=show-help></a><div class=hidden><h3>Content</h3><p>Content is part of the page <code>context</code> layout, and is basically where you add your custom page html content. You can leave the content empty if you are creating a gallery-page or a folders-listing page.</p><p>The content field supports <a href=https://help.github.com/articles/markdown-basics/ target=_blank>markdown</a> and html.</p></div>"
+          "helpvalue": "<h2>Content</h2>Add your custom page content here. <a href=# class=show-help></a><div class=hidden><h3>Content</h3><p>Content is part of the page <code>context</code> layout, and is basically where you add your custom page html content. You can leave the content empty if you are creating a gallery-page or a folders-listing page.</p><p>The content field supports <a href=https://help.github.com/articles/markdown-basics/ target=\"_blank\">markdown</a> and html.</p></div>"
         },
       	{
           "key": "content",
@@ -1808,7 +1817,7 @@
 	            {
 	              "type": "help",
 	              "htmlClass": "section-title",
-	              "helpvalue": "Columns Layout <a href=# class=show-help></a><div class=hidden><h3>Columns Layout</h3><p>Use the columns layout <a href=\"https://demo.imagevuex.com/examples/folders/columns/\" target=_blank>[Demo]</a> to create a vertical masonry-style layout which emphasizes portrait aspect images. This layout will scale images within the columns to allow an elegant layout which fills the space available. There are two ways to configure the columns layout:</p><h4>Set Amount</h4><p>Set the amount of columns.</p><h4>Set Width</h4><p><code>Recommended</code> This setting allows you to set a column target-width, which decides how many columns are able to fit into the layout. This setting is <em>recommended</em> because the amount of columns displaying will depend on the width of screen, making the layout responsive.</p></div>"
+	              "helpvalue": "Columns Layout <a href=# class=show-help></a><div class=hidden><h3>Columns Layout</h3><p>Use the columns layout <a href=\"https://demo.photo.gallery/examples/folders/columns/\" target=\"_blank\">[Demo]</a> to create a vertical masonry-style layout which emphasizes portrait aspect images. This layout will scale images within the columns to allow an elegant layout which fills the space available. There are two ways to configure the columns layout:</p><h4>Set Amount</h4><p>Set the amount of columns.</p><h4>Set Width</h4><p><code>Recommended</code> This setting allows you to set a column target-width, which decides how many columns are able to fit into the layout. This setting is <em>recommended</em> because the amount of columns displaying will depend on the width of screen, making the layout responsive.</p></div>"
 	            },
 	            {
 	              "key": "folders.columns.use_width",
@@ -1891,7 +1900,7 @@
 	            },
 	            {
 	              "key": "folders.carousel.tabs",
-	              "inlinetitle": "Show Tabs <a href=# class=show-help></a><div class=hidden><h3>Show Tabs</h3><p>When enabled, tab buttons will be created for each page in the carousel <a href=https://demo.imagevuex.com/examples/folders/carousel-tabs/ target=_blank>[see demo]</a>. Although carousel with tabs has several limitations, it can be very useful to create an interactive timeline-effect for groups of pages.</p><h4>Carousel Tabs Info</h4><ul><li>When tabs are enabled, carousel <code>amount</code> will always be set to 1, since tabs only support a single active item visible on screen.</li><li>Tabs should normally be used with the <code>Split View</code> folders setting as in the <a href=https://demo.imagevuex.com/examples/folders/carousel-tabs/ target=_blank>demo</a>.</li><li>Tabs are populated by page <em>label</em> or page <em>slug</em> (folder name) if label is not set. Titles are not used because they are often too long and will display in the carousel anyway. Tab titles should be short and accurate.</li><li>Unless all your folder preview images are all the same aspect, you should use the <code>Crop Preview Images</code> setting (for example 3:2) to achieve a uniform carousel layout. If images are at different size, the carousel will scale to the size of the tallest image in the carousel, which will leave a lot of empty space.</li></ul></div>",
+	              "inlinetitle": "Show Tabs <a href=# class=show-help></a><div class=hidden><h3>Show Tabs</h3><p>When enabled, tab buttons will be created for each page in the carousel <a href=https://demo.photo.gallery/examples/folders/carousel-tabs/ target=\"_blank\">[see demo]</a>. Although carousel with tabs has several limitations, it can be very useful to create an interactive timeline-effect for groups of pages.</p><h4>Carousel Tabs Info</h4><ul><li>When tabs are enabled, carousel <code>amount</code> will always be set to 1, since tabs only support a single active item visible on screen.</li><li>Tabs should normally be used with the <code>Split View</code> folders setting as in the <a href=https://demo.photo.gallery/examples/folders/carousel-tabs/ target=\"_blank\">demo</a>.</li><li>Tabs are populated by page <em>label</em> or page <em>slug</em> (folder name) if label is not set. Titles are not used because they are often too long and will display in the carousel anyway. Tab titles should be short and accurate.</li><li>Unless all your folder preview images are all the same aspect, you should use the <code>Crop Preview Images</code> setting (for example 3:2) to achieve a uniform carousel layout. If images are at different size, the carousel will scale to the size of the tallest image in the carousel, which will leave a lot of empty space.</li></ul></div>",
 	              "toggleNext": 1
 	            },
 	            {
@@ -1931,7 +1940,7 @@
         },
         {
           "type": "section",
-          "htmlClass": "overflow-auto",
+          "htmlClass": "overflow-auto folders-crop-setting",
           "items": [
             {
               "key": "folders.crop.enabled",
@@ -2202,7 +2211,7 @@
 		            {
 		              "type": "help",
 		              "htmlClass": "section-title",
-		              "helpvalue": "Columns Layout <a href=# class=show-help></a><div class=hidden><h3>Columns Layout</h3><p>Use the columns layout <a href=\"https://demo.imagevuex.com/galleries/femme/\" target=_blank>[Demo]</a> to create a vertical masonry-style layout which emphasizes portrait aspect images. This layout will scale images within the columns to allow an elegant layout which fills the space available. There are two ways to configure the columns layout:</p><h4>Set Amount</h4><p>Set the amount of columns.</p><h4>Set Width</h4><p><code>Recommended</code> This setting allows you to set a column target-width, which decides how many columns are able to fit into the layout. This setting is <em>recommended</em> because the amount of columns displaying will depend on the width of screen, making the layout responsive.</p></div>"
+		              "helpvalue": "Columns Layout <a href=# class=show-help></a><div class=hidden><h3>Columns Layout</h3><p>Use the columns layout <a href=\"https://demo.photo.gallery/galleries/femme/\" target=\"_blank\">[Demo]</a> to create a vertical masonry-style layout which emphasizes portrait aspect images. This layout will scale images within the columns to allow an elegant layout which fills the space available. There are two ways to configure the columns layout:</p><h4>Set Amount</h4><p>Set the amount of columns.</p><h4>Set Width</h4><p><code>Recommended</code> This setting allows you to set a column target-width, which decides how many columns are able to fit into the layout. This setting is <em>recommended</em> because the amount of columns displaying will depend on the width of screen, making the layout responsive.</p></div>"
 		            },
 		            {
 		              "key": "gallery.columns.use_width",
@@ -2285,7 +2294,7 @@
 		            },
 		            {
 		              "key": "gallery.carousel.tabs",
-		              "inlinetitle": "Show Tabs <a href=# class=show-help></a><div class=hidden><h3>Show Tabs</h3><p>When enabled, tab buttons will be created for each image in the carousel <a href=https://demo.imagevuex.com/examples/variations/carousel-tabs/ target=_blank>[see demo]</a>. Although carousel with tabs has several limitations, it can be very useful to create an interactive timeline-effect for small groups of images.</p><h4>Carousel Tabs Info</h4><ul><li>When tabs are enabled, carousel <code>amount</code> will always be set to 1, since tabs only support a single active item visible on screen.</li><li>Tabs work best with a small amount of images so that tabs fit on a single row.</li><li>Tabs should normally be used with the <code>Split View</code> gallery setting as in the <a href=https://demo.imagevuex.com/examples/variations/carousel-tabs/ target=_blank>demo</a>.</li><li>Remember to add title and/or description to <code>items</code> when using split view.</li><li>Tabs are populated by image <em>name</em>, not <em>title</em>. This is because image titles are often too long, and will display in the carousel anyway. Tab titles should be short and accurate.</li><li>Unless all your images are the same aspect, you should use the <code>Crop Images</code> setting (for example 3:2) to achieve a uniform carousel layout. If images are at different size, the carousel will scale to the size of the tallest image in the carousel, which will leave a lot of empty space.</li></ul></div>",
+		              "inlinetitle": "Show Tabs <a href=# class=show-help></a><div class=hidden><h3>Show Tabs</h3><p>When enabled, tab buttons will be created for each image in the carousel <a href=https://demo.photo.gallery/examples/variations/carousel-tabs/ target=\"_blank\">[see demo]</a>. Although carousel with tabs has several limitations, it can be very useful to create an interactive timeline-effect for small groups of images.</p><h4>Carousel Tabs Info</h4><ul><li>When tabs are enabled, carousel <code>amount</code> will always be set to 1, since tabs only support a single active item visible on screen.</li><li>Tabs work best with a small amount of images so that tabs fit on a single row.</li><li>Tabs should normally be used with the <code>Split View</code> gallery setting as in the <a href=https://demo.photo.gallery/examples/variations/carousel-tabs/ target=\"_blank\">demo</a>.</li><li>Remember to add title and/or description to <code>items</code> when using split view.</li><li>Tabs are populated by image <em>name</em>, not <em>title</em>. This is because image titles are often too long, and will display in the carousel anyway. Tab titles should be short and accurate.</li><li>Unless all your images are the same aspect, you should use the <code>Crop Images</code> setting (for example 3:2) to achieve a uniform carousel layout. If images are at different size, the carousel will scale to the size of the tallest image in the carousel, which will leave a lot of empty space.</li></ul></div>",
 		              "toggleNext": 1
 		            },
 		            {
@@ -2316,7 +2325,7 @@
 		            },
 		            {
 						      "key": "gallery.slideshow.background",
-						      "inlinetitle": "Use as Intro <a href=# class=show-help></a><div class=hidden><h3>Slideshow Intro</h3><p>When enabled, your gallery slideshow will be positioned as an intro at top of page, behind the main menu. This feature is useful for start pages and special feature pages.</p><p><a href=https://demo.imagevuex.com/examples/plugins/slideshow-intro/ target=_blank>[View demo]</a></p><p><em>* By enabling this setting, slideshow will always be placed at top of page at full width.<br>* It is recommended to use the \"cover\" fit for slideshow intro.</em></p></div>",
+						      "inlinetitle": "Use as Intro <a href=# class=show-help></a><div class=hidden><h3>Slideshow Intro</h3><p>When enabled, your gallery slideshow will be positioned as an intro at top of page, behind the main menu. This feature is useful for start pages and special feature pages.</p><p><a href=https://demo.photo.gallery/examples/plugins/slideshow-intro/ target=\"_blank\">[View demo]</a></p><p><em>* By enabling this setting, slideshow will always be placed at top of page at full width.<br>* It is recommended to use the \"cover\" fit for slideshow intro.</em></p></div>",
 						      "toggleNext": 1
 						    },
 						    {
@@ -2349,9 +2358,9 @@
 								    },
 								    {
 								      "key": "gallery.slideshow.hide_footer",
-								      "htmlClass": "only-license",
+								      "htmlClass": "x3-license-only",
 								      "notitle": true,
-								      "inlinetitle": "Hide Footer <a href=# class=show-help></a><div class=hidden><h3>Hide Footer</h3><p>A shortcut setting to hide the footer for this specific page.</p></div>"
+								      "inlinetitle": "Hide Footer <span class=\"x3-not-license\"></span><a href=# class=show-help></a><div class=hidden><h3>Hide Footer</h3><p>A shortcut setting to hide the footer for this specific page.</p></div>"
 								    }
 								  ]
 								},
@@ -2500,7 +2509,7 @@
         },
         {
           "type": "section",
-          "htmlClass": "overflow-auto",
+          "htmlClass": "overflow-auto gallery-crop-setting",
           "items": [
             {
               "key": "gallery.crop.enabled",
@@ -2573,7 +2582,7 @@
 						  	{
 				          "key": "gallery.items",
 				          "htmlClass": "settings_selectize",
-				          "title": "Inline Caption <a href=# class=show-help></a><div class=hidden><h3>Inline Caption Items</h3><p>This setting is used to set inline caption items for images in the gallery, and in which order the items display. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code><code>preview</code></span>.</p><p><code>Important!</code><br><em>Justified</em> and <em>Columns</em> layouts do not support inline captions, because they use a masonry-like layout that stacks images and does not support text. If you require captions for these layouts, you need to use <em>caption overlay</em> or <em>tooltip caption</em>.</p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard</em></p><h4>Items</h4><p><code>title</code> displays the title for each image.</p><p><code>date</code> displays the image date.</p><p><code>preview</code> displays a preview of the actual image.</p><p><code>description</code> displays the image description, if it exists.</p><h4>Examples</h4><p>Default gallery items, shows only a preview for each image (no caption).<span class=code-line><code>preview</code></span></p><p>You can add image title and description by adding these items before the preview. <span class=code-line><code>title</code><code>description</code><code>preview</code></span></p><p>Display date below the preview image.<span class=code-line><code>preview</code><code>date</code></span></p><p><em>* Items do not apply for the slideshow layout.</em></p></div><span class='hidden selectize-items'>title,date,description,preview</span>",
+				          "title": "Inline Caption <a href=# class=show-help></a><div class=hidden><h3>Inline Caption Items</h3><p>This setting is used to set inline caption items for images in the gallery, and in which order the items display. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code><code>preview</code></span>.</p><p><code>Important!</code><br><em>Justified</em> and <em>Columns</em> layouts do not support inline captions, because they use a masonry-like layout that stacks images and does not support text. If you require captions for these layouts, you need to use <em>caption overlay</em> or <em>tooltip caption</em>.</p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard</em></p><h4>Items</h4><p><code>title</code> displays the title for each image.</p><p><code>date</code> displays the image date.</p><p><code>preview</code> displays a preview of the actual image.</p><p><code>description</code> displays the image description, if it exists.</p><h4>Examples</h4><p>Default gallery items, shows only a preview for each image (no caption).<span class=code-line><code>preview</code></span></p><p>You can add image title and description by adding these items before the preview. <span class=code-line><code>title</code><code>description</code><code>preview</code></span></p><p>Display date below the preview image.<span class=code-line><code>preview</code><code>date</code></span></p><p><em>* Items do not apply for the slideshow layout.</em></p></div><span class='hidden selectize-items'>title,date,description,maplink,preview</span>",
 				          "description": "Add the caption items you want to display in addition to the preview image."
 				        },
 				        {
@@ -2606,7 +2615,7 @@
 		            },
 		            {
 		              "key": "gallery.caption.items",
-		              "title": "Caption Items <span>[tags]</span><a href=# class=show-help></a><div class=hidden><h3>Caption Overlay Items</h3><p>Select default items to display in the caption overlay. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code></span></p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard.</em></p></div><span class='hidden selectize-items'>title,date,description</span>",
+		              "title": "Caption Items <span>[tags]</span><a href=# class=show-help></a><div class=hidden><h3>Caption Overlay Items</h3><p>Select default items to display in the caption overlay. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code></span></p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard.</em></p></div><span class='hidden selectize-items'>title,date,description,maplink</span>",
 		          		"htmlClass": "settings_selectize"
 		            },
 		            {
@@ -2753,9 +2762,13 @@
 								  "type": "section",
 								  "htmlClass": "group-bg",
 								  "items": [
+                    {
+                      "key": "popup.auto_open",
+                      "title": "Popup Settings",
+                      "inlinetitle": "Auto Open <a href=# class=show-help></a><div class=hidden><h3>Popup Auto Open</h3><p>If enabled, first image in the gallery will immediately open and display in popup after page load.</p></div>"
+                    },
 								  	{
 										  "key": "popup.zoomEl",
-										  "title": "Popup Settings",
 										  "inlinetitle": "Zoom Button <a href=# class=show-help></a><div class=hidden><h3>Show Zoom Button</h3><p>Show the zoom button, which allows the visitor to zoom the image to original size.</p><p><em>* The zoom button is only visible if the image can be scaled up without exceeding original dimensions.</em></p></div>"
 										},
 								  	{
@@ -2788,13 +2801,18 @@
 						            },
 						            {
 						              "key": "popup.caption.exif",
-						              "inlinetitle": "EXIF <a href=# class=show-help></a><div class=hidden><h3>Show EXIF in caption</h3><p>Include <a href=http://www.makeuseof.com/tag/exif-photo-data-find-understand/ target=_blank>image EXIF</a> data in the caption. By default, the following EXIF values will display: <code>Model</code><code>Aperture</code><code>Focal_length</code><code>Exposure</code><code>ISO</code></p><p><em>* EXIF only displays if your image has EXIF meta data available.</em></p></div>",
+						              "inlinetitle": "EXIF <a href=# class=show-help></a><div class=hidden><h3>Show EXIF in caption</h3><p>Include <a href=http://www.makeuseof.com/tag/exif-photo-data-find-understand/ target=\"_blank\">image EXIF</a> data in the caption. By default, the following EXIF values will display: <code>Model</code><code>Aperture</code><code>Focal_length</code><code>Exposure</code><code>ISO</code></p><p><em>* EXIF only displays if your image has EXIF meta data available.</em></p></div>",
 						              "notitle": true
 						            },
 						            {
 						              "key": "popup.caption.download",
 						              "inlinetitle": "Download button <a href=# class=show-help></a><div class=hidden><h3>Download button in caption</h3><p>Adds a convenient download button directly to caption, making it easy for your visitors to download the image.</p></div>"
-						            }
+						            },
+                        {
+                          "key": "popup.caption.map",
+                          "htmlClass": "x3-pro-only",
+                          "inlinetitle": "Map button <span class=\"x3-not-pro\"></span><a href=# class=show-help></a><div class=hidden><h3>Map button in caption</h3><p>Adds a view map button directly to caption if the image contains GPS location data <a href=\"https://demo.photo.gallery/examples/features/exif/#&gid=1&pid=kinsarvik-church\" target=\"_blank\">[demo]</a>.</p></div>"
+                        }
 						          ]
 						        }
 									]
@@ -2840,7 +2858,7 @@
 				  "items": [
 				    {
 				      "type": "help",
-				      "helpvalue": "The <a href=# class='text-help'>page intro</a> plugin allows you to add an image, color or gradient intro at top of page <a href=https://demo.imagevuex.com/examples/plugins/intro-image/ target=_blank>[demo1]</a> <a href=https://demo.imagevuex.com/examples/plugins/intro-gradient/ target=_blank>[demo2]</a><div class=hidden><h2>Page Intro Plugin</h2><p>The <em>page intro</em> plugin allows you to add an image, color or gradient as an introduction at the top of the page. The intro can display <em>behind-</em> or <em>below</em> the menu, at any height, and you can include page context items.</p><p><a href=https://demo.imagevuex.com/examples/plugins/intro-image/ target=_blank>[Intro image demo]</a><br><a href=https://demo.imagevuex.com/examples/plugins/intro-gradient/ target=_blank>[Intro gradient demo]</a></p></div>"
+				      "helpvalue": "The <a href=# class='text-help'>page intro</a> plugin allows you to add an image, color or gradient intro at top of page <a href=https://demo.photo.gallery/examples/plugins/intro-image/ target=\"_blank\">[demo1]</a> <a href=https://demo.photo.gallery/examples/plugins/intro-gradient/ target=\"_blank\">[demo2]</a><div class=hidden><h2>Page Intro Plugin</h2><p>The <em>page intro</em> plugin allows you to add an image, color or gradient as an introduction at the top of the page. The intro can display <em>behind-</em> or <em>below</em> the menu, at any height, and you can include page context items.</p><p><a href=https://demo.photo.gallery/examples/plugins/intro-image/ target=\"_blank\">[Intro image demo]</a><br><a href=https://demo.photo.gallery/examples/plugins/intro-gradient/ target=\"_blank\">[Intro gradient demo]</a></p></div>"
 				    },
 				    {
 				      "key": "plugins.image_background.enabled",
@@ -2849,11 +2867,11 @@
 				    },
 				    {
 				      "key": "plugins.image_background.src",
-				      "title": "Image source <span>[image, color or gradient]</span><a href=# class=show-help></a><div class=hidden><h2>Intro Image Source</h2><p>Add a path to an image that will be used as image in the intro area, or use a solid color or a gradient.</p><h4>Image</h4><p>Include the path to the image you want to use in the intro area. Normally, you would use a full-size image in <code>cover</code> mode, but you can also use a repeating background image. <em>Examples:</em></p><p><code>imagename.jpg</code><br>Link to an image inside the current folder.</p><p><code>/path/to/imagename.jpg</code><br>Link to an image in another folder relative to your website root.</p><h4>Color</h4><p>You can also use a solid color background, for example <code>#FFC000</code> or <code>tomato</code>.</p><h4>Gradient</h4><p>You can also use CSS gradients, for example <code>linear-gradient(red, orange)</code> or <code>radial-gradient(farthest-corner, yellow, #f06d06)</code>.</p><p><em>* <a href=https://css-tricks.com/css3-gradients/ target=_blank>CSS gradients</a> are very powerful, but we can't cover all the syntax here.<br>** Add gradients without vendor-prefixes.</em><br></p><p><a href=https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients target=_blank>* developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients</a><br><a href=http://www.w3schools.com/css/css3_gradients.asp target=_blank>* www.w3schools.com/css/css3_gradients.asp</a><br><a href=http://uigradients.com/ target=_blank>* uigradients.com</a></p></div>"
+				      "title": "Image source <span>[image, color or gradient]</span><a href=# class=show-help></a><div class=hidden><h2>Intro Image Source</h2><p>Add a path to an image that will be used as image in the intro area, or use a solid color or a gradient.</p><h4>Image</h4><p>Include the path to the image you want to use in the intro area. Normally, you would use a full-size image in <code>cover</code> mode, but you can also use a repeating background image. <em>Examples:</em></p><p><code>imagename.jpg</code><br>Link to an image inside the current folder.</p><p><code>/path/to/imagename.jpg</code><br>Link to an image in another folder relative to your website root.</p><h4>Color</h4><p>You can also use a solid color background, for example <code>#FFC000</code> or <code>tomato</code>.</p><h4>Gradient</h4><p>You can also use CSS gradients, for example <code>linear-gradient(red, orange)</code> or <code>radial-gradient(farthest-corner, yellow, #f06d06)</code>.</p><p><em>* <a href=https://css-tricks.com/css3-gradients/ target=\"_blank\">CSS gradients</a> are very powerful, but we can't cover all the syntax here.<br>** Add gradients without vendor-prefixes.</em><br></p><p><a href=https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients target=\"_blank\">* developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients</a><br><a href=http://www.w3schools.com/css/css3_gradients.asp target=\"_blank\">* www.w3schools.com/css/css3_gradients.asp</a><br><a href=http://uigradients.com/ target=\"_blank\">* uigradients.com</a></p></div>"
 				    },
 				    {
 		          "type": "section",
-		          "htmlClass": "overflow-auto custom-bg2",
+		          "htmlClass": "custom-bg2 overflow-auto",
 		          "items": [
 		          	{
 		              "type": "help",
@@ -2873,7 +2891,12 @@
 						      "key": "plugins.image_background.page_meta_content",
 						      "htmlClass": "inline-group",
 						      "inlinetitle": "content"
-						    }
+						    },
+                {
+                  "key": "plugins.image_background.page_meta_scrollfade",
+                  "htmlClass": "clear-node",
+                  "inlinetitle": "Fade text on scroll <a href=# class=show-help></a><div class=hidden><h3>Fade intro text on scroll</h3><p>When enabled, selected text items will fade out when scrolling down the page.</p></div>"
+                }
 		          ]
 		        },
             {
@@ -2891,11 +2914,11 @@
 		            {
 						      "key": "plugins.image_background.size",
 						      "htmlClass": "settings_selectize",
-						      "title": "Background Size <a href=# class=show-help></a><div class=hidden><h2>Background Size</h2><p>Background size decides how the source scales within the intro area. Mainly used for image sources, but may have some effect on gradients also.</p><p><code>auto</code><br>Your background image will display at original size. Use this option if you have a repeating background pattern, or if you don't want the image to scale to fit screen.</p><p><code>cover</code> <em>*default</em><br>Scale the background image so that the intro area is completely covered. Some parts of the image may not be in view within the intro area.</p><p><code>contain</code><br>Scale the image to the largest size such that both its width and its height can fit inside the intro area. <em>* Normally does not look nice, as it means the image will repeat within the intro area.</em></p><p><code>[width] [height]</code><br>Set custom width and height values (using units %, px or vw/vh). The first value sets the width, the second value sets the height. If only one value is given, the second is set to \"auto\".</p><p><strong>CSS Background Size</strong><br><a href=http://www.w3schools.com/cssref/css3_pr_background-size.asp target=_blank>www.w3schools.com/cssref/css3_pr_background-size.asp</a></p><p><em>* Size does not apply for solid colors.</em></p></div><span class='hidden selectize-items selectize-create selectize-single'>auto,cover,contain</span>"
+						      "title": "Background Size <a href=# class=show-help></a><div class=hidden><h2>Background Size</h2><p>Background size decides how the source scales within the intro area. Mainly used for image sources, but may have some effect on gradients also.</p><p><code>auto</code><br>Your background image will display at original size. Use this option if you have a repeating background pattern, or if you don't want the image to scale to fit screen.</p><p><code>cover</code> <em>*default</em><br>Scale the background image so that the intro area is completely covered. Some parts of the image may not be in view within the intro area.</p><p><code>contain</code><br>Scale the image to the largest size such that both its width and its height can fit inside the intro area. <em>* Normally does not look nice, as it means the image will repeat within the intro area.</em></p><p><code>[width] [height]</code><br>Set custom width and height values (using units %, px or vw/vh). The first value sets the width, the second value sets the height. If only one value is given, the second is set to \"auto\".</p><p><strong>CSS Background Size</strong><br><a href=http://www.w3schools.com/cssref/css3_pr_background-size.asp target=\"_blank\">www.w3schools.com/cssref/css3_pr_background-size.asp</a></p><p><em>* Size does not apply for solid colors.</em></p></div><span class='hidden selectize-items selectize-create selectize-single'>auto,cover,contain</span>"
 						    },
 		            {
 						      "key": "plugins.image_background.position",
-						      "title": "Background Position <span>[x, y]</span><a href=# class=show-help></a><div class=hidden><h2>Background Position</h2><p>Set the starting position for the background image. Since the image normally gets cropped within the intro area, position is set to center <code>50% 50%</code> by default.</p><p><strong>CSS Background Position</strong><br><a href=http://www.w3schools.com/cssref/pr_background-position.asp target=_blank>www.w3schools.com/cssref/pr_background-position.asp</a></p><p><em>* Position does not apply for solid colors.</em></p></div>"
+						      "title": "Background Position <span>[x, y]</span><a href=# class=show-help></a><div class=hidden><h2>Background Position</h2><p>Set the starting position for the background image. Since the image normally gets cropped within the intro area, position is set to center <code>50% 50%</code> by default.</p><p><strong>CSS Background Position</strong><br><a href=http://www.w3schools.com/cssref/pr_background-position.asp target=\"_blank\">www.w3schools.com/cssref/pr_background-position.asp</a></p><p><em>* Position does not apply for solid colors.</em></p></div>"
 						    }
 		          ]
 		        },
@@ -2947,9 +2970,9 @@
 				    },
 				    {
 				      "key": "plugins.image_background.hide_footer",
-				      "htmlClass": "only-license",
+				      "htmlClass": "x3-license-only",
 				      "notitle": true,
-				      "inlinetitle": "Hide Footer <a href=# class=show-help></a><div class=hidden><h2>Hide Footer</h2><p>A shortcut to hide the footer for this page.</p></div>"
+				      "inlinetitle": "Hide Footer <span class=\"x3-not-license\"></span><a href=# class=show-help></a><div class=hidden><h2>Hide Footer</h2><p>A shortcut to hide the footer for this page.</p></div>"
 				    }
 				  ]
 				},
@@ -2961,7 +2984,7 @@
 				  "items": [
 				    {
 				      "type": "help",
-				      "helpvalue": "The <a href=# class='text-help'>background plugin</a> allows you to add a background image, gradient or color to your page. <a href=https://demo.imagevuex.com/examples/plugins/background-image/ target=_blank>[demo]</a><div class=hidden><h2>Background Plugin</h2><p>The background plugin allows you to add an image, gradient or color as background for your page. The background can be attached to top or content.</p><p><a href=https://demo.imagevuex.com/examples/plugins/background-image/ target=_blank>[Background plugin demo]</a></p></div>"
+				      "helpvalue": "The <a href=# class='text-help'>background plugin</a> allows you to add a background image, gradient or color to your page. <a href=https://demo.photo.gallery/examples/plugins/background-image/ target=\"_blank\">[demo]</a><div class=hidden><h2>Background Plugin</h2><p>The background plugin allows you to add an image, gradient or color as background for your page. The background can be attached to top or content.</p><p><a href=https://demo.photo.gallery/examples/plugins/background-image/ target=\"_blank\">[Background plugin demo]</a></p></div>"
 				    },
 				    {
 				      "key": "plugins.background.enabled",
@@ -2971,7 +2994,7 @@
 				    },
 				    {
 				      "key": "plugins.background.src",
-				      "title": "Background source <span>[image or gradient]</span><a href=# class=show-help></a><div class=hidden><h2>Background Source</h2><p>Add an image or gradient as source of the background.</p><h4>Image</h4><p>Include the path to the image you want to use as background. Normally, you would use a full-size image in <code>cover</code> mode, but you can also use a repeating background image. <em>Examples:</em></p><p><code>imagename.jpg</code><br>Link to an image inside the current folder.</p><p><code>/path/to/imagename.jpg</code><br>Link to an image in another folder relative to your website root.</p><h4>Gradient</h4><p>You can also use CSS gradients, for example <code>linear-gradient(red, orange)</code> or <code>radial-gradient(farthest-corner, yellow, #f06d06)</code>.</p><p><em>* <a href=https://css-tricks.com/css3-gradients/ target=_blank>CSS gradients</a> are very powerful, but we can't cover all the syntax here.<br>** Add gradients without vendor-prefixes.</em><br></p><p><a href=https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients target=_blank>* developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients</a><br><a href=http://www.w3schools.com/css/css3_gradients.asp target=_blank>* www.w3schools.com/css/css3_gradients.asp</a><br><a href=http://uigradients.com/ target=_blank>* uigradients.com</a></p></div>",
+				      "title": "Background source <span>[image or gradient]</span><a href=# class=show-help></a><div class=hidden><h2>Background Source</h2><p>Add an image or gradient as source of the background.</p><h4>Image</h4><p>Include the path to the image you want to use as background. Normally, you would use a full-size image in <code>cover</code> mode, but you can also use a repeating background image. <em>Examples:</em></p><p><code>imagename.jpg</code><br>Link to an image inside the current folder.</p><p><code>/path/to/imagename.jpg</code><br>Link to an image in another folder relative to your website root.</p><h4>Gradient</h4><p>You can also use CSS gradients, for example <code>linear-gradient(red, orange)</code> or <code>radial-gradient(farthest-corner, yellow, #f06d06)</code>.</p><p><em>* <a href=https://css-tricks.com/css3-gradients/ target=\"_blank\">CSS gradients</a> are very powerful, but we can't cover all the syntax here.<br>** Add gradients without vendor-prefixes.</em><br></p><p><a href=https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients target=\"_blank\">* developer.mozilla.org/en-US/docs/Web/CSS/CSS_Images/Using_CSS_gradients</a><br><a href=http://www.w3schools.com/css/css3_gradients.asp target=\"_blank\">* www.w3schools.com/css/css3_gradients.asp</a><br><a href=http://uigradients.com/ target=\"_blank\">* uigradients.com</a></p></div>",
 				      "placeholder": "filename.jpg"
 				    },
 				    {
@@ -2981,18 +3004,18 @@
 				    },
 				    {
 				      "key": "plugins.background.repeat",
-				      "title": "Background Repeat <a href=# class=show-help></a><div class=hidden><h2>Background Repeat</h2><p>Decides if background source will be repeated. By default, a background-image is repeated both vertically and horizontally.</p><p><strong>CSS Background Repeat</strong><br><a href=http://www.w3schools.com/cssref/pr_background-repeat.asp target=_blank>www.w3schools.com/cssref/pr_background-repeat.asp</a></p></div>",
+				      "title": "Background Repeat <a href=# class=show-help></a><div class=hidden><h2>Background Repeat</h2><p>Decides if background source will be repeated. By default, a background-image is repeated both vertically and horizontally.</p><p><strong>CSS Background Repeat</strong><br><a href=http://www.w3schools.com/cssref/pr_background-repeat.asp target=\"_blank\">www.w3schools.com/cssref/pr_background-repeat.asp</a></p></div>",
 				      "type": "radiobuttons",
 				      "activeClass": "btn-primary"
 				    },
 				    {
 				      "key": "plugins.background.size",
 				      "htmlClass": "settings_selectize",
-				      "title": "Background Size <a href=# class=show-help></a><div class=hidden><h2>Background Size</h2><p>Background size decides how the background image scales. Mainly used for image sources, but may have some effect on gradients also.</p><p><code>auto</code><br>Your background image will display at original size. Use this option if you have a repeating background pattern, or if you don't want the image to scale to fit screen.</p><p><code>100%</code> <em>*default</em><br>Scale the background image to cover width of screen.</p><p><code>[width] [height]</code><br>Set custom width and height values (using units %, px or vw/vh). The first value sets the width, the second value sets the height. If only one value is given, the second is set to \"auto\".</p><p><strong>CSS Background Size</strong><br><a href=http://www.w3schools.com/cssref/css3_pr_background-size.asp target=_blank>www.w3schools.com/cssref/css3_pr_background-size.asp</a></p></div><span class='hidden selectize-items selectize-create selectize-single'>auto,100%,cover,contain</span>"
+				      "title": "Background Size <a href=# class=show-help></a><div class=hidden><h2>Background Size</h2><p>Background size decides how the background image scales. Mainly used for image sources, but may have some effect on gradients also.</p><p><code>auto</code><br>Your background image will display at original size. Use this option if you have a repeating background pattern, or if you don't want the image to scale to fit screen.</p><p><code>100%</code> <em>*default</em><br>Scale the background image to cover width of screen.</p><p><code>[width] [height]</code><br>Set custom width and height values (using units %, px or vw/vh). The first value sets the width, the second value sets the height. If only one value is given, the second is set to \"auto\".</p><p><strong>CSS Background Size</strong><br><a href=http://www.w3schools.com/cssref/css3_pr_background-size.asp target=\"_blank\">www.w3schools.com/cssref/css3_pr_background-size.asp</a></p></div><span class='hidden selectize-items selectize-create selectize-single'>auto,100%,cover,contain</span>"
 				    },
 				    {
 				      "key": "plugins.background.position",
-				      "title": "Background Position <span>[x, y]</span><a href=# class=show-help></a><div class=hidden><h2>Background Position</h2><p>Set the starting position for the background image. Default starting position is center top <code>50% 0%</code>.</p><p><strong>CSS Background Position</strong><br><a href=http://www.w3schools.com/cssref/pr_background-position.asp target=_blank>www.w3schools.com/cssref/pr_background-position.asp</a></p><p><em>* Position does not apply for solid colors.</em></p></div>"
+				      "title": "Background Position <span>[x, y]</span><a href=# class=show-help></a><div class=hidden><h2>Background Position</h2><p>Set the starting position for the background image. Default starting position is center top <code>50% 0%</code>.</p><p><strong>CSS Background Position</strong><br><a href=http://www.w3schools.com/cssref/pr_background-position.asp target=\"_blank\">www.w3schools.com/cssref/pr_background-position.asp</a></p><p><em>* Position does not apply for solid colors.</em></p></div>"
 				    },
 				    {
 				      "key": "plugins.background.fixed",
@@ -3036,7 +3059,7 @@
           "items": [
             {
               "type": "help",
-              "helpvalue": "Use the <a href=# class='text-help'>video intro plugin</a> on your home page, or to emphasize certain special pages. <a href=https://demo.imagevuex.com/examples/plugins/video-intro/ target=_blank>[see demo]</a><div class=hidden><h2>Video Intro Plugin</h2><p>The video-background plugin allows you to use a video as page background. This plugin can be useful on your home page, or to emphasize certain special pages. To add a video-background to any page, simply upload an mp4 video file, and set the video source.</p><p><a href=https://demo.imagevuex.com/examples/plugins/video-intro/ target=_blank>[see demo]</a></p><h3>Limitations</h3><ul><li><strong>Autoplay limitations</strong><br>Some visitors may have disabled autoplay in their browser, in which case the video simply won't autoplay. Furthermore, many old mobile devices simply don't allow autoplay. To allow mobile devices to autoplay video, you must have the \"muted\" setting checked.</li><li><strong>Video Cropped</strong><br>For a <em>background</em> video to display nicely at any height, on any device, on any screen aspect, the video may be <em>cropped</em> appropriately to 'fit' the designated stage area.</li><li><strong>Does not work for sidebar layout</strong><br>Because of the technical difference of the sidebar layout, the video intro plugin currently only works for the topbar- and slidemenu layouts.</li><li><strong>H.264 encoded mp4 format</strong><br>Video in HTML5 is limited by various file formats and codecs. To be sure that your video displays properly across all browsers, the video should be encoded in H.264 codec, in mp4 format <a href='http://caniuse.com/#feat=mpeg4' target='_blank'>[ref]</a>.</li><li><strong>2MB Upload Limit</strong><br>Your host <em>may</em> have a 2MB upload limitation, in which case you would need to upload large video files by FTP into appropriate folders.</li><li><strong>Browser remembers play-state</strong><br>If a visitor clicks to 'pause' the video, the video will also be paused next time the page loads. This is just common sense.</li><li><strong>Slow internet connection</strong><br>If your video file is large, and the visitor is on a relatively slow connection, they may see the video start and stop frequently while buffering.</li><li><strong>Seamless Loop</strong><br>Don't expect the video to loop seamlessly in all browsers. Depending on the browser, it might take several milliseconds before the video re-starts after loop.</li></ul><h3>Recommendations</h3><p>The background-video plugin is intended to be used as a motion-background to compliment the page content. Don't use video just because you can or because it looks nice. We recommend using a short, subtle video loop, without sound, lasting only a few seconds, and compressed at acceptable file size.</p><p><strong>Useful Links:</strong><a href='http://thenewcode.com/777/Create-Fullscreen-HTML5-Page-Background-Video#considerations' target='_blank'>[1]</a><a href='http://www.sitepoint.com/designing-with-video-backgrounds' target='_blank'>[2]</a><a href='http://www.punkchip.com/autoplay-is-still-bad-for-all-users' target='_blank'>[3]</a></p></div>"
+              "helpvalue": "Use the <a href=# class='text-help'>video intro plugin</a> on your home page, or to emphasize certain special pages. <a href=https://demo.photo.gallery/examples/plugins/video-intro/ target=\"_blank\">[see demo]</a><div class=hidden><h2>Video Intro Plugin</h2><p>The video-background plugin allows you to use a video as page background. This plugin can be useful on your home page, or to emphasize certain special pages. To add a video-background to any page, simply upload an mp4 video file, and set the video source.</p><p><a href=https://demo.photo.gallery/examples/plugins/video-intro/ target=\"_blank\">[see demo]</a></p><h3>Limitations</h3><ul><li><strong>Autoplay limitations</strong><br>Some visitors may have disabled autoplay in their browser, in which case the video simply won't autoplay. Furthermore, many old mobile devices simply don't allow autoplay. To allow mobile devices to autoplay video, you must have the \"muted\" setting checked.</li><li><strong>Video Cropped</strong><br>For a <em>background</em> video to display nicely at any height, on any device, on any screen aspect, the video may be <em>cropped</em> appropriately to 'fit' the designated stage area.</li><li><strong>Does not work for sidebar layout</strong><br>Because of the technical difference of the sidebar layout, the video intro plugin currently only works for the topbar- and slidemenu layouts.</li><li><strong>H.264 encoded mp4 format</strong><br>Video in HTML5 is limited by various file formats and codecs. To be sure that your video displays properly across all browsers, the video should be encoded in H.264 codec, in mp4 format <a href='http://caniuse.com/#feat=mpeg4' target='_blank'>[ref]</a>.</li><li><strong>2MB Upload Limit</strong><br>Your host <em>may</em> have a 2MB upload limitation, in which case you would need to upload large video files by FTP into appropriate folders.</li><li><strong>Browser remembers play-state</strong><br>If a visitor clicks to 'pause' the video, the video will also be paused next time the page loads. This is just common sense.</li><li><strong>Slow internet connection</strong><br>If your video file is large, and the visitor is on a relatively slow connection, they may see the video start and stop frequently while buffering.</li><li><strong>Seamless Loop</strong><br>Don't expect the video to loop seamlessly in all browsers. Depending on the browser, it might take several milliseconds before the video re-starts after loop.</li></ul><h3>Recommendations</h3><p>The background-video plugin is intended to be used as a motion-background to compliment the page content. Don't use video just because you can or because it looks nice. We recommend using a short, subtle video loop, without sound, lasting only a few seconds, and compressed at acceptable file size.</p><p><strong>Useful Links:</strong><a href='http://thenewcode.com/777/Create-Fullscreen-HTML5-Page-Background-Video#considerations' target='_blank'>[1]</a><a href='http://www.sitepoint.com/designing-with-video-backgrounds' target='_blank'>[2]</a><a href='http://www.punkchip.com/autoplay-is-still-bad-for-all-users' target='_blank'>[3]</a></p></div>"
             },
             {
               "key": "plugins.video_background.src",
@@ -3116,9 +3139,9 @@
 		        },
             {
               "key": "plugins.video_background.hide_footer",
-              "htmlClass": "only-license",
+              "htmlClass": "x3-license-only",
               "notitle": true,
-              "inlinetitle": "Hide Footer <a href=# class=show-help></a><div class=hidden><h3>Hide Footer</h3><p>A shortcut setting to hide the footer for this specific page.</p></div>"
+              "inlinetitle": "Hide Footer <span class=\"x3-not-license\"></span><a href=# class=show-help></a><div class=hidden><h3>Hide Footer</h3><p>A shortcut setting to hide the footer for this specific page.</p></div>"
             }
           ]
         },
@@ -3130,7 +3153,7 @@
           "items": [
             {
               "type": "help",
-              "helpvalue": "Use the <a href=# class='text-help'>Fotomoto Plugin</a> to add e-commerce to your website. <a href=https://demo.imagevuex.com/examples/plugins/fotomoto/ target=_blank>[demo]</a><div class=hidden><h2>Fotomoto Plugin</h2><p>Integrate <a href=\"http://www.fotomoto.com/\" target=_blank>Fotomoto</a> e-commerce seamlessly into your X3 website with this plugin.</p><div class=\"embed-responsive embed-responsive-16by9 fa fa-play\" style=\"background:#EEE; font-size: 4em; text-align:center; cursor:pointer; line-height:5.5em;\" onclick=\"$(this).append('<iframe src=https://www.youtube.com/embed/DDG83B_ZFug frameborder=0 allowfullscreen></iframe>')\"></div><h3>Instructions</h3><ol><li>Create a <a href=\"http://www.fotomoto.com/\" target=_blank>Fotomoto</a> account.</li><li>Enable X3 Fotomoto plugin from global <em>settings &rsaquo; plugins &rsaquo; Fotomoto</em>.</li><li>Add your Fotomoto Store ID.</li><li>Done!</li></ol><p><em>* Prices and product management is done from your Fotomoto Dashboard.</em></p></div>"
+              "helpvalue": "Use the <a href=# class='text-help'>Fotomoto Plugin</a> to add e-commerce to your website. <a href=https://demo.photo.gallery/examples/plugins/fotomoto/ target=\"_blank\">[demo]</a><div class=hidden><h2>Fotomoto Plugin</h2><p>Integrate <a href=\"http://www.fotomoto.com/\" target=\"_blank\">Fotomoto</a> e-commerce seamlessly into your X3 website with this plugin.</p><div class=\"embed-responsive embed-responsive-16by9 fa fa-play\" style=\"background:#EEE; font-size: 4em; text-align:center; cursor:pointer; line-height:5.5em;\" onclick=\"$(this).append('<iframe src=https://www.youtube.com/embed/DDG83B_ZFug frameborder=0 allowfullscreen></iframe>')\"></div><h3>Instructions</h3><ol><li>Create a <a href=\"http://www.fotomoto.com/\" target=\"_blank\">Fotomoto</a> account.</li><li>Enable X3 Fotomoto plugin from global <em>settings &rsaquo; plugins &rsaquo; Fotomoto</em>.</li><li>Add your Fotomoto Store ID.</li><li>Done!</li></ol><p><em>* Prices and product management is done from your Fotomoto Dashboard.</em></p></div>"
             },
             {
               "key": "plugins.fotomoto.enabled_page",
@@ -3160,7 +3183,7 @@
           "items": [
             {
               "type": "help",
-              "helpvalue": "Enable <a href=https://disqus.com/ target=_blank>Disqus</a> comments for this page."
+              "helpvalue": "Enable <a href=https://disqus.com/ target=\"_blank\">Disqus</a> comments for this page."
             },
             {
               "key": "layout.disqus",

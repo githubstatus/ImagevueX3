@@ -10,13 +10,16 @@ if(!isset($core)){
 
 if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
 
+	// JSON output
+	header('Content-Type: application/json; charset=utf-8');
+
+	// exit if guest
+	if(!isset($_POST['get_settings']) && $core->is_guest()) exit('{ "error": "Guest user cannot make changes." }');
+
 	// Vars
 	$config_folder = '../config';
 	$config_user = '../config/config.user.json';
 	$config_default = '../app/config.defaults.json';
-
-	// JSON output
-	header('Content-Type: application/json; charset=utf-8');
 
 	// set iptc value only if $file[val] isset and assigned value is not same as existing value.
 	function x3_set_iptc($file, $iptc, $str, $const){
@@ -105,13 +108,13 @@ if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower(
 		// Clone settings
 		$clone = new ArrayObject(X3Config::$config);
 
-		// get basedir
-		$basedir_str = ini_get('open_basedir');
-
-		// exclude sensitive data
-		$exclude_path = '../../panel_settings_exclude.php';
-		if(file_exists($exclude_path) && empty($basedir_str)) {
-			require_once($exclude_path);
+		// exclude sensitive data (optional USERX server enironment)
+		if(X3Config::$config["userx"]){
+			if(@file_exists('../../../panel_settings_exclude.php')){
+				require('../../../panel_settings_exclude.php');
+			} else if(@file_exists('../../panel_settings_exclude.php')){
+				require('../../panel_settings_exclude.php');
+			}
 		}
 
 		// echo
@@ -184,6 +187,7 @@ if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower(
 			$default = json_decode(file_get_contents($config_default), TRUE);
 			$user = X3::json_decode($_POST['settings']);
 			$diff = (object)arrayRecursiveDiff($user, $default);
+
 			if(isset($diff->toolbar['items'])) $diff->toolbar['items'] = preg_replace(array('/,\r\n    }/', '/,\r\n  ]/'), array("\r\n    }", "\r\n  ]"), $diff->toolbar['items']); // minify and fix oprhan commas for toolbar items string
 			$save = (phpversion() < 5.4) ? json_encode($diff) : json_encode($diff, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 

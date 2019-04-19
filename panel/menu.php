@@ -9,7 +9,7 @@ if ($core->isLogin())
 {
 	$core->adminInfo();
 ?>
-<body class=super>
+<body class="super">
 
 <div class="container x3-panel-container">
     <!-- Static navbar -->

@@ -1,5 +1,5 @@
 {
-		"title": null,
+    "title": null,
     "label": null,
     "description": null,
     "date": null,
@@ -273,6 +273,7 @@
     		"page_meta_title": true,
     		"page_meta_description": true,
     		"page_meta_content": false,
+            "page_meta_scrollfade": true,
     		"button_down": false,
     		"button_down_remove": true,
     		"hide_context": false,
@@ -368,19 +369,19 @@
             "link": null
         }
     },
-		"settings": {
-				"diagnostics": true,
-	      "cdn_core": true,
-	      "preload": false,
-	      "pagenav": true,
-	      "cdn_files": null,
-	      "base_url": null,
-	      "date_format": "timeago",
-	      "hide_images": "double",
-	      "hide_folders": false,
-	      "prevent_context": false,
-	      "sitemap": true,
-	      "feed": true,
+    "settings": {
+        "diagnostics": true,
+        "cdn_core": true,
+        "preload": "auto",
+        "pagenav": true,
+        "cdn_files": null,
+        "base_url": null,
+        "date_format": "timeago",
+        "timeago_locales": true,
+        "hide_images": "double",
+        "prevent_context": false,
+        "sitemap": true,
+        "feed": true,
         "menu_manual": false,
         "menu_super": false,
         "menu_disabled": false,
@@ -388,6 +389,7 @@
 	  },
 	  "popup": {
 	      "enabled": true,
+          "auto_open": false,
 	      "click": "prev_next",
 	      "hide_caption": true,
 	      "transitions": true,
@@ -401,8 +403,11 @@
 	          "description": true,
 	          "date": false,
 	          "exif": false,
+              "exif_items": "model,aperture,focal_length,exposure,iso",
 	          "download": false,
-	          "download_text": "Download"
+	          "download_text": "Download",
+              "map": false,
+              "map_text": "Map"
 	      },
 	      "bgOpacity": 0.95,
 	      "bg_color": "#000"
@@ -422,8 +427,8 @@
 	  },
 	  "back": {
 	  		"custom": {
-	        "footer": "<!-- ICON BUTTONS START -->\r\n<div class=\"icon-buttons hover-color hover-title\">\r\n  <a href=\"https:\/\/www.facebook.com\/imagevue\"><\/a>\r\n  <a href=\"https:\/\/plus.google.com\/+imagevue\"><\/a>\r\n  <a href=\"https:\/\/twitter.com\/imagevue\"><\/a>\r\n  <a href=\"https:\/\/www.photo.gallery\" data-icon=\"asterisk\" data-color=\"#78A64F\" title=\"X3 Photo Gallery\"><\/a>\r\n  <a href=\"\/contact\/\" title=\"Contact me\"><\/a>\r\n\r\n  <!-- MORE EXAMPLES -->\r\n  <!-- <a href=\"https:\/\/flamepix.com\" data-icon=\"fire\" data-color=\"brown\"><\/a>\r\n  <a href=\"https:\/\/mjau-mjau.com\" data-icon=\"paw\" data-color=\"#FFC000\"><\/a>\r\n  <a href=\"https:\/\/www.youtube.com\/embed\/G46ygBKsTZI\" data-popup data-popup-class=\"x3-popup-iframe-full\" title=\"Youtube Video in popup\"><\/a>\r\n  <a href=\"https:\/\/demo.imagevuex.com\/render\/w1024-q90\/3.examples\/assets\/corn-field.jpg\" data-icon=\"photo\" data-popup title=\"Corn Field\"><\/a> -->\r\n\r\n<\/div>\r\n<!-- ICON BUTTONS END -->\r\n\r\n<!-- Add a dynamic website link '© year website' at bottom of footer -->\r\n{{copy}}\r\n\r\n<!-- Adding custom links to footer requires a valid X3 License! -->\r\n<!-- https:\/\/imagevuex.com\/buy\/ -->",
-	        "contact_widget": "<form data-abide class=contactform>\r\n\t<div>\r\n\t\t<xinput required type=text name=\"name\" placeholder=\"Name\">\r\n\t<\/div>\r\n\t<div>\r\n\t\t<xinput required type=\"email\" name=\"email\" placeholder=\"Email\">\r\n\t<\/div>\r\n\t<div>\r\n\t\t<textarea required name=\"message\" placeholder=\"What's up?\"><\/textarea>\r\n\t<\/div>\r\n\t<button type=submit>Send<\/button>\r\n<\/form>",
+	        "footer": "<!-- ICON BUTTONS START -->\r\n<div class=\"icon-buttons hover-color hover-title\">\r\n  <a href=\"https:\/\/www.facebook.com\/imagevue\"><\/a>\r\n  <a href=\"https:\/\/plus.google.com\/+imagevue\"><\/a>\r\n  <a href=\"https:\/\/twitter.com\/imagevue\"><\/a>\r\n  <a href=\"https:\/\/www.photo.gallery\" data-icon=\"asterisk\" data-color=\"#78A64F\" title=\"X3 Photo Gallery\"><\/a>\r\n  <a href=\"\/contact\/\" title=\"Contact me\"><\/a>\r\n\r\n  <!-- MORE EXAMPLES -->\r\n  <!-- <a href=\"https:\/\/flamepix.com\" data-icon=\"fire\" data-color=\"brown\"><\/a>\r\n  <a href=\"https:\/\/mjau-mjau.com\" data-icon=\"paw\" data-color=\"#FFC000\"><\/a>\r\n  <a href=\"https:\/\/www.youtube.com\/embed\/G46ygBKsTZI\" data-popup data-popup-class=\"x3-popup-iframe-full\" title=\"Youtube Video in popup\"><\/a>\r\n  <a href=\"https:\/\/demo.photo.gallery\/render\/w1024-q90\/3.examples\/assets\/corn-field.jpg\" data-icon=\"photo\" data-popup title=\"Corn Field\"><\/a> -->\r\n\r\n<\/div>\r\n<!-- ICON BUTTONS END -->\r\n\r\n<!-- Add a dynamic website link '© year website' at bottom of footer -->\r\n{{copy}}\r\n\r\n<!-- Adding custom links to footer requires a valid X3 License! -->\r\n<!-- https:\/\/www.photo.gallery\/buy\/ -->",
+	        "contact_widget": "<form data-abide class=\"contactform\">\r\n\t<div>\r\n\t\t<xinput required type=\"text\" name=\"name\" placeholder=\"Name\">\r\n\t<\/div>\r\n\t<div>\r\n\t\t<xinput required type=\"email\" name=\"email\" placeholder=\"Email\">\r\n\t<\/div>\r\n\t<div>\r\n\t\t<textarea required name=\"message\" placeholder=\"What's up?\"><\/textarea>\r\n\t<\/div>\r\n\t<button type=\"submit\">Send<\/button>\r\n<\/form>",
 	        "logo_css": ".logo {\r\n  font-size: 2.125em;   \/* logo-size (only affects TEXT-logo)   *\/\r\n  padding: 1em 0;       \/* Adjust space above- and below logo   *\/\r\n  margin-top: 0em;      \/* Adjust margin above logo             *\/\r\n}\r\n.logo > img {\r\n  width: 230px;         \/* logo-size (only affects IMAGE-logo)  *\/\r\n}"
 	    },
 	    "panel": {

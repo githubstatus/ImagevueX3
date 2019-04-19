@@ -105,7 +105,7 @@ class __TwigTemplate_d004bd64c82959c74ad96030eed1b38adb44f11c884c77d15a0c11fcdf6
             }
             // line 32
             echo "\t";
-            $context["time_tag"] = (((((("<time itemprop=dateCreated datetime=\"" . call_user_func_array($this->env->getFilter('date')->getCallable(), array($this->env, (isset($context["date"]) ? $context["date"] : null), "c"))) . "\" class=\"") . (isset($context["date_class"]) ? $context["date_class"] : null)) . "\">") . (isset($context["date_formatted"]) ? $context["date_formatted"] : null)) . "</time>");
+            $context["time_tag"] = (((((("<time itemprop=\"dateCreated\" datetime=\"" . call_user_func_array($this->env->getFilter('date')->getCallable(), array($this->env, (isset($context["date"]) ? $context["date"] : null), "c"))) . "\" class=\"") . (isset($context["date_class"]) ? $context["date_class"] : null)) . "\">") . (isset($context["date_formatted"]) ? $context["date_formatted"] : null)) . "</time>");
             // line 33
             echo "
 \t";
@@ -149,7 +149,11 @@ class __TwigTemplate_d004bd64c82959c74ad96030eed1b38adb44f11c884c77d15a0c11fcdf6
             echo "
 \t";
             // line 49
-            echo "\t<video width=\"100%\" preload=\"metadata\" class=\"x3-style-frame\" controls>
+            echo "\t<video width=\"100%\" preload=\"metadata\" class=\"x3-style-frame\" controls";
+            if ($this->getAttribute($this->getAttribute((isset($context["page"]) ? $context["page"] : null), "settings"), "prevent_context")) {
+                echo " controlsList=\"nodownload\"";
+            }
+            echo ">
 \t\t<source src=\"";
             // line 50
             echo ((isset($context["assetspath"]) ? $context["assetspath"] : null) . call_user_func_array($this->env->getFilter('trim')->getCallable(), array((($this->getAttribute((isset($context["gallery"]) ? $context["gallery"] : null), "file_path") . "/") . $this->getAttribute((isset($context["video"]) ? $context["video"] : null), "file_name")), ".")));
@@ -200,6 +204,6 @@ class __TwigTemplate_d004bd64c82959c74ad96030eed1b38adb44f11c884c77d15a0c11fcdf6
 
     public function getDebugInfo()
     {
-        return array (  187 => 63,  172 => 60,  168 => 58,  165 => 57,  161 => 54,  155 => 50,  152 => 49,  149 => 47,  143 => 46,  137 => 44,  131 => 42,  125 => 40,  122 => 39,  117 => 38,  113 => 35,  110 => 33,  107 => 32,  104 => 31,  101 => 30,  98 => 29,  95 => 28,  92 => 27,  89 => 26,  86 => 25,  83 => 24,  80 => 22,  77 => 21,  74 => 20,  71 => 19,  68 => 18,  65 => 17,  62 => 16,  59 => 15,  56 => 14,  53 => 12,  50 => 11,  47 => 10,  44 => 8,  27 => 7,  22 => 3,  21 => 2,  19 => 1,);
+        return array (  191 => 63,  176 => 60,  172 => 58,  169 => 57,  165 => 54,  159 => 50,  152 => 49,  149 => 47,  143 => 46,  137 => 44,  131 => 42,  125 => 40,  122 => 39,  117 => 38,  113 => 35,  110 => 33,  107 => 32,  104 => 31,  101 => 30,  98 => 29,  95 => 28,  92 => 27,  89 => 26,  86 => 25,  83 => 24,  80 => 22,  77 => 21,  74 => 20,  71 => 19,  68 => 18,  65 => 17,  62 => 16,  59 => 15,  56 => 14,  53 => 12,  50 => 11,  47 => 10,  44 => 8,  27 => 7,  22 => 3,  21 => 2,  19 => 1,);
     }
 }

@@ -29,11 +29,8 @@
  /* $Id: index.php 107 2010-11-11 18:36:47Z joe.lencioni $ */
 
 // define('SLIR_CONFIG_FILENAME', 'slir-config-alternate.php');
-/*function __autoload($className)
-{
-	require_once strtolower($className) . '.class.php';
-}*/
 spl_autoload_register(function($class) {
+	//require $class . '.class.php';
 	require strtolower($class) . '.class.php';
 });
 

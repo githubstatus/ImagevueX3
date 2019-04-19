@@ -1,5 +1,5 @@
 <?php
-session_start();
+if(!isset($_SESSION)) session_start();
 
 ini_set( 'error_reporting', E_ALL ^ E_DEPRECATED );
 error_reporting( E_ALL ^ E_DEPRECATED );
@@ -37,12 +37,24 @@ class filemanager_core extends Services_JSON
 
 	function __construct(){
 		$this::$server_protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443 || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? 'https://' : 'http://';
-    if( $this->is_db() ) {
-        $this->db = @($GLOBALS["___mysqli_ston"] = mysqli_connect(DB_HOST, DB_USER, DB_PASS));
-        @((bool)mysqli_query($GLOBALS["___mysqli_ston"], "USE " . constant('DB_NAME')));
-    }
+        if( $this->is_db() ) {
+            $this->db = @($GLOBALS["___mysqli_ston"] = mysqli_connect(DB_HOST, DB_USER, DB_PASS));
+            @((bool)mysqli_query($GLOBALS["___mysqli_ston"], "USE " . constant('DB_NAME')));
+        }
 	}
 
+    // is basedir?
+    public function is_basedir(){
+        $basedir_str = @ini_get('open_basedir');
+        return !empty($basedir_str);
+    }
+
+    // is guest?
+    public function is_guest(){
+        return X3Config::$config["back"]["panel"]["username"] === 'guest' && X3Config::$config["back"]["panel"]["password"] === 'guest' && !isset($_SESSION['filemanager_super']);
+    }
+
+    // enforce url setting
 	public function enforce_url(){
 
 		if(!isset($_GET["noredirect"])){
@@ -127,6 +139,7 @@ class filemanager_core extends Services_JSON
                     if( USERNAME == $username and PASSWORD == $password ) {
                         $this->role = "admin";
                         $_SESSION['filemanager_admin'] = md5( $username );
+                        if($this->is_guest() && isset($_POST["super"]) && isset(X3Config::$config["back"]["panel"]["super"]) && $_POST["super"] === X3Config::$config["back"]["panel"]["super"]) $_SESSION['filemanager_super'] = true;
                         return true;
                     }
                     global $users;
@@ -410,27 +423,32 @@ class filemanager_core extends Services_JSON
 
     // new X3 mailer
     private function x3_mailer($to, $subject, $message){
-      require_once '../app/extensions/PHPMailer/PHPMailerAutoload.php';
-      $phpMailer = new PHPMailer();
-      if(defined("IS_SMTP_USE")){
-        if(IS_SMTP_USE){
-        	$phpMailer->isSMTP();
-          $phpMailer->SMTPAuth = SMTPAuth;
-          $phpMailer->SMTPSecure = SMTPSecure;
-          $phpMailer->Host = SMTPHost;
-          $phpMailer->Port = SMTPPort;
-          $phpMailer->Username = SMTPUsername;
-          $phpMailer->Password = SMTPPassword;
+
+        // initiate X3 PHPMailer router
+        require '../app/x3.mail.inc.php';
+        $use_smtp = defined('IS_SMTP_USE') && IS_SMTP_USE ? true : false;
+        $phpMailer = x3_mail($use_smtp);
+
+        // smtp
+        if($use_smtp){
+            $phpMailer->isSMTP();
+            $phpMailer->SMTPAuth = SMTPAuth;
+            $phpMailer->SMTPSecure = SMTPSecure;
+            $phpMailer->Host = SMTPHost;
+            $phpMailer->Port = SMTPPort;
+            $phpMailer->Username = SMTPUsername;
+            $phpMailer->Password = SMTPPassword;
         }
-      }
-      $phpMailer->CharSet = 'UTF-8';
-      $from = constant('SMTPFrom');
-      if(!empty($from)) $phpMailer->setFrom($from);
-      $phpMailer->addAddress($to);
-      $phpMailer->Subject = $subject;
-      $phpMailer->IsHTML(true);
-      $phpMailer->Body = $message;
-      return $phpMailer->send() ? true : false;
+
+        // phpmailer
+        $phpMailer->CharSet = 'UTF-8';
+        $from = constant('SMTPFrom');
+        if(!empty($from)) $phpMailer->setFrom($from);
+        $phpMailer->addAddress($to);
+        $phpMailer->Subject = $subject;
+        $phpMailer->IsHTML(true);
+        $phpMailer->Body = $message;
+        return $phpMailer->send() ? true : false;
     }
 
     public function forgotPassword($email) // must be add
@@ -2241,5 +2259,6 @@ class editImage
         imagedestroy($this->thumb);
     }
 }
+
 
 ?>

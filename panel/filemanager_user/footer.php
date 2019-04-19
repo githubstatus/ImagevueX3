@@ -97,7 +97,7 @@ if(array_key_exists($language_key, $language_array)) {
 ?>
 
 <!-- non-critical CSS -->
-<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.6.1/css/font-awesome.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/photoswipe.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.2/dist/default-skin/default-skin.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/blueimp-file-upload@9.19.0/css/jquery.fileupload.css" rel="stylesheet" />
@@ -132,12 +132,15 @@ var core_user_id = <?php echo $core->user_id; ?>;
 var core_user_dir = '<?php echo $core->user_dir; ?>';
 var session_maxlifetime = <?php echo !empty($session_maxlifetime) ? $session_maxlifetime : 'false'; ?>;
 var summernote_lang = <?php echo $summernote_lang ? "'" . $summernote_lang . "'" : 'false'; ?>;
-reload_sidebar = false;
-first_flag = true;
-here = '';
+var userx = '<?php echo X3Config::$config["userx"] ?>';
+var is_guest = false;
 
 // get folders
 var folders = <?php echo X3::get_folders(false); ?>;
+
+reload_sidebar = false;
+first_flag = true;
+here = '';
 
 // language object
 var language = <?php echo json_encode($language); ?>;

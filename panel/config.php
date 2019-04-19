@@ -4,9 +4,9 @@
 
 // Get config
 require_once dirname(__DIR__) . "/app/x3.config.inc.php";
-X3Config::$config["x3_version"] = '3.24.3';
-X3Config::$config["x3_version_date"] = 1515852993748;
-X3Config::$config["x3_panel_version"] = '3.24.3';
+X3Config::$config["x3_version"] = '3.25.1';
+X3Config::$config["x3_version_date"] = 1533617962210;
+X3Config::$config["x3_panel_version"] = '3.25.1';
 $x3_panel_config = X3Config::$config["back"]["panel"];
 $x3_mail = X3Config::$config["back"]["mail"];
 
@@ -126,9 +126,6 @@ $MIME_TYPES = array(
     "css" => array("text/css"),
     "gpx" => array("application/gpx", "application/gpx+xml", "application/xml")
 );
-
-// Only for demo version if you set login to guest/guest
-// define("DEMO_PANEL", true);
 
 // Hide AUTH page.
 // define("HIDE_AUTH", true);

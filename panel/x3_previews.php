@@ -7,7 +7,10 @@ if(!isset($core)){
 	$core = new filemanager_core();
 }
 
-if ($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') {
+
+	// exit if guest
+	if($core->is_guest()) exit();
 
 	# Preview class
 	Class Preview {
@@ -41,20 +44,17 @@ if ($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower
 
 	  # format output
 	  static function format($dir, $image = false, $class = 'neutral', $json = false){
-	  	$short_dir = '<a href="' . $dir . '">' . str_replace('../content/', '', $dir) . '</a>';
+	  	$short_dir = '<a href="' . htmlspecialchars($dir) . '">' . str_replace('../content/', '', $dir) . '</a>';
 	  	if($image) {
 	  		$image = str_replace('../content/', '', $image);
 	  		$path = strpos($image, '/') === false ? $dir . '/' . $image : '../content/' . $image;
-	  		$img_link = '<a href="' . $path . '" target=_blank>' . $image . '</a>';
-	  		$src = '<img src="' . str_replace('../content/', '../render/w200-c1:1-q90/', $path) . '" />';
-	  	/*} else {
-	  		$img_default = 'Default <a href="' . self::$image_default . '" target=_blank>' . str_replace(array('../content/', '../app'), array('', '/app'), self::$image_default) . '</a> will be used.';
-	  		$src_default = '<img src="' . str_replace(array('../content/', 'images/default.png'), array('../render/w100-c1:1-q90/', 'images/default-small.png'), self::$image_default) . '" />';*/
+	  		$img_link = '<a href="' . htmlspecialchars($path) . '" target="_blank">' . $image . '</a>';
+	  		$src = '<img src="' . str_replace('../content/', '../render/w200-c1:1-q90/', htmlspecialchars($path)) . '" />';
 	  	}
 
 	  	if(!$image || $class === 'error'){
-	  		$img_default = 'Default <a href="' . self::$image_default . '" target=_blank>' . str_replace(array('../content/', '../app'), array('', '/app'), self::$image_default) . '</a> will be used.';
-	  		$src_default = '<img src="' . str_replace(array('../content/', 'images/default.png'), array('../render/w200-c1:1-q90/', 'images/default-small.png'), self::$image_default) . '" />';
+	  		$img_default = 'Default <a href="' . htmlspecialchars(self::$image_default) . '" target="_blank">' . str_replace(array('../content/', '../app'), array('', '/app'), self::$image_default) . '</a> will be used.';
+	  		$src_default = '<img src="' . str_replace(array('../content/', 'images/default.png'), array('../render/w200-c1:1-q90/', 'images/default-small.png'), htmlspecialchars(self::$image_default)) . '" />';
 	  	}
 
 
@@ -68,16 +68,16 @@ if ($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower
 		  		$fp = fopen($file, 'w');
 			    fwrite($fp, $save);
 			    fclose($fp);
-			    return '<tr class=success><td class=dir>' . $short_dir .'</td><td class=msg><i class="fa fa-check"></i> Updated preview</td><td class=image>' . $img_link . $src . '</td></tr>';
+			    return '<tr class="success"><td class="dir">' . $short_dir .'</td><td class="msg"><i class="fa fa-check"></i> Updated preview</td><td class="image">' . $img_link . $src . '</td></tr>';
 	  		} else {
-	  			return '<tr class=error><td class=dir>' . $short_dir . '</td><td class=msg><i class="fa fa-ban"></i> is not writeable!</td><td class=image>&nbsp;</td></div>';
+	  			return '<tr class="error"><td class="dir">' . $short_dir . '</td><td class="msg"><i class="fa fa-ban"></i> is not writeable!</td><td class="image">&nbsp;</td></div>';
 	  		}
 	  	} else if($image && $class === 'error'){
-	  		return '<tr class=error><td class=dir>' . $short_dir . '</td><td class=msg><i class="fa fa-ban"></i> Not found</td><td class=image>' . $img_link . '<br>' . $img_default . $src_default . '</td></tr>';
+	  		return '<tr class="error"><td class="dir">' . $short_dir . '</td><td class="msg"><i class="fa fa-ban"></i> Not found</td><td class="image">' . $img_link . '<br>' . $img_default . $src_default . '</td></tr>';
 	  	} else if($image){
-	  		return '<tr class=neutral><td class=dir>' . $short_dir . '</td><td class=msg><i class="fa fa-check"></i> Image already set</td><td class=image>' . $img_link . $src . '</td></tr>';
+	  		return '<tr class="neutral"><td class="dir">' . $short_dir . '</td><td class="msg"><i class="fa fa-check"></i> Image already set</td><td class="image">' . $img_link . $src . '</td></tr>';
 	  	} else {
-	  		return '<tr class=neutral><td class=dir>' . $short_dir . '</td><td class=msg><i class="fa fa-ban"></i> No image to set</td><td class=image>' . $img_default . $src_default . '</td></tr>';
+	  		return '<tr class="neutral"><td class="dir">' . $short_dir . '</td><td class="msg"><i class="fa fa-ban"></i> No image to set</td><td class="image">' . $img_default . $src_default . '</td></tr>';
 	  	}
 	  }
 
@@ -331,7 +331,7 @@ if ($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower
 	if(Preview::$changes > 0) $core->touchme();
 
 	# echo content
-	$content .= '<div class=changes>[' . Preview::$changes . ' changes]</div>' . $table;
+	$content .= '<div class="changes">[' . Preview::$changes . ' changes]</div>' . $table;
 	echo $content;
 }
 ?>

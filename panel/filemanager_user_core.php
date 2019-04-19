@@ -63,6 +63,12 @@ class filemanager_user_core extends Services_JSON
         }
     }
 
+    // is basedir?
+    public function is_basedir(){
+        $basedir_str = @ini_get('open_basedir');
+        return !empty($basedir_str);
+    }
+
     public function touchme_error(){
 			return '{ "error": "Oops, can\'t write to /content" }';
 		}
@@ -541,27 +547,32 @@ class filemanager_user_core extends Services_JSON
 
     // new X3 mailer
     private function x3_mailer($to, $subject, $message){
-      require_once '../app/extensions/PHPMailer/PHPMailerAutoload.php';
-      $phpMailer = new PHPMailer();
-      if(defined("IS_SMTP_USE")){
-        if(IS_SMTP_USE){
-        	$phpMailer->isSMTP();
-          $phpMailer->SMTPAuth = SMTPAuth;
-          $phpMailer->SMTPSecure = SMTPSecure;
-          $phpMailer->Host = SMTPHost;
-          $phpMailer->Port = SMTPPort;
-          $phpMailer->Username = SMTPUsername;
-          $phpMailer->Password = SMTPPassword;
+
+        // initiate X3 PHPMailer router
+        require '../app/x3.mail.inc.php';
+        $use_smtp = defined('IS_SMTP_USE') && IS_SMTP_USE ? true : false;
+        $phpMailer = x3_mail($use_smtp);
+
+        // smtp
+        if($use_smtp){
+            $phpMailer->isSMTP();
+            $phpMailer->SMTPAuth = SMTPAuth;
+            $phpMailer->SMTPSecure = SMTPSecure;
+            $phpMailer->Host = SMTPHost;
+            $phpMailer->Port = SMTPPort;
+            $phpMailer->Username = SMTPUsername;
+            $phpMailer->Password = SMTPPassword;
         }
-      }
-      $phpMailer->CharSet = 'UTF-8';
-      $from = constant('SMTPFrom');
-      if(!empty($from)) $phpMailer->setFrom($from);
-      $phpMailer->addAddress($to);
-      $phpMailer->Subject = $subject;
-      $phpMailer->IsHTML(true);
-      $phpMailer->Body = $message;
-      return $phpMailer->send() ? true : false;
+
+        // phpmailer
+        $phpMailer->CharSet = 'UTF-8';
+        $from = constant('SMTPFrom');
+        if(!empty($from)) $phpMailer->setFrom($from);
+        $phpMailer->addAddress($to);
+        $phpMailer->Subject = $subject;
+        $phpMailer->IsHTML(true);
+        $phpMailer->Body = $message;
+        return $phpMailer->send() ? true : false;
     }
 
     public function forgotPassword($email)

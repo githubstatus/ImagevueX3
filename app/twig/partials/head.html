@@ -1,7 +1,18 @@
-<html class="no-js">
+<html>
 {% set page_title_stripped = page_title|striptags|e('html')|trim %}
 {% set page_description_stripped = page_description|striptags|e('html')|trim %}
 <head>
+
+{# Global site tag (gtag.js) - Google Analytics #}
+{% if page.accounts.google_analytics %}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ page.accounts.google_analytics }}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', '{{ page.accounts.google_analytics }}');
+</script>
+{% endif %}
 
   {# Default Meta tags #}
   <meta charset="utf-8">
@@ -15,7 +26,7 @@
 
   {# Prefetch #}
   <link rel="dns-prefetch" href="//auth.photo.gallery">
-  {% if page.settings.cdn_core %}<link rel="dns-prefetch" href="//cdnjs.cloudflare.com">{% endif %}
+  {% if page.settings.cdn_core %}<link rel="dns-prefetch" href="//cdn.jsdelivr.net">{% endif %}
   {% if page.settings.cdn_files %}<link rel="dns-prefetch" href="{{ page.settings.cdn_files|lower|trim('/')|trim('http:')|trim('https:') }}">{% endif %}
 
   {# Google Authorship, Publisher and site-verification #}
@@ -36,7 +47,9 @@
   {% if not page.accounts.facebook_publisher is empty %}<meta property="article:publisher" content="{{ page.accounts.facebook_publisher }}">{% endif %}
 
   {# og:image #}
-  <meta property="og:image" content="{{ preview_image_full }}">
+  <meta property="og:image" content="{{ preview_image_full|e|replace({' ': '%20'}) }}">
+
+  {# og image properties #}
   {% set imgInfo = getimginfo(preview_image) %}
   {% if imgInfo['mime'] %}<meta property="og:image:type" content="{{ imgInfo['mime'] }}">{% endif %}
   {% if imgInfo[0] %}<meta property="og:image:width" content="{{ imgInfo[0] }}" />{% endif %}
@@ -45,7 +58,7 @@
   {# Fav Icon #}
   {% set favicon = firstImage('./content/custom/favicon') %}
   {% if favicon %}
-  <link rel="icon" href="{{ assetspath }}{{ firstImage('./content/custom/favicon') }}">
+  <link rel="icon" href="{{ assetspath }}{{ favicon }}">
   {% endif %}
 
   {# Atom Feed link #}
@@ -67,18 +80,19 @@ function cssFail(){
 	l.onload = imagevue_;
 	l.rel = 'stylesheet';
 	l.id = '{{ page.style.skin.skin }}';
-	l.href = '{{ rootpath }}/app/public/css/{{ page.stacey_version }}/x3.skin.{{ page.style.skin.skin }}.css';
+	l.href = '{{ local_css }}';
 	document.getElementsByTagName('head')[0].appendChild(l);
 }
 </script>
   {% endif %}
 
   {# Skin #}
-  <link rel="stylesheet" id={{ page.style.skin.skin }} href="{{ cdn_core }}/css/{{ page.stacey_version }}/x3.skin.{{ page.style.skin.skin }}.css"{% if page.settings.cdn_core %} onerror="cssFail();"{% endif %}>
+  <link rel="stylesheet" id="{{ page.style.skin.skin }}" href="{{ core_css }}"{% if page.settings.cdn_core %} onerror="cssFail();"{% endif %}>
+  {#<link rel="stylesheet" id="{{ page.style.skin.skin }}" href="{{ cdn_core }}/css/{{ page.stacey_version }}/x3.skin.{{ page.style.skin.skin }}.css"{% if page.settings.cdn_core %} onerror="cssFail();"{% endif %}>#}
 
 	{# Google webfonts #}
 	{% if page.style.font.font is not empty and page.style.font.font != 'none' %}
-	<link rel=stylesheet href="https://fonts.googleapis.com/css?family={{ page.style.font.font|default("Lato:400,700,900,400italic,700italic,900italic")|getfontstring }}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family={{ page.style.font.font|default("Lato:400,700,900,400italic,700italic,900italic")|getfontstring }}">
 	{% endif %}
 
 	{# Custom HEAD #}
@@ -109,11 +123,11 @@ function cssFail(){
 {% set layout = page.style.layout.layout|default('topbar-float') %}
 {% if 'topbar' in layout %}{% set fixed = page.style.layout.fixed %}{% endif %}
 {% if page.style.layout.wide %}{% set wide = 'wide' %}{% endif %}
-{% set data_layout = (page.include.body ~ ' ' ~ page.body ~ ' ' ~ layout ~ ' ' ~ page.style.skin.skin ~ ' ' ~ fixed ~ ' ' ~ wide ~ ' ' ~ page.style.skin.clear ~ ' x3-' ~ page.template_name ~ ' slug-' ~ page.slug|trim('/')|lower|default('index') ~ ' page-' ~ page.permalink|trim('/')|lower|replace({"/":"-"})|default('index'))|cleanData %}
+{% set data_layout = (page.include.body ~ ' ' ~ page.body ~ ' ' ~ layout ~ ' ' ~ page.style.skin.skin ~ ' ' ~ fixed ~ ' ' ~ wide ~ ' ' ~ page.style.skin.clear ~ ' x3-' ~ page.template_name ~ ' slug-' ~ page.slug|attribute_friendly|default('index') ~ ' page-' ~ page.permalink|trim('/')|attribute_friendly|default('index'))|cleanData %}
 
 <body class="fa-loading initializing {{ data_layout }}" data-include="{{ page.include.body|cleanData }}">
-<div class=x3-loader title=loading></div>
-<div class=sb-site-container>
+<div class="x3-loader" title="loading"></div>
+<div class="sb-site-container">
   <div>
 
     {# Header navigation #}

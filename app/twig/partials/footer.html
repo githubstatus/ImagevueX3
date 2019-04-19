@@ -21,7 +21,7 @@ function jsFail(){
 	var s = document.createElement('script');
 	s.type = 'text/javascript';
 	s.onload = imagevue_;
-	s.src = '{{ rootpath }}/app/public/js/{{ page.stacey_version }}/x3.min.js';
+	s.src = '{{ local_js }}';
 	document.getElementsByTagName('head')[0].appendChild(s);
 }
 {% endif %}
@@ -36,8 +36,24 @@ function jsFail(){
 <script id="custom-javascript">{{ page.back.custom.js|trim }}</script>
 {% endif %}
 
-{# Imagevue X3 JS App #}
-<script src="{{ cdn_core }}/js/{{ page.stacey_version }}/x3.min.js" async{% if page.settings.cdn_core %} onerror="jsFail()"{% endif %} onload="imagevue{% if page.settings.cdn_core %}_{% endif %}();"></script>
+{# Javascript#}
+{% if page.settings.cdn_core %}
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.0.1/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.0.1/velocity.ui.min.js"></script>
+{% if page.gallery.layout == 'slideshow' %}<script src="https://cdn.jsdelivr.net/npm/fotorama@4.6.4/fotorama.js"></script>{% endif %}
+<script src="https://cdn.jsdelivr.net/npm/string@3.3.3/dist/string.min.js"></script>
+{% else %}
+<script src="{{ local_public }}/vendor/jquery/3.3.1/jquery.min.js"></script>
+<script src="{{ local_public }}/vendor/velocity/1.0.1/velocity.min.js"></script>
+<script src="{{ local_public }}/vendor/velocity/1.0.1/velocity.ui.min.js"></script>
+{% if page.gallery.layout == 'slideshow' %}<script src="{{ local_public }}/vendor/fotorama/4.6.4/fotorama.js"></script>{% endif %}
+<script src="{{ local_public }}/vendor/stringjs/3.3.3/string.min.js"></script>
+{% endif %}
+
+{# X3 JS App #}
+<script src="{{ core_js }}"{% if page.settings.cdn_core %} onerror="jsFail()"{% endif %} onload="imagevue{% if page.settings.cdn_core %}_{% endif %}();"></script>
+{#<script src="{{ cdn_core }}/js/{{ page.stacey_version }}/x3.min.js"{% if page.settings.cdn_core %} onerror="jsFail()"{% endif %} onload="imagevue{% if page.settings.cdn_core %}_{% endif %}();"></script>#}
 
 </body>
 </html>

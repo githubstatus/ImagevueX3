@@ -18,6 +18,9 @@ if ($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower
 
 	if(isset($_POST['protect'])) {
 
+		// exit if guest
+		if($core->is_guest()) exit('{ "error": "Guest user cannot make changes." }');
+
 		// write
 		function write_protect($file){
 			$ob = get_magic_quotes_gpc() ? json_decode(stripslashes($_POST['protect']), TRUE) : json_decode($_POST['protect'], TRUE);

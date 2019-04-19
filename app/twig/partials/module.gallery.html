@@ -8,6 +8,7 @@
 {% set limit = settings.limit %}
 {% set folder_path = assetspath ~ gallery.file_path|trim(".") ~ '/' %}
 {% if limit is empty or limit < 1 %}{% set limit = 99999 %}{% endif %}
+{% set exif_items = page.popup.caption.exif_items|split(',') %}
 
 {# Video include #}
 {% if gallery_videos|length > 0 and 'hide-video' not in settings.classes and 'video-bottom' not in settings.classes %}
@@ -18,7 +19,7 @@
 {% endif %}
 
 {# image_noindex rel="nofollow" #}
-{% set nofollow = page.settings.image_noindex ? '  rel="nofollow"' : '' %}
+{% set nofollow = page.settings.image_noindex ? ' rel="nofollow"' : '' %}
 
 {# set crop ratio if defined #}
 {% if settings.crop.enabled and settings.layout != "justified" and settings.layout != "columns" %}
@@ -47,7 +48,7 @@
 	{% set medium_grid = min(block_grid[1]|default(block_grid[0])|default('2'), columns_limit) %}
 	{% set large_grid = min(block_grid[0]|default('3'), columns_limit) %}
 
-	{% set ul_open = "<ul class='small-block-grid-"~small_grid~" medium-block-grid-"~medium_grid~" large-block-grid-"~large_grid~" items'>" %}
+	{% set ul_open = '<ul class="small-block-grid-' ~ small_grid ~ ' medium-block-grid-' ~ medium_grid ~ ' large-block-grid-' ~ large_grid ~ ' items">' %}
 	{% set li_open = '<li>' %}
 	{% set li_close = '</li>' %}
 	{% set ul_close = '</ul>' %}
@@ -63,19 +64,33 @@
 {% if loop.index0 < limit %}
 
 	{# SET ALL ITEM VARS #}
-	{% set url = assetspath ~ (gallery.file_path ~ "/" ~ image.file_name)|trim(".") %}
+	{% set url = assetspath ~ (gallery.file_path ~ '/' ~ image.file_name)|trim('.') %}
+	{% set url_escaped = url|e %}
 	{% set image_link = image.link|default(settings.image.link) %}
 	{% set link_target = image.target|default(settings.image.link_target) %}
+	{% set data_link_target = '' %}
 	{% set name_no_ext = image.file_name|removeExtension %}
+	{% set nofollow = '' %}
 
 	{# Check if image link is set #}
 	{% if image_link %}
+
+		{# data-link-target, slideshow only #}
+		{% if settings.layout == "slideshow" %}{% set data_link_target = ' data-link-target="' ~ link_target ~ '"' %}{% endif %}
+
+		{# nofollow #}
+		{% if image_link ends with ':nofollow' %}
+			{% set nofollow = ' rel="nofollow"' %}
+			{% set image_link = image_link|replace({':nofollow': ''}) %}
+		{% endif %}
+
+		{# href #}
 		{% set link_href = image_link|replace({'{file_name}': name_no_ext, '{file_name_ext}': image.file_name, '{path}': folder_path, '{image_path}': folder_path ~ image.file_name, '{{files}}': assetspath ~ '/content/custom/files' }) %}
 
 		{# auto link target #}
 		{% if link_target is empty or link_target == 'auto' %}
 			{% if link_href|lower starts with 'http' or hasExtension(link_href) %}
-				{% set link_target = ' target=_blank' %}
+				{% set link_target = ' target="_blank"' %}
 			{% else %}
 				{% set link_target = '' %}
 			{% endif %}
@@ -86,7 +101,7 @@
 
 		{# blank target #}
 		{% elseif link_target == '_blank' %}
-			{% set link_target = ' target=_blank' %}
+			{% set link_target = ' target="_blank"' %}
 
 		{# x3 popup #}
 		{% elseif link_target == 'x3_popup' %}
@@ -103,8 +118,41 @@
 		{% set link_target = '' %}
 	{% endif %}
 
+	{# EXIF and GEO vars #}
+	{% set exif = '' %}
+	{% set geo = '' %}
+	{% set data_geo = '' %}
+
+	{# EXIF and GEO #}
+	{% if image.exif %}
+
+		{# caption EXIF #}
+		{% if page.popup.caption.exif %}
+			{% if exif_items|length > 0 %}
+				{% for key in exif_items if image.exif[key] %}
+			    {% set exif = exif ~ key ~ ':' ~ image.exif[key] ~ ';' %}
+				{% endfor %}
+				{% if exif %}{% set exif = ' data-exif="' ~ exif ~ '"' %}{% endif %}
+			{% endif %}
+		{% endif %}
+
+		{# caption map button #}
+		{% if image.exif.latitude and image.exif.longitude %}
+			{% set geo = image.exif.latitude ~ ',' ~ image.exif.longitude %}
+			{% set map_embed_src = 'https://www.google.com/maps/embed/v1/place?q=' ~ geo ~ '&amp;key=AIzaSyDRp6xla9SxUmTBu6l_kprhjjI9e5-EVZk' %}
+			{% set map_link_src = 'https://www.google.com/maps/search/?api=1&query=' ~ geo %}
+			{% set map_embed_button_item = '<button data-href="' ~ map_link_src ~ '" data-popup-href="' ~ map_embed_src ~ '" class="button small button-map" data-popup-class="x3-popup-iframe-full" data-popup></button>' %}
+			{% set map_button_popup = '<a href="' ~ map_link_src ~ '" data-embed-modal="' ~ map_embed_src ~ '" class="button small button-map" target="_blank"></a>' %}
+			{% set map_link_popup = '<a href="' ~ map_link_src ~ '" data-embed-modal="' ~ map_embed_src ~ '" class="link-map" target="_blank"></a>' %}
+			{% set map_button = '<a href="' ~ map_link_src ~ '" class="button small button-map" target="_blank"></a>' %}
+			{% set map_link = '<a href="' ~ map_link_src ~ '" class="link-map" target="_blank"></a>' %}
+			{% if page.popup.caption.map %}{% set data_geo = ' data-geo="' ~ geo ~ '"' %}{% endif %}
+		{% endif %}
+	{% endif %}
+
 	{# image title #}
 	{% set title = getDefault(image.title, settings.image.title, settings.image.title_include)|striptags('<a><span><em><i><b><strong><small><s><mark>')|replace({'{file_name}': name_no_ext, '{file_name_ext}': image.file_name, '{path}': folder_path, '{image_path}': folder_path ~ image.file_name, '{{files}}': assetspath ~ '/content/custom/files'})|default(image.name) %}
+	{% if geo %}{% set title = title|replace({'{latitude}': image.exif.latitude, '{longitude}': image.exif.longitude, '{map_embed_src}': map_embed_src, '{map_link_src}': map_link_src, '{map_button_popup}': map_button_popup, '{map_link_popup}': map_link_popup, '{map_button}': map_button, '{map_link}': map_link}) %}{% endif %}
 	{% set title_pseudo = title|replace({'<a': '<span', '</a>': '</span>', ' href=': ' data-href=', ' target=': ' data-target='}) %}
 
 	{# image description #}
@@ -114,6 +162,7 @@
 		{% set description_pseudo = '' %}
 	{% else %}
 		{% set description = image_description|striptags('<a><span><em><i><b><strong><small><s><br><mark><img><kbd><code><button>')|replace({'{file_name}': name_no_ext, '{file_name_ext}': image.file_name, '{path}': folder_path, '{image_path}': folder_path ~ image.file_name, '{{files}}': assetspath ~ '/content/custom/files'}) %}
+		{% if geo %}{% set description = description|replace({'{latitude}': image.exif.latitude, '{longitude}': image.exif.longitude, '{map_embed_src}': map_embed_src, '{map_link_src}': map_link_src, '{map_button_popup}': map_button_popup, '{map_link_popup}': map_link_popup, '{map_button}': map_button, '{map_link}': map_link}) %}{% endif %}
 		{% set description_pseudo = description|replace({'<a': '<span', '</a>': '</span>', ' href=': ' data-href=', ' target=': ' data-target='}) %}
 	{% endif %}
 
@@ -126,7 +175,7 @@
 		{% set date_formatted = date|date(page.settings.date_format|default('d F Y')) %}
 		{% set date_class = 'date' %}
 	{% endif %}
-	{% set time_tag = '<time itemprop=dateCreated datetime="' ~ date|date('c') ~ '" class="' ~ date_class ~ '">' ~ date_formatted ~ '</time>' %}
+	{% set time_tag = '<time itemprop="dateCreated" datetime="' ~ date|date('c') ~ '" class="' ~ date_class ~ '">' ~ date_formatted ~ '</time>' %}
 
 	{# Set image ratio for responsive layout #}
 	{% set image_ratio = crop_ratio|default(image.height/image.width * 100) %}
@@ -136,21 +185,21 @@
 		{% set tooltip_items = settings.tooltip.items|split(',') %}
 		{% set link_title_content %}
 		{% for item in tooltip_items %}
-			{% if item == 'title' %}<span class=title>{{ title }}</span>
+			{% if item == 'title' %}<span class="title">{{ title }}</span>
 			{% elseif item == 'date' %}{{time_tag}}
-			{% elseif item == 'description' and description is not empty %}<span class=description>{{ description }}</span>{% endif %}
+			{% elseif item == 'description' and description is not empty %}<span class="description">{{ description }}</span>{% endif %}
 		{% endfor %}
 		{% endset %}
 		{% set link_title_content = link_title_content|e('html')|trim %}
-		{% if link_title_content is not empty %}{% set link_title %}title='{{ link_title_content }}'{% endset %}{% endif %}
+		{% if link_title_content is not empty %}{% set link_title %}title="{{ link_title_content }}"{% endset %}{% endif %}
 	{% endif %}
 
 	{# Set figure #}
 	{% set figure %}
 	{% if settings.layout != "slideshow" %}
 	<figure>
-			<div class='image-container' style='padding-bottom:{{ image_ratio }}%;'>
-				<img data-src='{{ url }}' alt='{{ title|striptags|e('html') }}' itemprop='thumbnail'>
+			<div class="image-container" style="padding-bottom:{{ image_ratio }}%;">
+				<img data-src="{{ url_escaped }}" alt="{{ title|striptags|e('html') }}" itemprop="thumbnail">
 			</div>
 
 		{# If captions enabled #}
@@ -159,16 +208,17 @@
 			{# Set figcaption content #}
 			{% set figcaption_content %}
 				{% for item in settings.caption.items|split(",") %}
-					{% if item == 'title' %}<span class='title'>{{ title_pseudo }}</span>
-					{% elseif item == 'date' %}{{time_tag}}
-					{% elseif item == 'description' and description_pseudo is not empty %}<span class='description'>{{ description_pseudo }}</span>{% endif %}
+					{% if item == 'title' %}<span class="title">{{ title_pseudo }}</span>
+					{% elseif item == 'date' %}{{ time_tag }}
+					{% elseif item == 'maplink' and geo %} {{ map_embed_button_item }}
+					{% elseif item == 'description' and description_pseudo is not empty %}<span class="description">{{ description_pseudo }}</span>{% endif %}
 				{% endfor %}
 			{% endset %}
 			{% set figcaption_content =  figcaption_content|trim %}
 
 			{# Only populate if figcaption is not empty #}
 			{% if figcaption_content is not empty %}
-				<figcaption itemprop='caption description'>{{ figcaption_content }}</figcaption>
+				<figcaption itemprop="caption description">{{ figcaption_content }}</figcaption>
 			{% endif %}
 
   	{% endif %}
@@ -190,27 +240,15 @@
 			{% set anchor_class = anchor_class ~ ' row' %}
 		{% endif %}
 
-		{# EXIF #}
-		{% set exif = '' %}
-		{% if page.popup.caption.exif and image.exif %}
-			{% for key, val in image.exif if val is not empty %}
-		    {% set exif = exif ~ key ~ ':' ~ val ~ ';' %}
-			{% endfor %}
-			{% if exif %}
-				{% set exif = 'data-exif="' ~ exif ~ '"' %}
-			{% endif %}
-		{% endif %}
-
-
-
+		{# clickable #}
 		{% set link_tag = settings.clickable ? 'a' : 'span' %}
 
 		{# anchor #}
-		<{{link_tag}} class='{{ anchor_class }}' {{ exif }} data-options='w:{{ image.width }};h:{{ image.height }}' data-image='{{ url }}' data-title='{{ title|e('html') }}' data-description='{{ description|e('html') }}' data-date='{{ date_formatted }}' href='{{ link_href }}'{{link_target}} id='{{ image.name|replace({" ": "-"}) }}' {{ link_title }} itemprop='associatedMedia' itemscope itemtype='http://schema.org/ImageObject'{{ nofollow }}>
+		<{{link_tag}} class="{{ anchor_class }}"{{ exif }}{{ data_geo }} data-options="w:{{ image.width }};h:{{ image.height }}" data-image="{{ url_escaped }}" data-title="{{ title|e('html') }}" data-description="{{ description|e('html') }}" data-date="{{ date_formatted }}" href="{{ link_href|e }}"{{link_target}}{{data_link_target}} id="image-{{ image.file_name|attribute_friendly|default(loop.index) }}" {{ link_title }} itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject"{{ nofollow }}>
 
 		{# Lets just set anchor text if slideshow #}
 		{% if settings.layout == "slideshow" %}
-			<span itemprop='caption description' data-image='{{ url }}'>
+			<span itemprop="caption description" data-image="{{ url_escaped }}">
 			{% if description is empty %}
 				{{ title_pseudo }}
 			{% else %}
@@ -230,14 +268,18 @@
 		{% endif %}
 
 		{# split layout #}
-		<div class='medium-{{ settings.split.ratio }} columns {{ push }} {{ text_align }}'>
+		<div class="medium-{{ settings.split.ratio }} columns {{ push }} {{ text_align }}">
+			{# assign title and description if items < 2 (only preview) #}
+			{% if items|length < 2 %}{% set items = items|merge(['title', 'description']) %}{% endif %}
 			{% for item in items %}
-				{% if item == 'title' %}
-					<h2 class='title' itemprop='caption'>{{ title_pseudo }}</h2>
+				{% if item == "title" %}
+					<h2 class="title" itemprop="caption">{{ title_pseudo }}</h2>
 				{% elseif item == 'description' and description is not empty %}
-				<p itemprop='description'>{{ description_pseudo }}</p>
+					<p itemprop="description">{{ description_pseudo }}</p>
 				{% elseif item == 'date' %}
-					<h6 class=date>{{time_tag}}</h6>
+					<h6 class="date">{{time_tag}}</h6>
+				{% elseif item == 'maplink' and geo %}
+					{{ map_embed_button_item }}
 				{% endif %}
 			{% endfor %}
 
@@ -254,7 +296,7 @@
 			{% endif %}#}
 
 		</div>
-		<div class='medium-{{ (12 - settings.split.ratio) }} columns {{ pull }}'>
+		<div class="medium-{{ (12 - settings.split.ratio) }} columns {{ pull }}">
 			{{ figure }}
 		</div>
 
@@ -262,11 +304,13 @@
 		{% elseif settings.layout != "justified" %}
 			{% for item in items %}
 				{% if item == 'title' %}
-					<h2 class='title' itemprop='caption'>{{ title_pseudo }}</h2>
+					<h2 class="title" itemprop="caption">{{ title_pseudo }}</h2>
 				{% elseif item == 'description' and description is not empty %}
-					<p itemprop='description'>{{ description_pseudo }}</p>
+					<p itemprop="description">{{ description_pseudo }}</p>
 				{% elseif item == 'date' %}
-					<h6 class=date>{{time_tag}}</h6>
+					<h6 class="date">{{time_tag}}</h6>
+				{% elseif item == 'maplink' and geo %}
+					{{ map_embed_button_item }}
 				{% elseif item == 'preview' %}
 					{{ figure }}
 				{% endif %}

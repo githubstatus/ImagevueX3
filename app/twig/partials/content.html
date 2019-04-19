@@ -2,11 +2,10 @@
 
 {# Vars #}
 {% set layout = page.layout %}
-{#{% set items = layout.items|replace({' ':''})|split(',') %}#}
 {% set items = layout.items|split(',') %}
 
 {# Add Disqus #}
-{% if page.accounts.disqus_shortname and layout.disqus %}{% set items = items|merge(['disqus']) %}{% endif %}
+{% if page.accounts.disqus_shortname and layout.disqus and page.slug != '404' %}{% set items = items|merge(['disqus']) %}{% endif %}
 
 {# Container template #}
 {% set container = 'partials/module.layout.html' %}

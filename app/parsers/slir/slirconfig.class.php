@@ -22,7 +22,7 @@ class SLIRConfig {
 	public static $errorLogPath	= NULL;
 	public static $forceQueryString	= FALSE;
 	public static $garbageCollectProbability = 1;
-	public static $garbageCollectDivisor = 200;
+	public static $garbageCollectDivisor = 500;
 	public static $garbageCollectFileCacheMaxLifetime	= 2419200; // 28 days = 28 * 24 * 60 * 60
 
 	// X3 resizer vars

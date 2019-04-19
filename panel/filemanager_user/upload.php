@@ -130,7 +130,8 @@ if ($core->isLogin())
                         if ($_FILES["datafile"]["error"] > 0) {
                             $ret["msg"] = language_filter("Return Code", true).': ' . $_FILES["datafile"]["error"];
                         } else {
-                            $name = $_FILES["datafile"]["name"];
+                            //$name = $_FILES["datafile"]["name"];
+                            $name = str_replace('%22', '"', $_FILES["datafile"]["name"]);
 
                             // PHP orientation
                             if(X3Config::$config["back"]["panel"]["upload_resize"]["orientation"] === 'server'){
@@ -190,15 +191,14 @@ if ($core->isLogin())
             $url = str_replace( "../", "", $url );
             $ext = pathinfo( $_POST["uploadDir"].$name, PATHINFO_EXTENSION );
             $ext = strtolower($ext);
-            //if($ext == "jpg" or $ext == "png" or $ext == "gif" or $ext == "jpeg") {
-            //if($ext == "jpg" or $ext == "jpeg") {
             if(in_array($ext, array('png', 'jpg', 'jpeg', 'gif'))) {
                 $thumbnail_url = $url;
+                list($image_width, $image_height) = getimagesize($url);
+            } else {
+                $thumbnail_url = "filemanager_assets/file.png";
+                $image_width = false;
+                $image_height = false;
             }
-            else {
-                $thumbnail_url = "filemanager_img/file.png";
-            }
-            list($image_width, $image_height) = getimagesize($url);
             $info = array(
                 "url" => $url,
                 "thumbnailUrl" => $thumbnail_url,

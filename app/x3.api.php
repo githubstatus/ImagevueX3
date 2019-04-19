@@ -26,6 +26,16 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 		$files = glob('*.mp3');
 		echo json_encode($files, JSON_FORCE_OBJECT);
 
+	// get cache time for auto-cache
+	} else if($action === 'get_cache_time'){
+		$file = '../content/auto-cache.json';
+		if(@file_exists($file) && @filesize($file) > 5){
+			$filetime = @filemtime($file);
+			echo $filetime ? $filetime : '';
+		} else {
+			echo '';
+		}
+
 	// X3 mailer
 	} else if($action === 'email'){
 
@@ -40,8 +50,6 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 			) {
 
 			// Get config
-			//$path = rtrim(__DIR__, '/');
-			//require $path . '/x3.config.inc.php';
 			require './x3.config.inc.php';
 			$settings = X3Config::$config["back"]["mail"];
 
@@ -73,10 +81,6 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 				return false;
 			}
 
-			// require PHPMailer
-			//require $path . '/extensions/PHPMailer/PHPMailerAutoload.php';
-			require './extensions/PHPMailer/PHPMailerAutoload.php';
-
 			// array_filter_key for custom fields
 			function array_filter_key(array $array, $callback){
 				$matchedKeys = array_filter(array_keys($array), $callback);
@@ -92,7 +96,6 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 			} else {
 				$name = '';
 			}
-			//$email = filter_var(trim($_POST["email"]), FILTER_SANITIZE_EMAIL);
 			if($email) $email = filter_var(trim($email), FILTER_SANITIZE_EMAIL);
 			$template_strict = false;
 			if(isset($_POST['template_strict']) && !empty($_POST['template_strict'])) {
@@ -111,8 +114,11 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 			$subject = strip_tags(trim($subject));
 			if(isset($settings['from'])) $from = filter_var(trim($settings['from']), FILTER_SANITIZE_EMAIL);
 
-			// Initiate PHPMailer
-			$mail = new PHPMailer;
+			// initiate X3 PHPMailer router
+			require './x3.mail.inc.php';
+			$mail = x3_mail($settings['use_smtp']);
+
+			// utf-8
 			$mail->CharSet = 'UTF-8';
 
 			// From
@@ -167,9 +173,12 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 			if($settings['use_smtp']) {
 				$mail->isSMTP();
 				$mail->Host = $settings['host'] ?: 'smtp.gmail.com';
-				$mail->SMTPAuth = $settings['SMTPAuth'] ?: true;
-				$mail->Username = trim($settings['username']);
-				$mail->Password = trim($settings['password']);
+				$smtp_auth = $settings['SMTPAuth'] ? true : false;
+				$mail->SMTPAuth = $smtp_auth;
+				if($smtp_auth){
+					$mail->Username = trim($settings['username']);
+					$mail->Password = trim($settings['password']);
+				}
 				$mail->SMTPSecure = $settings['SMTPSecure'] ?: 'tls'; // tls, ssl or empty
 				$mail->Port = $settings['port'] ?: 587; // 25|587|465
 				$mail->SMTPDebug = ($settings['debug'] ? 3 : 0); // 0|1|2|3

@@ -7,6 +7,7 @@ Class Helpers {
   static $folders_path = './content/folders.json';
   static $folders = array();
   static $urls = array();
+  static $site_updated = false;
 
   // refresh folders
   public static function refresh_folders(){
@@ -77,21 +78,30 @@ Class Helpers {
   static function url_to_file_path($url, $folders_only = true) {
 
   	# if the url is empty, we're looking for the index page
-	  $url = empty($url) ? 'index': $url;
+	  $url = empty($url) ? 'index' : $url;
 
   	# $use_data
   	if(self::$use_data){
   		if(preg_match('/^_/', $url) || strpos($url,'/_') !== false) return false;
 
     	// isset
-    	if(isset(self::$urls[$url])){
+      foreach (array($url, str_replace('_',' ',$url), str_replace('_','.',$url)) as $name) {
+        if(isset(self::$urls[$name])) {
+          return self::$urls[$name];
+        } else if(file_exists('./content/' . $name)){
+          return './content/' . $name;
+        }
+      }
+      return false;
+
+    	/*if(isset(self::$urls[$url])){
     		return self::$urls[$url];
 
     	// check if content path exists
     	} else {
     		$dir_path = './content/' . $url;
     		return file_exists($dir_path) ? $dir_path : false;
-    	}
+    	}*/
 
     # old-school
   	} else {
@@ -114,10 +124,6 @@ Class Helpers {
 
   // file cache
   static function file_cache($dir = false) {
-    /*if(!isset(self::$file_cache[$dir])) self::build_file_cache($dir);
-    if($dir && !isset(self::$file_cache[$dir])) return array();
-    return $dir ? self::$file_cache[$dir] : self::$file_cache;*/
-
     if(!empty($dir)){
     	if(!isset(self::$file_cache[$dir])) self::build_file_cache($dir);
     	return self::$file_cache[$dir];
@@ -128,11 +134,13 @@ Class Helpers {
   static function build_file_cache($dir = '.') {
     # build file cache
     $files = glob($dir.'/*', GLOB_NOSORT);
-    //$files = is_array($files) ? $files : array();
     if($files && count($files)){
     	foreach($files as $path) {
 	      $file = basename($path);
+        //$file = preg_replace('/\s/', '_', basename($path));
 	    	$is_dir = is_dir($path);
+        //$dots = substr_count($file, '.');
+        //if($dots > 1) $file = preg_replace('/\./', '_', $file, $dots - 1);
 	    	//self::$bugme .= PHP_EOL . '<!-- ' . $path . ' -->';
 	      self::$file_cache[$dir][] = array(
 	        'path' => $path,
@@ -147,56 +155,21 @@ Class Helpers {
 
   static function list_files($dir, $regex, $folders_only = false, $sort = true) {
     $files = array();
-
-    if(!$regex && $folders_only) {
-    	$regex = X3Config::$config["settings"]["hide_folders"] ? '\/\d+?\.[^\/]+$/' : '\/[^_][^\/]+$/';
-    	//$regex = X3Config::$config["settings"]["hide_folders"] ? '\/\d+?\.[^\/]+$/' : '\/[^\/_]+$/';
-    	//$regex = X3Config::$config["settings"]["hide_folders"] ? '/^\d+?\./' : '\/[^\/_]+$/';
-    }
+    //if(!$regex && $folders_only) $regex = X3Config::$config["settings"]["hide_folders"] ? '\/\d+?\.[^\/]+$/' : '\/[^_][^\/]+$/';
+    if(!$regex && $folders_only) $regex = '\/[^_][^\/]+$/';
 
     # $use_data
     if($folders_only && self::$use_data) {
-    	// '/^\d+?\./'
-    	// '\/[^\/]+$/'
-    	// '\/\d+?\.[^\/]+$/'   ??
-    	//$results = preg_grep('/' . preg_quote($dir, '/') . '\/\d+?\.[^\/]+$/', self::$data);
-    	//$results = preg_grep('/' . preg_quote($dir, '/') . '\/[^\/_]+$/', self::$data);
-    	//$results = preg_grep('/' . preg_quote($dir, '/') . $regex, self::$data);
-    	//$results = preg_grep('/' . preg_quote($dir, '/') . $regex, self::$urls);
-    	//var_dump($results2);
-    	//var_dump($dir);
-    	//var_dump($results);
-
-    	//$content_path = $dir === './content' ? '' : preg_replace('/.\/content\//', '', $dir, 1);
     	foreach (self::$folders as $key => $val) {
     		if(preg_match('/' . preg_quote($dir, '/') . $regex, './content/' . $key) && (!isset($val['hidden']) || !$val['hidden'] || substr($key, -5) === 'index')){
     			$files[basename($key)] = './content/' . $key;
     		}
     	}
-    	/*foreach (self::$urls as $key => $val) {
-    		//if(preg_match('/' . preg_quote($dir, '/') . $regex, $val) && (!isset($val['hidden']) || !$val['hidden'])){
-    		if(preg_match('/' . preg_quote($dir, '/') . $regex, $val) && (!isset($folders[]['hidden']) || !$val['hidden'])){
-    			//$files[basename($key)] = './content/' . $val['url'];
-    			$files[basename($val)] = $val;
-    		}
-    	}
-
-    	// filter hidden folders
-    	/*$results = empty(self::$folders) ? $results : array_filter($results, function($dir){
-		  	$content_path = preg_replace('/.\/content\//', '', $dir, 1);
-		  	return !isset(self::$folders[$content_path]['hidden']) || !self::$folders[$content_path]['hidden'];
-		  });*/
-
-    	/*if(count($results) > 0) {
-    		foreach ($results as $file) {
-	    		$files[basename($file)] = $file;
-	    	}
-    	}*/
 
     } else {
     	foreach(self::file_cache($dir) as $file) {
 	      # if file matches regex, continue
-	      if(isset($file['file_name']) && preg_match($regex, $file['file_name'])) {
+        if(isset($file['file_name']) && preg_match($regex, $file['file_name'])) {
 	        # if $folders_only is true and the file is not a folder, skip it
 	        if($folders_only && !$file['is_folder']) continue;
 	        # otherwise, add file to results list
@@ -212,6 +185,9 @@ Class Helpers {
 
   static function site_last_modified() {
 
+    // cached value (just in case)
+    if(self::$site_updated) return self::$site_updated;
+
   	# content touch
   	$content = filemtime(Config::$content_folder);
 
@@ -222,14 +198,22 @@ Class Helpers {
     $touch = Config::$root_folder.'config/touch.txt';
     $touch_time = file_exists($touch) ? filemtime($touch) : 0;
 
-    # global parent config (optional)
-    $basedir_str = ini_get('open_basedir');
-    $global_json = dirname(dirname(dirname(__FILE__))).'/global.json';
-    $global_json_time = empty($basedir_str) && file_exists($global_json) ? filemtime($global_json) : 0;
+    # global parent config files (../global.json and ../../global.json)
+    $global_parent_config_time = 0;
+    $global_parent_parent_config_time = 0;
+    if(X3Config::$config["userx"]){
+      $root_parent = dirname(dirname(__DIR__));
+      $global_parent_config =  $root_parent . '/global.json';
+      $global_parent_parent_config =  dirname($root_parent) . '/global.json';
+      if(file_exists($global_parent_config)) $global_parent_config_time = @filemtime($global_parent_config);
+      if(file_exists($global_parent_parent_config)) $global_parent_parent_config_time = @filemtime($global_parent_parent_config);
+    }
 
     # updated
-    $updated = max($content, $app, $touch_time, $global_json_time);
-    return strval(date('c', $updated));
+    //$updated = max($content, $app, $touch_time, $global_json_time);
+    self::$site_updated = max($content, $app, $touch_time, $global_parent_config_time, $global_parent_parent_config_time);
+    //return strval(date('c', self::$site_updated));
+    return self::$site_updated;
   }
 
   static function translate_named_entities($string) {

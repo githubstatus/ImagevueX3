@@ -69,11 +69,7 @@ Class Page {
   static function template_file($template_name) {
   	$segment = explode('/', $_SERVER['REQUEST_URI']);
   	$last_segment = end($segment);
-  	if(stripos($last_segment, '.json') !== false) {
-  		$ext = 'json';
-  	} else {
-  		$ext = 'html';
-  	}
+    $ext = stripos($last_segment, '.json') !== false ? 'json' : 'html';
   	return Config::$templates_folder.'/'.$template_name.'.'.$ext;
   }
 

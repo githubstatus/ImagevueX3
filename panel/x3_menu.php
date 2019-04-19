@@ -25,11 +25,8 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 	X3::get_folders();
 	echo X3::make_dir_tree($dir);
 
-	// flush output
-	flush();
-
 	// lazy merge folders.json // only intersect if root is content
-	X3::merge_folders(X3::$data, $dir === $default);
+	if(!filter_var($_POST['is_guest'], FILTER_VALIDATE_BOOLEAN)) X3::merge_folders(X3::$data, $dir === $default);
 }
 
 ?>

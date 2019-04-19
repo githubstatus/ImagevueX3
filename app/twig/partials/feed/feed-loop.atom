@@ -6,11 +6,17 @@
 <title>{{ title }}</title>
 <summary>{{ page.description|striptags|e('html')|default(title) }}</summary>
 <updated>{{ page.updated|date('c') }}</updated>
-<link rel="alternate" type="text/html" href="{{ page.permalink|setpath(absolutepath) }}" />
+{% if page.link.url is not empty %}
+{% if page.link.url|lower starts with 'http' %}
+<link rel="alternate" type="text/html" href="{{ page.link.url|e }}" />
+{% endif %}
+{% else %}
+<link rel="alternate" type="text/html" href="{{ page.permalink|setpath(absolutepath)|e }}" />
+{% endif %}
 {% set preview_image %}{% include 'partials/preview-image.html' %}{% endset %}
 {% if preview_image %}
-<media:thumbnail url="{{ absolutepath }}{{ resize_path(preview_image, '200', '200', '1:1', 90)|trim('.')|replace({' ':'%20'}) }}" width="200" height="200" />
-<media:content url="{{ absolutepath ~ preview_image|trim('.')|replace({' ':'%20'}) }}" />
+<media:thumbnail url="{{ absolutepath }}{{ resize_path(preview_image|e, '200', '200', '1:1', 90)|trim('.')|replace({' ':'%20'}) }}" width="200" height="200" />
+<media:content url="{{ absolutepath ~ preview_image|e|trim('.')|replace({' ':'%20'}) }}" />
 {% endif %}
 </entry>
 {% if page.children_count > 0 %}{% include 'partials/feed/feed-loop.atom'  with {'node': page.children} %}{% endif %}

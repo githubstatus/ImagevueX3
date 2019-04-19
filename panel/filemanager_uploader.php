@@ -23,15 +23,15 @@ if ($core->isLogin())
 
         <!-- The file upload form used as target for the file upload widget -->
         <form id="fileupload" action="upload.php" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="uploadDir" value="<?php echo $_POST["upload_dir"];?>">
+            <input type="hidden" name="uploadDir" value="<?php echo htmlspecialchars($_POST["upload_dir"]);?>">
             <!-- Redirect browsers with JavaScript disabled to the origin page -->
             <noscript><input type="hidden" name="redirect" value="."></noscript>
 
             <div id="dropzone" class="fade well fileinput-button">
             	<span class="glyphicon glyphicon-upload" aria-hidden="true"></span>
-            	<div class=tdef><?php language_filter( "Dropzone" );?>&nbsp;</div>
-            	<div class=tdrop><?php language_filter( "Drop_files_here" );?>&nbsp;</div>
-            	<div class=thover><?php language_filter( "Add_Files" );?>&nbsp;</div>
+            	<div class="tdef"><?php language_filter( "Dropzone" );?>&nbsp;</div>
+            	<div class="tdrop"><?php language_filter( "Drop_files_here" );?>&nbsp;</div>
+            	<div class="thover"><?php language_filter( "Add_Files" );?>&nbsp;</div>
             	<input type="file" name="datafile" multiple>
             </div>
 
@@ -47,33 +47,26 @@ if ($core->isLogin())
 								  </label>
 								</div>
 
-								<div class=resize-inputs>
-	            		<span class=input-sm><?php language_filter( "Width" );?></span><div class="form-group">
+								<div class="resize-inputs">
+	            		<span class="input-sm"><?php language_filter( "Width" );?></span><div class="form-group">
 	            			<input type="number" class="form-control input-sm" id="resize-width" value="1600" placeholder="1600" min="100" max="9999" maxlength="4" step="100" pattern="[0-9]{3,4}" title="Resized image max width">
 								  </div>
-								  <span class=input-sm><?php language_filter( "Height" );?></span><div class="form-group">
+								  <span class="input-sm"><?php language_filter( "Height" );?></span><div class="form-group">
 								  	<input type="number" class="form-control input-sm" id="resize-height" value="1600" placeholder="1600" min="100" max="9999" maxlength="4" step="100" pattern="[0-9]{3,4}" title="Resized image max height">
 								  </div>
-								  <span class=input-sm><?php language_filter( "Quality" );?></span><div class="form-group">
+								  <span class="input-sm"><?php language_filter( "Quality" );?></span><div class="form-group">
 								  	<input type="number" class="form-control input-sm" id="resize-quality" value="91" placeholder="91" min="1" max="100" maxlength="3" step="1" pattern="[0-9]{1,3}" title="Resized image quality (1-100)">
 								  </div>
 							  </div>
 							</div>
 
-                <div class=fileupload-buttons>
+                <div class="fileupload-buttons">
 
-                	<div class=queue-text></div>
+                	<div class="queue-text"></div>
 
 	                <button type="submit" class="btn btn-primary start">
 	                    <span><?php language_filter( "Start_Upload" );?></span>
 	                </button>
-
-	                <!-- The fileinput-button span is used to style the file input field as button -->
-	                <?php /*<span class="btn btn-success btn-lg fileinput-button">
-	                    <i class="glyphicon glyphicon-plus"></i>
-	                    <span><?php language_filter( "Add_Files" );?></span>
-	                    <input type="file" name="datafile" multiple>
-	                </span> */ ?>
 
 	                <button type="reset" class="btn btn-warning btn-sm cancel">
 	                    <i class="glyphicon glyphicon-trash"></i>
@@ -107,18 +100,18 @@ if ($core->isLogin())
         <script id="template-upload" type="text/x-tmpl">
             {% for (var i=0, file; file=o.files[i]; i++) { %}
                 <tr class="template-upload fade">
-                    <td class=td-preview>
+                    <td class="td-preview">
                         <span class="preview"></span>
                     </td>
-                    <td class=td-data>
+                    <td class="td-data">
                         <div class="filename">{%=file.name%}</div>
                         <strong class="error text-danger"></strong>
                         <div class="size"><?php language_filter( "Processing" );?></div>
                     </td>
-                    <td class=td-progress>
+                    <td class="td-progress">
                         <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
                     </td>
-                    <td class=td-cancel>
+                    <td class="td-cancel">
                     		{% if (!i && !o.options.autoUpload) { %}
                             <button class="btn btn-primary start hidden" disabled>
                                 <i class="glyphicon glyphicon-upload"></i>
@@ -137,24 +130,23 @@ if ($core->isLogin())
         <!-- The template to display files available for download -->
         <script id="template-download" type="text/x-tmpl">
             {% for (var i=0, file; file=o.files[i]; i++) { %}
-                <tr class="template-download fade">
-                		<td class=td-preview>
+                <tr class="template-download fade{% if (!file.width) { %} is_file{% } %}"{% if (file.width) { %} data-isimage="1"{% } %}>
+                		<td class="td-preview">
                         <span class="preview">
                             {% if (file.thumbnailUrl) { %}
-                                <?php /*<a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl.replace('/content/','/render/w'+thumbsize+'-c1:1-q90/')%}" class="jquery_uploader_thumbnail gaga"></a> */ ?>
-                                <a href="{%=file.thumbnailUrl%}" class="popup" data-width="{%=file.width%}" data-height="{%=file.height%}" data-name="{%=file.name%}" data-filesize="{%=o.formatFileSize(file.size)%}" rel="up1">
+                                <a href="{%=file.url%}" target="_blank"{% if (file.width) { %} class="popup" data-width="{%=file.width%}" data-height="{%=file.height%}"{% } %} data-name="{%=file.name%}" data-filesize="{%=o.formatFileSize(file.size)%}" rel="up1">
                                 	<img src="{%=file.thumbnailUrl.replace('/content/','/render/w'+thumbsize+'-c1:1-q90/')%}">
                                 </a>
                             {% } %}
                         </span>
                     </td>
 
-                    <td class=td-data>
-                        <div class="filename"><a href="{%=file.thumbnailUrl%}" class="popup" data-width="{%=file.width%}" data-height="{%=file.height%}" data-name="{%=file.name%}" data-filesize="{%=o.formatFileSize(file.size)%}" rel="up2">{%=file.name%}</a></div>
+                    <td class="td-data">
+                        <div class="filename"><a href="{%=file.url%}" target="_blank"{% if (file.width) { %} class="popup" data-width="{%=file.width%}" data-height="{%=file.height%}"{% } %} data-name="{%=file.name%}" data-filesize="{%=o.formatFileSize(file.size)%}" rel="up2">{%=file.name%}</a></div>
                         {% if (file.error) { %}
                             <div><span class="label label-danger"><?php language_filter( "Error" );?></span> {%=file.error%}</div>
                         {% } %}
-                        <div class="size">{%=o.formatFileSize(file.size)%} | {%=file.width%} x {%=file.height%}</div>
+                        <div class="size">{%=o.formatFileSize(file.size)%}{% if (file.width) { %} | {%=file.width%} x {%=file.height%}{% } %}</div>
                     </td>
                     <td class="td-ok"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
                     <td>
@@ -162,7 +154,6 @@ if ($core->isLogin())
                             <button class="btn btn-danger btn-sm delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                                 <i class="glyphicon glyphicon-trash"></i>
                             </button>
-                            <!--<input type="checkbox" name="delete" value="1" class="toggle">-->
                         {% } else { %}
                             <button class="btn btn-warning cancel">
                                 <i class="glyphicon glyphicon-ban-circle"></i>

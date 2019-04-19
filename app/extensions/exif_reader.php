@@ -46,22 +46,26 @@ class KEHA76_Exif_Reader {
 	    $myexif = array();
 
 	    // vals
-	    if(@array_key_exists('Make', $dataEXIF)) $myexif['make'] = $dataEXIF['Make'];
-	    if(@array_key_exists('Model', $dataEXIF)) $myexif['model'] = $dataEXIF['Model'];
-	    if(@array_key_exists('DateTimeOriginal', $dataEXIF)) $myexif['date_taken'] = date('c', strtotime($dataEXIF['DateTimeOriginal']));
-	    //if(@array_key_exists('DateTime', $dataEXIF)) $myexif['date_taken'] = date('c', strtotime($dataEXIF['DateTime']));
-	    if(@array_key_exists('ApertureFNumber', $dataEXIF['COMPUTED'])) $myexif['aperture'] = $dataEXIF['COMPUTED']['ApertureFNumber'];
-	    if(@array_key_exists('FocalLength', $dataEXIF)) $myexif['focal_length'] = $this->getFocalLength($dataEXIF);
-	    if(@array_key_exists('ExposureTime', $dataEXIF)) $myexif['exposure'] = $dataEXIF['ExposureTime'];
-	    if(@array_key_exists('ISOSpeedRatings', $dataEXIF)) $myexif['iso'] = $dataEXIF['ISOSpeedRatings'];
-	    if(@array_key_exists('ShutterSpeedValue', $dataEXIF)) $myexif['shutter_speed'] = $this->getShutter($dataEXIF);
-	    if(@array_key_exists('ApertureValue', $dataEXIF)) $myexif['f_stop'] = $this->getFstop($dataEXIF);
+	    if(isset($dataEXIF['Make'])) $myexif['make'] = $dataEXIF['Make'];
+	    if(isset($dataEXIF['Model'])) $myexif['model'] = $dataEXIF['Model'];
+	    if(isset($dataEXIF['DateTimeOriginal'])) $myexif['date_taken'] = date('c', strtotime($dataEXIF['DateTimeOriginal']));
+	    if(isset($dataEXIF['COMPUTED']['ApertureFNumber'])) $myexif['aperture'] = $dataEXIF['COMPUTED']['ApertureFNumber'];
+	    if(isset($dataEXIF['FocalLength'])) $myexif['focal_length'] = $this->getFocalLength($dataEXIF['FocalLength']);
+	    if(isset($dataEXIF['ExposureTime'])) $myexif['exposure'] = $dataEXIF['ExposureTime'];
+	    if(isset($dataEXIF['ISOSpeedRatings'])) $myexif['iso'] = $dataEXIF['ISOSpeedRatings'];
+	    if(isset($dataEXIF['ShutterSpeedValue'])) $myexif['shutter_speed'] = $this->getShutter($dataEXIF);
+	    if(isset($dataEXIF['ApertureValue'])) $myexif['f_stop'] = $this->getFstop($dataEXIF['ApertureValue']);
 
 	    // width/height
-	    if(@array_key_exists('COMPUTED', $dataEXIF)){
-	    	if(@array_key_exists('Width', $dataEXIF["COMPUTED"])) $myexif['width'] = $dataEXIF["COMPUTED"]["Width"];
-	    	if(@array_key_exists('Height', $dataEXIF["COMPUTED"])) $myexif['height'] = $dataEXIF["COMPUTED"]["Height"];
-	    }
+	    if(isset($dataEXIF['COMPUTED']['Width'])) $myexif['width'] = $dataEXIF['COMPUTED']['Width'];
+	    if(isset($dataEXIF['COMPUTED']['Height'])) $myexif['height'] = $dataEXIF['COMPUTED']['Height'];
+
+	    // coordinates location
+    	$gps = @$this->get_image_location($dataEXIF);
+    	if($gps && count($gps) === 2) {
+    		$myexif['latitude'] = $gps[0];
+    		$myexif['longitude'] = $gps[1];
+    	}
 
 			// return array if not empty
 			return $myexif;
@@ -89,8 +93,8 @@ class KEHA76_Exif_Reader {
 		return '1/' . round(1 / $shutter) . 's'; 
 	}
 
-	public function getFocalLength($exif) {
-		$focal = explode('/', $exif['FocalLength']);
+	public function getFocalLength($val) {
+		$focal = explode('/', $val);
 		if(!empty($focal[0]) && !empty($focal[1]) && $focal[0] > 0 && $focal[1] > 0){
 			$focalLength = round($focal[0] / $focal[1]);
 		} else {
@@ -99,11 +103,48 @@ class KEHA76_Exif_Reader {
 		return $focalLength;
 	}
 
-	public function getFstop($exif) {
-	  $apex  = $this->getFloat($exif['ApertureValue']);
+	public function getFstop($val) {
+	  $apex  = $this->getFloat($val);
 		$fstop = pow(2, $apex/2);
 	  if($fstop == 0) return false;
 		return 'f/' . round($fstop, 1);
+	}
+
+	private function get_image_location($exif){
+		$arr = array('GPSLatitudeRef', 'GPSLatitude', 'GPSLongitudeRef', 'GPSLongitude');
+		foreach ($arr as $val) {
+			if(!isset($exif[$val])) return false;
+		}
+
+    $GPSLatitudeRef = $exif[$arr[0]];
+    $GPSLatitude    = $exif[$arr[1]];
+    $GPSLongitudeRef= $exif[$arr[2]];
+    $GPSLongitude   = $exif[$arr[3]];
+    
+    $lat_degrees = count($GPSLatitude) > 0 ? $this->gps2Num($GPSLatitude[0]) : 0;
+    $lat_minutes = count($GPSLatitude) > 1 ? $this->gps2Num($GPSLatitude[1]) : 0;
+    $lat_seconds = count($GPSLatitude) > 2 ? $this->gps2Num($GPSLatitude[2]) : 0;
+    
+    $lon_degrees = count($GPSLongitude) > 0 ? $this->gps2Num($GPSLongitude[0]) : 0;
+    $lon_minutes = count($GPSLongitude) > 1 ? $this->gps2Num($GPSLongitude[1]) : 0;
+    $lon_seconds = count($GPSLongitude) > 2 ? $this->gps2Num($GPSLongitude[2]) : 0;
+    
+    $lat_direction = ($GPSLatitudeRef == 'W' or $GPSLatitudeRef == 'S') ? -1 : 1;
+    $lon_direction = ($GPSLongitudeRef == 'W' or $GPSLongitudeRef == 'S') ? -1 : 1;
+    
+    $latitude = $lat_direction * ($lat_degrees + ($lat_minutes / 60) + ($lat_seconds / (60*60)));
+    $longitude = $lon_direction * ($lon_degrees + ($lon_minutes / 60) + ($lon_seconds / (60*60)));
+
+    return array($latitude, $longitude);
+	}
+
+	private function gps2Num($coordPart){
+    $parts = explode('/', $coordPart);
+    if(count($parts) <= 0)
+    return 0;
+    if(count($parts) == 1)
+    return $parts[0];
+    return floatval($parts[0]) / floatval($parts[1]);
 	}
 }
 

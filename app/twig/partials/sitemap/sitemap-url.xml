@@ -1,4 +1,5 @@
-{% for child in node|default(page.root) %}
+{#{% for child in node|default(page.root) %}#}
+{% for child in node|default(page.root) if child.link.url is empty %}
 <url>
     <loc>{{ child.permalink|setpath(absolutepath) }}</loc>
     <lastmod>{{ child.updated|date('c') }}</lastmod>

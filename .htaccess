@@ -17,11 +17,12 @@
 
 	# Rewrite any calls to html|json|xml|atom|rss if a folder matching * exists
 	RewriteCond %{REQUEST_FILENAME} !-f
-	RewriteRule (.+)\.(html|json|xml|atom|rss)$ $1/ [L]
+	RewriteRule (.+)\.(html|json|xml|atom|rss)$ index.php?$1/ [L]
 
 	# Rewrite any calls to /render to the X3 image resizer
 	RewriteCond %{REQUEST_URI} render/
-	RewriteRule ^render/. app/parsers/slir/ [L]
+	#RewriteRule ^render/. app/parsers/slir/ [L]	
+	RewriteRule ^render/. app/parsers/slir/index.php?$1 [L]
 
 	# Rewrite routes to X3 application index.php if they are non-existent files/dirs
 	RewriteCond %{REQUEST_FILENAME} !-f

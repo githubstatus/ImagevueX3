@@ -3,8 +3,8 @@
 # X3
 Class Stacey {
 
-  static $version = '3.24.3';
-  static $version_date = 1515852993748;
+  static $version = '3.25.1';
+  static $version_date = 1533617962210;
   static $server_protocol = 'http://';
 
   var $route;
@@ -145,33 +145,25 @@ Class Stacey {
   }
 
   function render($file_path, $template_file) {
-  	global $time_pre;
+  	//global $time_pre;
     $cache = new Cache($file_path, $template_file, $this->is_protected);
     # set any custom headers
     $this->set_content_type($template_file);
-    header('Generator: Imagevue X' . Stacey::$version . ' / www.photo.gallery');
+    header('Generator: X' . Stacey::$version . ' / www.photo.gallery');
 
     // no-index, nofollow (none) for image landing pages?
     if(X3Config::$config["settings"]["image_noindex"] && basename($template_file) === 'file.html') header('X-Robots-Tag: noindex');
 
     # if etag is still fresh, return 304 and don't render anything
     if(!$this->etag_expired($cache)) return;
+    
     # if cache has expired
-    $html = $template_file === Config::$templates_folder.'/page.html' || $template_file === Config::$templates_folder.'/file.html';
     if($cache->expired()) {
       # render page & create new cache
-      echo $cache->create($this->route, $file_path, true, true);
-      if($html) {
-      	echo PHP_EOL . '<!-- Page creation time: ' . (microtime(true) - $time_pre) . ' seconds -->';
-      	//echo Helpers::$bugme;
-      }
+      $cache->create($this->route, $file_path, true, true);
     } else {
       # render the existing cache
       echo $cache->render();
-      if($html) {
-      	echo PHP_EOL . '<!-- Cache output time: ' . (microtime(true) - $time_pre) . ' seconds -->';
-      	//echo Helpers::$bugme;
-      }
     }
   }
 
@@ -306,12 +298,16 @@ Class Stacey {
 			array_unshift($x3_service, "feed");
 			array_unshift($x3_service_templates, "feed.atom");
 		}
-
   }
 
   // X3 Find File
   function x3FindFile($file_path, $name){
-  	$files = array_keys(Helpers::list_files($file_path, '/'.$name.'\.(jpg|jpeg|png|gif)/i', false, false));
+    // check name, then text space and dot
+    foreach (array($name, str_replace('_',' ',$name), str_replace('_','.',$name)) as $name) {
+      $regex = '/' . preg_quote($name) . '\.(jpg|jpeg|png|gif)/i';
+      $files = array_keys(Helpers::list_files($file_path, $regex, false, false));
+      if(count($files)) break;
+    }
   	return end($files);
   }
 
@@ -327,18 +323,14 @@ Class Stacey {
     if($this->handle_redirects()) return;
     # strip any leading or trailing slashes from the passed url
     $key = key($get);
-
     # if the key isn't a URL path, then ignore it
     if (!preg_match('/\//', $key)) $key = false;
     $key = preg_replace(array('/\/$/', '/^\//'), '', $key);
     # store file path for this current page
     $this->route = isset($key) ? $key : 'index';
-    # TODO: Relative root path is set incorrectly (missing an extra ../)
     # strip any trailing extensions from the url
     $this->route = preg_replace('/[\.][\w\d]+?$/', '', $this->route);
     # $this->route = preg_replace('/[\.|\_][\w\d]+?$/', '', $this->route); // 0.8
-    //$this->route = str_replace('_json','',$this->route); // X3 hack for non-rewrite non-htaccess
-    #$this->route = preg_replace('/_json$/', '', $this->route);
 
     # Get X3 Route services
     global $x3_service;
@@ -356,9 +348,6 @@ Class Stacey {
 		# X3 Service Route
     if(in_array($this->route, $x3_service)) {
 
-    	# load data.json
-    	//Helpers::load_data();
-
     	$file_path = "./" . $this->route;
 	    global $current_page_file_path;
 	    $current_page_file_path = $file_path;
@@ -369,9 +358,6 @@ Class Stacey {
 
     # X3 Page
     } else {
-
-    	# load data.json
-    	//Helpers::load_data();
 
     	$file_path = Helpers::url_to_file_path($this->route, true);
 
@@ -393,12 +379,6 @@ Class Stacey {
 
 	    		// Search file
 	    		$file = $this->x3FindFile($file_path, $name);
-	    		// Check for file names with spaces (replace _underscore with empty space)
-	    		if(empty($file) && strpos($name, '_') !== false) {
-	    			$file = $this->x3FindFile($file_path, str_replace('_',' ',$name));
-	    			// Check for file names with dots (replace _underscore with dot)
-	    			if(empty($file)) $file = $this->x3FindFile($file_path, str_replace('_','.',$name));
-	    		}
 
 	    		// Make file_path if $file is not empty
 	    		$file_path = empty($file) ? null : $file_path.'/'.$file;

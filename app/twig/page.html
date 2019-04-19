@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!-- X3 website by www.photo.gallery -->
 {% spaceless %}
 
@@ -19,11 +19,19 @@
 {# Preview image full path #}
 {% set preview_image_full = page.settings.cdn_files|trim('/')|default(absolutepath) ~ preview_image|trim('.') %}
 
-{# CDN core path #}
+{# core paths #}
+{% set local_public = rootpath ~ '/app/public' %}
+{% set local_js = local_public ~ '/js/' ~ page.stacey_version ~ '/x3.min.js' %}
+{% set local_css = local_public ~ '/css/' ~ page.stacey_version ~ '/x3.skin.' ~ page.style.skin.skin ~ '.css' %}
 {% if page.settings.cdn_core %}
-	{% set cdn_core = 'https://d30xwzl2pxzvti.cloudfront.net' %}
+	{% set core_js = 'https://cdn.jsdelivr.net/npm/x3.photo.gallery@' ~ page.stacey_version ~ '/js/x3.min.js' %}
+	{% set core_css = 'https://cdn.jsdelivr.net/npm/x3.photo.gallery@' ~ page.stacey_version ~ '/css/x3.skin.' ~ page.style.skin.skin ~ '.css' %}
+	{#{% set cdn_core = 'https://d30xwzl2pxzvti.cloudfront.net' %}#}
 {% else %}
-	{% set cdn_core = rootpath ~ '/app/public' %}
+	{#{% set cdn_core = rootpath ~ '/app/public' %}#}
+	{#https://cdn.jsdelivr.net/npm/x3.photo.gallery@3.25.0/app/public/js/x3.min.js#}
+	{% set core_js = local_js %}
+	{% set core_css = local_css %}
 {% endif %}
 
 {# VARS #}

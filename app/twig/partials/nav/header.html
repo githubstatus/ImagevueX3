@@ -1,5 +1,5 @@
 
-<header class=header>
+<header class="header">
 
 		{# Set logo title from page.style.logo.title setting, and default #}
 		{% set logo_title = page.style.logo.title|default("Logo Here") %}
@@ -7,7 +7,7 @@
 		{# Set logo content to image or text #}
 		{% set logo_content %}
 			{% if page.style.logo.use_image %}
-				<img src='{{ assetspath ~ firstImage("./content/custom/logo") }}' alt='{{ logo_title }}' />
+				<img src="{{ assetspath ~ firstImage("./content/custom/logo") }}" alt="{{ logo_title }}" />
 			{% else %}
 				{{ logo_title|trim }}
 	  	{% endif %}
@@ -17,15 +17,15 @@
   	{% if page.style.logo.use_image %}{% set logo_classes = ' logo-image' %}{% endif %}
 
 		{# write the html, hide logo if 'hide' in style.logo or logo.content #}
-		<div class=nav-wrapper>
-			<nav class=nav>
+		<div class="nav-wrapper">
+			<nav class="nav">
 				<div class="logo-wrapper">
 				{% if page.style.logo.enabled %}
 					{% set logo_link = (page.style.logo.link is empty) ? rootpath ~ '/' : page.style.logo.link %}
-					<a href="{{ logo_link }}" class='logo {{ logo_classes }}'>{{ logo_content|trim }}</a>
+					<a href="{{ logo_link }}" class="logo {{ logo_classes }}">{{ logo_content|trim }}</a>
 				{% endif %}
 				</div>
-				<ul class='menu slim'>
+				<ul class="menu slim">
 					{% if not page.settings.menu_disabled %}
 						{{ getMenu() }}
 					{% endif %}

@@ -175,8 +175,6 @@ class X3 {
   		foreach ($arr as $prop) {
   			if(isset($val[$prop]) && !$val[$prop]) unset($merged[$key][$prop]);
   		}
-  		//if(isset($val['hidden']) && !$val['hidden']) unset($merged[$key]['hidden']);
-  		//if(isset($val['index']) && !$val['index']) unset($merged[$key]['index']);
   	}
   	return self::write_folders($merged);
   }
@@ -221,8 +219,10 @@ class X3 {
 			// menu html
 	    $menu .= '<ul>';
 			foreach($dir_object as $dir => $val){
-				$name = basename($dir);
-				$menu .= '<li data-sort="' . $val['sort'] . '" data-custom="' . $val['custom'] . '" data-content-path="' . $val['content_path'] . '" data-dir="' . $dir . '" data-name="' . $name . '"><a href="#" data-href="' . $dir . '" rel="nofollow">' . $name . '</a>' . self::make_dir_tree($dir . '/*') . '</li>';
+				$menu_id = '_' . trim(preg_replace('/\_+/', '_', str_replace(str_split(' .,()[]/"“’\\\'!?#`~@-$%^&*+=:;<>{}'), '_', $val['content_path'])), '_');
+				$dir_escaped = htmlspecialchars($dir);
+				$name = basename($dir_escaped);
+				$menu .= '<li data-sort="' . $val['sort'] . '" data-custom="' . $val['custom'] . '" data-content-path="' . htmlspecialchars($val['content_path']) . '" data-dir="' . $dir_escaped . '" data-name="' . $name . '" id="' . $menu_id . '"><a href="#" data-href="' . $dir_escaped . '" rel="nofollow">' . $name . '</a>' . self::make_dir_tree($dir . '/*') . '</li>';
 				self::add_data($dir);
 			}
 			$menu .= '</ul>';

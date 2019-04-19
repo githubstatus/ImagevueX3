@@ -7,7 +7,7 @@ use \Michelf\MarkdownExtra;
 Class PageData {
 
   static $shared = false;
-  static $site_updated = false;
+  //static $site_updated = false;
   static $page_root = false;
   //static $current_parent = false;
   //static $current_siblings = false;
@@ -80,8 +80,7 @@ Class PageData {
     $page->slug = basename($page->url_path);
 
     # page.updated
-    //$page->updated = strval(date('c', filemtime($page->file_path)));
-    $updated = filemtime($page->file_path);
+    $updated = @filemtime($page->file_path);
     $page->updated = $updated;
 
     // convert page 'date' to timestamp if set, or set date from filemtime;
@@ -140,8 +139,9 @@ Class PageData {
 	    $page->stacey_version = Stacey::$version;
 
 	    # page.site_updated
-	    if(!self::$site_updated) self::$site_updated = Helpers::site_last_modified();
-	    $page->site_updated = self::$site_updated;
+	    //if(!self::$site_updated) self::$site_updated = Helpers::site_last_modified();
+	    //$page->site_updated = self::$site_updated;
+      $page->site_updated = Helpers::site_last_modified();
 
     	# page.siblings_count
 	    //$page->siblings_count = strval(count($page->data['siblings_and_self']));
@@ -224,8 +224,6 @@ Class PageData {
 	    		self::$hide = '';
 	    	}
     	}
-
-    	//$page->images = Helpers::list_files($page->file_path, '/^' . self::$hide . '(?:[^.\n]*\.)*(?<!^preview\.|^thumb\.)(?:jpe?g|png|gif)$/i', false);
 
     	// get page images
     	$page_images = Helpers::list_files($page->file_path, '/^' . self::$hide . '(?:[^.\n]*\.)*(?<!^preview\.|^thumb\.)(?:jpe?g|png|gif)$/i', false);

@@ -35,7 +35,7 @@
 	{% set medium_grid = min(block_grid[1]|default(block_grid[0])|default('2'), columns_limit) %}
 	{% set large_grid = min(block_grid[0]|default('3'), columns_limit) %}
 
-	{% set ul_open = "<ul class='small-block-grid-"~small_grid~" medium-block-grid-"~medium_grid~" large-block-grid-"~large_grid~" items'>" %}
+	{% set ul_open = '<ul class="small-block-grid-' ~ small_grid ~ ' medium-block-grid-' ~ medium_grid ~ ' large-block-grid-' ~ large_grid ~ ' items">' %}
 	{% set li_open = '<li>' %}
 	{% set li_close = '</li>' %}
 	{% set ul_close = '</ul>' %}
@@ -43,10 +43,8 @@
 
 {# Set sort #}
 {% set children = sortby(folder.children, page.folders.sortby, (page.folders.sort == 'desc' ? true : false)) %}
-{#{% set children = sortby(folder.children, 'date', true) %}#}
 
 {# Do folders loop #}
-{#{% if assets.children_count > 0 %}#}
 {% if children|length > 0 %}
 	{{ ul_open }}
 	{% for child in children %}
@@ -57,17 +55,18 @@
 		{% set title = child.title %}
 		{% set title_pseudo = title|replace({'<a': '<span', '</a>': '</span>', ' href=': ' data-href=', ' target=': ' data-target='}) %}
 		{% set label = child.label %}
+		{% set child_id = label|attribute_friendly %}
 
 		{# Date #}
 		{% set date = child.date|default(child.updated) %}
 		{% if page.settings.date_format == 'timeago' %}
-			{% set date_formatted = date|date("c") %}
+			{% set date_formatted = date|date('c') %}
 			{% set date_class = 'date timeago' %}
 		{% else %}
 			{% set date_formatted = date|date(page.settings.date_format|default('d F Y')) %}
 			{% set date_class = 'date' %}
 		{% endif %}
-		{% set time_tag = '<time itemprop=dateCreated datetime="' ~ date|date("c") ~ '" class="' ~ date_class ~ '">' ~ date_formatted ~ '</time>' %}
+		{% set time_tag = '<time itemprop="dateCreated" datetime="' ~ date|date("c") ~ '" class="' ~ date_class ~ '">' ~ date_formatted ~ '</time>' %}
 
 		{% if child.description is not empty %}
 			{% set description = child.description %}
@@ -93,17 +92,17 @@
 			{% set tooltip_items = folders.tooltip.items|split(',') %}
 			{% set link_title_content %}
 			{% for item in tooltip_items %}
-				{% if item == 'title' %}<span class=title>{{ title }}</span>
-				{% elseif item == 'label' %}<span class=title>{{ label }}</span>
+				{% if item == 'title' %}<span class="title">{{ title }}</span>
+				{% elseif item == 'label' %}<span class="title">{{ label }}</span>
 				{% elseif item == 'date' %}{{time_tag}}
-				{% elseif item == 'amount' and amount > 0 %}<span class=amount>{{ amount }} {{ pluralize(amount, 'image', 'images') }}</span>
-				{% elseif item == 'folders_amount' and folders_amount > 0 %}<span class=folder_amount>{{ folders_amount }} {{ pluralize(folders_amount, 'album', 'albums') }}</span>
-				{% elseif item == 'description' and child.description is not empty %}<span class=description>{{ description }}</span>
+				{% elseif item == 'amount' and amount > 0 %}<span class="amount">{{ amount }} {{ pluralize(amount, 'image', 'images') }}</span>
+				{% elseif item == 'folders_amount' and folders_amount > 0 %}<span class="folder_amount">{{ folders_amount }} {{ pluralize(folders_amount, 'album', 'albums') }}</span>
+				{% elseif item == 'description' and child.description is not empty %}<span class="description">{{ description }}</span>
 				{% endif %}
 			{% endfor %}
 			{% endset %}
 			{% set link_title_content = link_title_content|e('html')|trim %}
-			{% if link_title_content is not empty %}{% set link_title %}title='{{ link_title_content }}'{% endset %}{% endif %}
+			{% if link_title_content is not empty %}{% set link_title %}title="{{ link_title_content }}"{% endset %}{% endif %}
 		{% endif %}
 
 		{# See if custom page.link is defined #}
@@ -112,8 +111,21 @@
 		{% set data_popup = false %}
 		{% set data_popup_content = false %}
 		{% set data_popup_window = '' %}
+		{% set nofollow = '' %}
+
+		{# link #}
 		{% if child.link.url is not empty %}
+
+			{# set link #}
 			{% set link = child.link.url|trim %}
+
+			{# nofollow #}
+			{% if link ends with ':nofollow' %}
+				{% set nofollow = ' rel="nofollow"' %}
+				{% set link = link|replace({':nofollow': ''}) %}
+			{% endif %}
+
+			{# has exetnsion #}
 			{% set hasExtension = hasExtension(link) %}
 
 			{# add rootpath if relative url #}
@@ -150,7 +162,7 @@
 
 			{# detect no-ajax #}
 			{% if hasExtension %}
-				{% set link_class = link_class~' no-ajax' %}
+				{% set link_class = link_class ~ ' no-ajax' %}
 			{% endif %}
 
 		{% elseif child.link.content and child.link.target == 'x3_popup' %}
@@ -158,11 +170,11 @@
 			{% set data_popup_content = true %}
 			{% set link = '#' %}
 		{% else %}
-			{% set link = child.permalink|setpath(rootpath) %}
+			{% set link = child.permalink|replace({' ': '_'})|e('html')|setpath(rootpath) %}
 		{% endif %}
 
 		{# Set tags #}
-		{% set href_tag %}<a href='{{ link }}' class='item-link{{ link_class }}'{% if link_target is not empty %} target={{ link_target }}{% endif %}{% if data_popup_window is not empty %} data-popup-window="{{data_popup_window}}"{% endif %}{% if data_popup %} data-popup{% endif %}{% if child.link.popup_class %} data-popup-class="{{ child.link.popup_class }}"{% endif %}{% if data_popup_content %} data-popup-content="{{ child.content|e('html') }}"{% endif %} {{ link_title }}>{% endset %}
+		{% set href_tag %}<a href="{{ link }}" class="item-link{{ link_class }}"{% if link_target is not empty %} target="{{ link_target }}"{% endif %}{% if data_popup_window is not empty %} data-popup-window="{{data_popup_window}}"{% endif %}{% if data_popup %} data-popup{% endif %}{% if child.link.popup_class %} data-popup-class="{{ child.link.popup_class }}"{% endif %}{% if data_popup_content %} data-popup-content="{{ child.content|e('html') }}"{% endif %} {{ link_title }}{{ nofollow }}>{% endset %}
 
 		{# PREVIEW IMAGE #}
 		{% set preview_img %}{% include 'partials/preview-image.html' with {'page':child} %}{% endset %}
@@ -185,22 +197,22 @@
 
     {# set tags #}
     {% set title_tag %}
-    	<h2 id='{{ child.slug }}-title' data-file='{{preview_img}}' class='title'>{{ title_pseudo }}</h2>
+    	<h2 id="title-{{ child_id }}" data-file="{{ preview_img|e }}" class="title">{{ title_pseudo }}</h2>
     {% endset %}
     {% set label_tag %}
-    	<h2 id='{{ child.slug }}-title' class='title'>{{ label }}</h2>
+    	<h2 id="title-{{ child_id }}" class="title">{{ label }}</h2>
     {% endset %}
     {% set date_tag %}
-    	<h6 class=date>{{time_tag}}</h6>
+    	<h6 class="date">{{ time_tag }}</h6>
     {% endset %}
     {% set amount_tag %}
     	{% if amount > 0 %}
-    	<h6 class=amount><span>{{ amount }} {{ pluralize(amount, 'image', 'images') }}</span></h6>
+    	<h6 class="amount"><span>{{ amount }} {{ pluralize(amount, 'image', 'images') }}</span></h6>
     	{% endif %}
     {% endset %}
     {% set folders_amount_tag %}
     	{% if folders_amount > 0 %}
-    	<h6 class=folder_amount><span>{{ folders_amount }} {{ pluralize(folders_amount, 'album', 'albums') }}</span></h6>
+    	<h6 class="folder_amount"><span>{{ folders_amount }} {{ pluralize(folders_amount, 'album', 'albums') }}</span></h6>
     	{% endif %}
     {% endset %}
     {% if child.description is not empty %}
@@ -210,20 +222,20 @@
     {% endif %}
     {% set figure %}
     <figure>
-			<div class='img-link{{ default_preview_class }}'>
-				<div class=image-container style='padding-bottom:{{ image_ratio }}%;'>
-        	<img data-src='{{ preview_img_url }}' alt='{{ title|striptags|e('html') }}'>
+			<div class="img-link{{ default_preview_class }}">
+				<div class="image-container" style="padding-bottom:{{ image_ratio }}%;">
+        	<img data-src="{{ preview_img_url|e }}" alt="{{ title|striptags|e('html') }}">
         </div>
 
         {% if folders.caption.enabled %}
         	{% set figcaption %}
 	        	{% for item in folders.caption.items|split(",") %}
-	        		{% if item == 'title' %}<span class='title'>{{ title_pseudo }}</span>
-	        		{% elseif item == 'label' %}<span class='title'>{{ label }}</span>
-	        		{% elseif item == 'amount' and amount > 0 %}<span class='amount'>{{ amount }} {{ pluralize(amount, 'image', 'images') }}</span>
-	        		{% elseif item == 'folders_amount' and folders_amount > 0 %}<span class='folder_amount'>{{ folders_amount }} {{ pluralize(folders_amount, 'album', 'albums') }}</span>
-	        		{% elseif item == 'date' %}{{time_tag}}
-	        		{% elseif item == 'description' and child.description is not empty %}<span class='description'>{{ description_pseudo }}</span>{% endif %}
+	        		{% if item == 'title' %}<span class="title">{{ title_pseudo }}</span>
+	        		{% elseif item == 'label' %}<span class="title">{{ label }}</span>
+	        		{% elseif item == 'amount' and amount > 0 %}<span class="amount">{{ amount }} {{ pluralize(amount, 'image', 'images') }}</span>
+	        		{% elseif item == 'folders_amount' and folders_amount > 0 %}<span class="folder_amount">{{ folders_amount }} {{ pluralize(folders_amount, 'album', 'albums') }}</span>
+	        		{% elseif item == 'date' %}{{ time_tag }}
+	        		{% elseif item == 'description' and child.description is not empty %}<span class="description">{{ description_pseudo }}</span>{% endif %}
 	        	{% endfor %}
         	{% endset %}
         {% if figcaption|trim is not empty %}<figcaption>{{ figcaption|trim }}</figcaption>{% endif %}
@@ -233,7 +245,7 @@
 		{% endset %}
 
 		{# default+split layout #}
-		<section data-options='w:{{ imgInfo[0] }};h:{{ imgInfo[1] }}' id="{{ label|default(child.slug) }}" aria-labelledby='{{ child.slug }}-title' class='item{% if folders_split_view %} row{% endif %}'>
+		<section data-options="w:{{ imgInfo[0] }};h:{{ imgInfo[1] }}" id="folder-{{ child_id }}" aria-labelledby="title-{{ child_id }}" class="item{% if folders_split_view %} row{% endif %}">
 		{{ href_tag }}
 
 		{# SPLIT #}
@@ -247,7 +259,7 @@
 		{% endif %}
 
 		{# split layout #}
-		<div class='medium-{{ folders.split.ratio }} columns {{ push }} {{ text_align }}'>
+		<div class="medium-{{ folders.split.ratio }} columns {{ push }} {{ text_align }}">
 		{% for item in items %}
 			{% if item == 'title' %}{{ title_tag }}
 			{% elseif item == 'label' %}{{ label_tag }}
@@ -257,7 +269,7 @@
 			{% elseif item == 'description' and child.description is not empty %}{{ description_tag }}{% endif %}
 		{% endfor %}
 		</div>
-		<div class='medium-{{ (12 - folders.split.ratio) }} columns {{ pull }}'>
+		<div class="medium-{{ (12 - folders.split.ratio) }} columns {{ pull }}">
 			{{ figure }}
 		</div>
 
@@ -283,7 +295,7 @@
 
 		{# Add <hr> tag if set, only if not last item and not justified #}
 		{% if (folders.layout == "vertical" and folders.vertical.horizontal_rule and not loop.last and loop.index < limit) or (folders_split_view and folders.layout == "grid") %}
-		<hr class=hr />
+		<hr class="hr">
 		{% endif %}
 
 		{{ li_close }}

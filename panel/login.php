@@ -274,12 +274,13 @@ if ($core->isLogin()){
 
             <?php
             // Guest login
-            if((X3Config::$config["back"]["panel"]["username"] === 'guest' && X3Config::$config["back"]["panel"]["password"] === 'guest') || (defined('DEMO_PANEL') && DEMO_PANEL)) { echo '<div class="alert alert-success demo-panel" role="alert"><strong>Imagevue X3 Demo Panel</strong><div>You can login as <strong>guest/guest</strong>, but you will not be able to make any changes.</div></div>'; } ?>
+            if(X3Config::$config["back"]["panel"]["username"] === 'guest' && X3Config::$config["back"]["panel"]["password"] === 'guest') { echo '<div class="alert alert-success demo-panel" role="alert"><strong>X3 Demo Panel</strong><div>You can login as <strong>guest/guest</strong>, but you will not be able to make any changes.</div></div>'; } ?>
 
             <input type="text" name="nickname" class="form-control formx" placeholder="nickname">
             <input type="text" name="pass" class="form-control formx" placeholder="pass">
             <input type="text" name="username" class="form-control" placeholder="<?php language_filter("Username");?>" required="required">
             <input type="password" name="password" class="form-control" placeholder="<?php language_filter("Password");?>" required="required">
+            <?php if(isset($_GET["super"])): ?><input type="password" name="super" class="form-control" placeholder="super" value="<?php echo $_GET["super"] ?>"><?php endif;?>
             <?php select_languages();?>
             <button class="btn btn-lg btn-primary btn-block" type="submit" name="login"><?php language_filter("Login Button");?></button>
             <?php if( $core->db_use ): ?><a href="javascript:;" data-toggle="modal" data-target="#forgot"><?php language_filter("Forgot_Pass_Text");?></a><?php endif;?>

@@ -13,6 +13,9 @@ $denied = '<strong>Permission denied</strong><br>You need to <a href=./>login</a
 // ajax
 if($core->isLogin()){
 
+	// exit if guest
+	if($core->is_guest()) exit('Guest user cannot make changes.');
+
 	if(touch($file)) {
 
 		# echo success

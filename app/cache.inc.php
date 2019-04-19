@@ -17,7 +17,6 @@ Class Cache {
   	$this->is_protected = $is_protected;
 
     # generate an md5 hash from the file_path
-    //$this->path_hash = $this->generate_hash($file_path.':'.$template_file);
     $this->path_hash = $this->generate_hash($mypath.':'.basename($template_file));
 
     # content touch
@@ -30,13 +29,19 @@ Class Cache {
     $touch = Config::$root_folder.'config/touch.txt';
     $touch_time = file_exists($touch) ? 'touch:' . filemtime($touch) : '';
 
-    # global parent config (optional)
-    $basedir_str = ini_get('open_basedir');
-    $global_json = dirname(dirname(__DIR__)).'/global.json';
-    $global_json_time = empty($basedir_str) && file_exists($global_json) ? 'global_json:' . filemtime($global_json) : '';
+    # global parent configs (optional)
+    $global_parent_config_time = '';
+    $global_parent_parent_config_time = '';
+    if(X3Config::$config["userx"]){
+      $root_parent = dirname(dirname(__DIR__));
+      $global_parent_config =  $root_parent . '/global.json';
+      $global_parent_parent_config =  dirname($root_parent) . '/global.json';
+      if(file_exists($global_parent_config)) $global_parent_config_time = 'global_parent_config:' . filemtime($global_parent_config);
+      if(file_exists($global_parent_parent_config)) $global_parent_parent_config_time = 'global_parent_parent_config:' . filemtime($global_parent_parent_config);
+    }
 
     # unique updated hash
-    $update_hash = $this->generate_hash($content.$app.$touch_time.$global_json_time);
+    $update_hash = $this->generate_hash($content.$app.$touch_time.$global_parent_config_time.$global_parent_parent_config_time);
 
     # store the hash
     $this->hash = $this->cache_prefix.$this->path_hash.'-'.$update_hash;
@@ -52,6 +57,8 @@ Class Cache {
 
   function render() {
     # return the contents of the cachefile
+    global $time_pre;
+    header('X3-Page: [cache] ' . (microtime(true) - $time_pre) . ' seconds.');
     return file_get_contents($this->cachefile);
   }
 
@@ -103,17 +110,25 @@ Class Cache {
     $page = new Page($route, false, $file_path, $current_page, $this->is_protected);
 
     # start output buffer
-    ob_start();
+    //ob_start();
 
     # output
-    echo $page->parse_template();
+    //echo $page->parse_template();
+    $data = $page->parse_template();
+    global $time_pre;
+    header('X3-Page: [created] ' . (microtime(true) - $time_pre) . ' seconds.');
+    echo $data;
 
     # write to cache
-    if(!$page->data['bypass_cache']) $this->write_cache();
+    //if(!$page->data['bypass_cache']) $this->write_cache($data);
+    if(!$page->data['bypass_cache']) {
+      file_put_contents($this->cachefile, $data);
+      if($current_page && $route !== 'custom/404') $this->auto_cache($page, $data);
+    }
 
     # end buffer
-    ob_end_flush();
-    return '';
+    //ob_end_flush();
+    //return '';
   }
 
   function expired() {
@@ -121,11 +136,34 @@ Class Cache {
     return !file_exists($this->cachefile);
   }
 
-  function write_cache() {
-    $fp = fopen($this->cachefile, 'w');
-    fwrite($fp, ob_get_contents());
-    fclose($fp);
+  function auto_cache($page, $data) {
+
+    // conditions: preload === auto && page.json && !protected
+    if(X3Config::$config["settings"]["preload"] !== 'auto' || $page->template_file !== './app/twig/page.json' || $this->is_protected) return false;
+
+    // vars
+    $cache_file = './content/auto-cache.json';
+    $exists = @file_exists($cache_file);
+    $writeable = ($exists && @is_writable($cache_file)) || (!$exists && @is_writable('./content'));
+    
+    // not writeable or cache > 1mb
+    if(!$writeable || @filesize($cache_file) > 1000000) return false;
+
+    // append page json fragment
+    $permalink = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' . ltrim($page->data['permalink'], '/');
+    $outdated = $exists && (filemtime($cache_file) < $page->data['site_updated']);
+    $json_content = $exists && !$outdated ? @file_get_contents($cache_file) : false;
+    $is_empty = empty($json_content);
+    $json_content = $is_empty ? '' : rtrim($json_content, '}');
+    $json_content .= ($is_empty ? '{"' : '},"') . $permalink . '":' . $data . '}';
+    file_put_contents($cache_file, $json_content);
   }
+
+  /*function write_cache($data) {
+    $fp = fopen($this->cachefile, 'w');
+    fwrite($fp, $data);
+    fclose($fp);
+  }*/
 
 }
 ?>

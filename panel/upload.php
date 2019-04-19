@@ -38,7 +38,9 @@ function get_file_url() {
 
 
 if ($core->isLogin())
-{
+{   
+    // exit if guest
+    if($core->is_guest()) exit();
 
     if( isset( $_GET["action"] ) and $_GET["action"] == "delete_file" and isset( $_GET["delete_file_dir"] ) and isset( $_GET["delete_file_path"] ) ) {
         $dir = urldecode( $_GET["delete_file_dir"] );
@@ -106,7 +108,8 @@ if ($core->isLogin())
                         if ($_FILES["datafile"]["error"] > 0) {
                             $ret["msg"] = language_filter("Return Code", true).': ' . $_FILES["datafile"]["error"];
                         } else {
-                            $name = $_FILES["datafile"]["name"];
+                            //$name = $_FILES["datafile"]["name"];
+                            $name = str_replace('%22', '"', $_FILES["datafile"]["name"]);
 
                             // PHP orientation
                             if(X3Config::$config["back"]["panel"]["upload_resize"]["orientation"] === 'server'){
@@ -173,10 +176,12 @@ if ($core->isLogin())
             $ext = strtolower($ext);
             if(in_array($ext, array('png', 'jpg', 'jpeg', 'gif'))) {
                 $thumbnail_url = $url;
+                list($image_width, $image_height) = getimagesize($url);
             } else {
-                $thumbnail_url = "filemanager_img/file.png";
+                $thumbnail_url = "filemanager_assets/file.png";
+                $image_width = false;
+                $image_height = false;
             }
-            list($image_width, $image_height) = getimagesize($url);
             $info = array(
                 "url" => $url,
                 "thumbnailUrl" => $thumbnail_url,

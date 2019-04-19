@@ -1,10 +1,17 @@
 
 <?php
 
-# Display ALL errors to detect any server issues
-ini_set('display_errors',1);
-ini_set('display_startup_errors',1);
-error_reporting(-1);
+$login_required = true;
+
+// login required
+if($login_required){
+	if(!isset($core)){
+		require_once 'filemanager_core.php';
+		$core = new filemanager_core();
+	}
+
+	if(!$core->isLogin()) exit('<strong>Forbidden</strong><br>You need to <a href=".">login</a> to use the X3 DB checker.');
+}
 
 $css_path = dirname(dirname($_SERVER['PHP_SELF']));
 if(substr($css_path, -1) !== '/') $css_path .= '/';
@@ -87,14 +94,20 @@ if(function_exists('mysqli_connect')){
 echo $warning;
 
 # Output initial html if not POST
-else: ?>
+else: 
+
+# Display ALL errors to detect any server issues
+ini_set('display_errors',1);
+ini_set('display_startup_errors',1);
+error_reporting(-1);
+?>
 
 <head>
 <title>X3 Database Connection checker</title>
 <meta name="robots" content="noindex, nofollow">
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600" rel="stylesheet">
-<script src='https://cdn.jsdelivr.net/jquery/2.2.4/jquery.min.js'></script>
-<link href="<?php echo $css_path ?>app/public/css/diagnostics.css?v=3.23.0" rel="stylesheet" type="text/css">
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<link href="<?php echo $css_path ?>app/public/css/diagnostics.css?v=3.25.0" rel="stylesheet" type="text/css">
 <style><!--
 .x3-diagnostics-wrapper {
 	max-width: 500px;

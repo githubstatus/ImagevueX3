@@ -1,4 +1,4 @@
-# Imagevue X3.24.3
+# Imagevue X3.25.1
 
 
 
@@ -8,14 +8,14 @@ SETUP INSTRUCTIONS
 X3 INSTALLER
 ------------------
 Simply use the x3_installer.php to install X3 directly on your server.
-https://imagevuex.com/download/?x3_installer
+https://www.photo.gallery/download/?x3_installer
 
 OR
 
 X3 ZIP DOWNLOAD
 ------------------
 
-1. Download https://imagevuex.com/download/x3.latest.zip, and unpack the X3 zip file into a temporary folder on your computer.
+1. Download https://www.photo.gallery/download/x3.latest.zip, and unpack the X3 zip file into a temporary folder on your computer.
 
 2. Upload all the files and folders inside the X3 folder to your website. You can upload to the root of your website, or into a subfolder.
 
@@ -43,23 +43,20 @@ LINKS
 https://docs.photo.gallery/
 
 # X3 Support Forums
-https://imagevuex.com/forum/
+https://forum.photo.gallery
 
 # Purchase X3 License and Authorization
-https://imagevuex.com/buy/
+https://www.photo.gallery/buy/
 
 # Download Links
-https://imagevuex.com/download/?x3_installer (installer PHP script)
-https://imagevuex.com/download/?x3_updater (updater PHP script)
-https://imagevuex.com/download/x3.latest.zip
-https://imagevuex.com/download/x3.latest.update.zip (only for updating)
+https://www.photo.gallery/downloads/
 
 # Official X3 Demo Gallery
-https://demo.imagevuex.com/
-https://demo.imagevuex.com/panel/
+https://demo.photo.gallery
+https://demo.photo.gallery/
 
 # A list of several websites running imagevue X3
-https://imagevuex.com/showcase/
+https://www.photo.gallery/showcase/
 
 
 
@@ -67,5 +64,5 @@ https://imagevuex.com/showcase/
 
 Good luck!
 
-https://imagevuex.com
+https://www.photo.gallery
 

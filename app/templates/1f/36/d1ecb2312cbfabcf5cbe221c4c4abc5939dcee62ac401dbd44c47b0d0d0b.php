@@ -42,42 +42,48 @@ class __TwigTemplate_1f36d1ecb2312cbfabcf5cbe221c4c4abc5939dcee62ac401dbd44c47b0
                 echo "
 ";
                 // line 16
-                echo "<div class=article-nav>
+                echo "<div class=\"article-nav\">
 
 \t";
                 // line 18
                 if ($this->getAttribute((isset($context["siblings"]) ? $context["siblings"] : null), 1, array(), "array")) {
                     // line 19
-                    echo "\t\t<a href='";
-                    echo (((isset($context["href_base"]) ? $context["href_base"] : null) . $this->getAttribute($this->getAttribute((isset($context["siblings"]) ? $context["siblings"] : null), 1, array(), "array"), "slug")) . "/");
-                    echo "' class='next'><span>";
+                    echo "\t\t";
+                    $context["href_next"] = (((isset($context["href_base"]) ? $context["href_base"] : null) . $this->getAttribute($this->getAttribute((isset($context["siblings"]) ? $context["siblings"] : null), 1, array(), "array"), "slug")) . "/");
+                    // line 20
+                    echo "\t\t<a href=\"";
+                    echo call_user_func_array($this->env->getFilter('e')->getCallable(), array($this->env, (isset($context["href_next"]) ? $context["href_next"] : null)));
+                    echo "\" class=\"next\"><span>";
                     echo call_user_func_array($this->env->getFilter('title')->getCallable(), array($this->env, $this->getAttribute($this->getAttribute((isset($context["siblings"]) ? $context["siblings"] : null), 1, array(), "array"), "label")));
                     echo "</span></a>
 \t";
                 }
-                // line 21
+                // line 22
                 echo "
 \t";
-                // line 22
+                // line 23
                 if ($this->getAttribute((isset($context["siblings"]) ? $context["siblings"] : null), 0, array(), "array")) {
-                    // line 23
-                    echo "\t\t<a href='";
-                    echo (((isset($context["href_base"]) ? $context["href_base"] : null) . $this->getAttribute($this->getAttribute((isset($context["siblings"]) ? $context["siblings"] : null), 0, array(), "array"), "slug")) . "/");
-                    echo "' class='previous'><span>";
+                    // line 24
+                    echo "\t\t";
+                    $context["href_prev"] = (((isset($context["href_base"]) ? $context["href_base"] : null) . $this->getAttribute($this->getAttribute((isset($context["siblings"]) ? $context["siblings"] : null), 0, array(), "array"), "slug")) . "/");
+                    // line 25
+                    echo "\t\t<a href=\"";
+                    echo call_user_func_array($this->env->getFilter('e')->getCallable(), array($this->env, (isset($context["href_prev"]) ? $context["href_prev"] : null)));
+                    echo "\" class=\"previous\"><span>";
                     echo call_user_func_array($this->env->getFilter('title')->getCallable(), array($this->env, $this->getAttribute($this->getAttribute((isset($context["siblings"]) ? $context["siblings"] : null), 0, array(), "array"), "label")));
                     echo "</span></a>
 \t";
                 }
-                // line 25
+                // line 27
                 echo "
 \t";
-                // line 35
+                // line 37
                 echo "
 </div>
 ";
             }
         }
-        // line 39
+        // line 41
         echo "
 ";
         echo trim(preg_replace('/>\s+</', '><', ob_get_clean()));
@@ -95,6 +101,6 @@ class __TwigTemplate_1f36d1ecb2312cbfabcf5cbe221c4c4abc5939dcee62ac401dbd44c47b0
 
     public function getDebugInfo()
     {
-        return array (  51 => 19,  42 => 14,  137 => 55,  134 => 54,  130 => 53,  127 => 52,  124 => 50,  120 => 49,  117 => 48,  115 => 47,  106 => 43,  103 => 42,  100 => 40,  93 => 38,  76 => 33,  66 => 27,  58 => 23,  38 => 13,  96 => 39,  88 => 29,  69 => 29,  56 => 22,  53 => 20,  44 => 12,  36 => 12,  27 => 6,  343 => 121,  340 => 120,  330 => 114,  327 => 113,  325 => 112,  321 => 111,  317 => 110,  315 => 109,  309 => 105,  306 => 103,  301 => 102,  298 => 101,  295 => 99,  289 => 97,  286 => 96,  283 => 94,  277 => 92,  274 => 91,  270 => 88,  264 => 85,  261 => 83,  252 => 80,  236 => 77,  233 => 75,  217 => 69,  201 => 57,  198 => 55,  192 => 53,  189 => 52,  186 => 50,  173 => 46,  163 => 43,  156 => 42,  147 => 40,  142 => 39,  139 => 37,  132 => 36,  126 => 35,  105 => 30,  102 => 28,  61 => 18,  45 => 16,  22 => 2,  92 => 25,  89 => 36,  85 => 24,  81 => 39,  78 => 23,  74 => 32,  71 => 30,  67 => 23,  55 => 17,  52 => 16,  49 => 18,  40 => 13,  34 => 9,  31 => 9,  29 => 8,  26 => 6,  24 => 3,  21 => 2,  266 => 101,  263 => 99,  260 => 98,  258 => 97,  255 => 81,  251 => 93,  248 => 92,  245 => 91,  241 => 88,  238 => 86,  224 => 85,  221 => 70,  218 => 82,  215 => 81,  212 => 80,  210 => 79,  207 => 78,  204 => 58,  199 => 76,  196 => 74,  193 => 73,  190 => 72,  187 => 71,  184 => 70,  182 => 69,  179 => 48,  176 => 47,  170 => 44,  167 => 63,  164 => 61,  161 => 60,  158 => 58,  155 => 57,  152 => 56,  149 => 41,  146 => 54,  143 => 52,  125 => 51,  122 => 34,  119 => 48,  116 => 32,  113 => 46,  110 => 44,  107 => 44,  104 => 43,  101 => 41,  98 => 40,  95 => 27,  90 => 36,  87 => 37,  84 => 27,  82 => 34,  79 => 35,  77 => 31,  75 => 35,  72 => 25,  68 => 20,  64 => 23,  62 => 22,  59 => 21,  57 => 18,  54 => 17,  50 => 14,  46 => 13,  43 => 15,  41 => 13,  39 => 10,  37 => 9,  35 => 10,  33 => 10,  30 => 8,  28 => 7,  25 => 4,  23 => 3,  19 => 1,);
+        return array (  87 => 41,  51 => 19,  42 => 14,  127 => 51,  124 => 49,  120 => 48,  117 => 47,  110 => 43,  106 => 42,  103 => 41,  58 => 22,  45 => 16,  38 => 13,  96 => 38,  84 => 27,  61 => 18,  56 => 21,  44 => 12,  36 => 12,  27 => 6,  359 => 135,  356 => 134,  346 => 128,  343 => 127,  341 => 126,  337 => 125,  333 => 124,  331 => 123,  325 => 119,  322 => 117,  317 => 116,  314 => 115,  311 => 113,  305 => 111,  302 => 110,  299 => 108,  293 => 106,  290 => 105,  286 => 102,  280 => 99,  277 => 97,  271 => 95,  268 => 94,  265 => 92,  254 => 90,  251 => 88,  243 => 83,  226 => 71,  223 => 70,  220 => 68,  201 => 61,  198 => 60,  195 => 59,  192 => 57,  178 => 55,  171 => 54,  168 => 53,  162 => 50,  159 => 48,  152 => 47,  146 => 46,  142 => 45,  136 => 43,  130 => 52,  115 => 46,  112 => 36,  91 => 33,  77 => 29,  69 => 28,  65 => 23,  53 => 19,  47 => 16,  32 => 8,  22 => 2,  101 => 41,  98 => 34,  92 => 38,  88 => 29,  85 => 34,  78 => 27,  74 => 31,  71 => 29,  67 => 24,  55 => 17,  52 => 16,  49 => 18,  40 => 12,  34 => 9,  31 => 9,  29 => 8,  26 => 6,  24 => 3,  21 => 2,  284 => 109,  281 => 107,  278 => 106,  276 => 105,  273 => 103,  269 => 101,  266 => 100,  263 => 99,  259 => 96,  256 => 94,  242 => 93,  239 => 82,  236 => 90,  233 => 89,  230 => 88,  228 => 87,  225 => 86,  222 => 85,  217 => 84,  214 => 66,  211 => 65,  208 => 63,  205 => 79,  202 => 78,  200 => 77,  197 => 76,  194 => 75,  188 => 72,  185 => 56,  182 => 69,  179 => 68,  176 => 66,  173 => 65,  170 => 64,  167 => 63,  164 => 62,  161 => 60,  143 => 59,  140 => 57,  137 => 54,  134 => 53,  131 => 54,  128 => 53,  125 => 41,  122 => 39,  119 => 49,  116 => 48,  113 => 45,  108 => 45,  105 => 35,  102 => 43,  100 => 39,  97 => 40,  95 => 39,  93 => 37,  90 => 35,  86 => 34,  83 => 33,  81 => 37,  79 => 34,  76 => 32,  73 => 28,  70 => 25,  68 => 26,  66 => 26,  64 => 20,  62 => 22,  59 => 21,  57 => 20,  54 => 20,  50 => 14,  46 => 13,  43 => 14,  41 => 13,  39 => 12,  37 => 10,  35 => 9,  33 => 10,  30 => 8,  28 => 6,  25 => 4,  23 => 3,  19 => 1,);
     }
 }

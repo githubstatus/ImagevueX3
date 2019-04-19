@@ -287,17 +287,7 @@ class SLIR
 	 */
 	private function initializeGarbageCollection()
 	{
-		if ($this->garbageCollectionShouldRun())
-		{
-			// Register this as a shutdown function so the additional processing time
-			// will not affect the speed of the request
-			//register_shutdown_function(array($this, 'collectGarbage'));
-			define('SLIR_DIR', __DIR__);
-			register_shutdown_function(function() {
-				chdir(SLIR_DIR);
-				$this->collectGarbage();
-			});
-		}
+		if ($this->garbageCollectionShouldRun()) $this->collectGarbage();
 	}
 
 	/**

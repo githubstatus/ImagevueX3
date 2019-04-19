@@ -29,13 +29,15 @@ if ($core->isLogin())
         <link href="filemanager_css/x3.panel.css?v=<?php echo X3Config::$config["x3_panel_version"]; ?>" rel="stylesheet" />
 
         <?php
-        	/* <!-- load custom panel.css from parent + parent-parent of X3 installation if exists --> */
-        	if(file_exists('../../panel.css')) echo '<style><!--' . file_get_contents('../../panel.css') . '--></style>';
-        	if(file_exists('../../../panel.css')) echo '<style><!--' . file_get_contents('../../../panel.css') . '--></style>';
-        	/* <!-- load custom custom.css from panel folder if exists --> */
-        	if(file_exists('custom.css')) echo '<style><!--' . file_get_contents('custom.css') . '--></style>';
-        	/* <!-- load /config/panel.css if exists --> */
-        	if(file_exists('../config/panel.css')) echo '<style><!--' . file_get_contents('../config/panel.css') . '--></style>';
+        if(!$core->is_basedir() && !isset($_SESSION['filemanager_super'])){
+            // load custom panel.css from parent + parent-parent of X3 installation if exists
+    	   if(file_exists('../../panel.css')) echo '<style><!--' . file_get_contents('../../panel.css') . '--></style>';
+    	   if(file_exists('../../../panel.css')) echo '<style><!--' . file_get_contents('../../../panel.css') . '--></style>';
+        }
+    	// load custom custom.css from panel folder if exists
+    	if(file_exists('custom.css')) echo '<style><!--' . file_get_contents('custom.css') . '--></style>';
+    	// load /config/panel.css if exists
+    	if(file_exists('../config/panel.css')) echo '<style><!--' . file_get_contents('../config/panel.css') . '--></style>';
         ?>
 
         <style>

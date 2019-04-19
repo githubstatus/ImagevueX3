@@ -13,14 +13,16 @@
 {% if href_base|last != '/' %}{% set href_base = href_base ~ '/' %}{% endif %}
 
 {# start article nav element #}
-<div class=article-nav>
+<div class="article-nav">
 
 	{% if siblings[1] %}
-		<a href='{{ href_base ~ siblings[1].slug ~ '/' }}' class='next'><span>{{ siblings[1].label|title }}</span></a>
+		{% set href_next = href_base ~ siblings[1].slug ~ '/' %}
+		<a href="{{ href_next|e }}" class="next"><span>{{ siblings[1].label|title }}</span></a>
 	{% endif %}
 
 	{% if siblings[0] %}
-		<a href='{{ href_base ~ siblings[0].slug ~ '/' }}' class='previous'><span>{{ siblings[0].label|title }}</span></a>
+		{% set href_prev = href_base ~ siblings[0].slug ~ '/' %}
+		<a href="{{ href_prev|e }}" class="previous"><span>{{ siblings[0].label|title }}</span></a>
 	{% endif %}
 
 	{#{% if not page.next_sibling[0] is empty %}

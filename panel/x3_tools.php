@@ -12,6 +12,9 @@ if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower(
 
 	$json_header = 'Content-Type: application/json; charset=utf-8';
 
+	// exit if guest
+	if(!isset($_POST['session_refresh']) && !isset($_POST['get_templates']) && !isset($_POST['phpinfo']) && $core->is_guest()) exit('{ "error": "Guest user cannot make changes." }');
+
 	# Cache site object
 	if(isset($_POST['site_object'])) {
 
@@ -275,7 +278,7 @@ if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower(
 
 		// vars
 		header($json_header);
-		$url = 'https://imagevuex.com/download/?x3_updater';
+		$url = 'https://www.photo.gallery/download/?x3_updater';
 		$file = '../x3_updater.php';
 
 		// process
