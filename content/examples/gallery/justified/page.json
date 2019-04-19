@@ -1,0 +1,17 @@
+{
+    "title": "Justified Layout",
+    "description": "The justified layout scales images neatly into rows.",
+    "image": "examples\/assets\/corn-field.jpg",
+    "gallery": {
+        "width": "wide",
+        "justified": {
+            "row_height": 250,
+            "space": 1
+        },
+        "caption": {
+            "hover": true
+        },
+        "classes": "[none]",
+        "assets": "examples\/assets\/"
+    }
+}

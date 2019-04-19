@@ -1,0 +1,21 @@
+{
+    "title": "Gallery Variations",
+    "description": "Demonstrating a few more gallery layout variations.",
+    "image": "examples\/assets\/rosy-red.jpg",
+    "layout": {
+        "width": "narrow"
+    },
+    "context": {
+        "classes": "separator"
+    },
+    "folders": {
+        "crop": {
+            "enabled": true
+        },
+        "layout": "vertical",
+        "split": {
+            "enabled": true
+        },
+        "classes": "hr,frame,hover"
+    }
+}

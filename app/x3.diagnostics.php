@@ -23,8 +23,8 @@ if(version_compare(PHP_VERSION, '5.3.0', '<')){
 // vars
 $server_protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443 || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')) ? "https://" : "http://";
 define('ABSOLUTE', (string)trim($server_protocol.$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']),'/'));
-$x3_version = class_exists('Stacey') ? Stacey::$version : null;
-$x3_version_date = class_exists('Stacey') ? Stacey::$version_date : null;
+$x3_version = class_exists('X3') ? X3::$version : null;
+$x3_version_date = class_exists('X3') ? X3::$version_date : null;
 $x3_buster = $x3_version ? '?v=' . $x3_version : '';
 $posted = $_SERVER["REQUEST_METHOD"] == "POST" 
 	&& isset($_SERVER['HTTP_REFERER']) 
@@ -280,7 +280,7 @@ if($posted){
 	}
 
 
-	### CACHE INITIALIZATION ###
+	### INITIALIZATION ###			
 
 	# Check that cache exists
 	if(!mkdir_if_missing(Config::$cache_folder)){
@@ -316,57 +316,6 @@ if($posted){
 			}
 		}
 	}
-
-	# LEGACY (upgrade to X3 0.23) :: move image cache
-	/*if(file_exists('app/_cache/images/request') && 
-		 file_exists('app/_cache/images/rendered') && 
-		 file_exists('_cache/images/request') && 
-		 file_exists('_cache/images/rendered') && 
-		 is_writable('_cache/images/request') && 
-		 is_writable('_cache/images/rendered')){
-
-		// get old symlinks
-		$symlinks = glob('app/_cache/images/request/*', GLOB_NOSORT);
-		$symlinks_total = 0;
-		$symlinks_success = 0;
-		if($symlinks && count($symlinks)) {
-			foreach($symlinks as $symlink){
-				if(is_link($symlink)){
-					$symlinks_total ++;
-					$symlink_value = @readlink($symlink);
-
-					// is convertable
-					if($symlink_value && 
-						strpos($symlink_value, 'app/_cache/') !== false && 
-						($symlink_value[0] === '/' || $symlink_value[0] === '\\') && 
-						file_exists($symlink_value)){
-
-						// new image path
-						$new_image_path = '_cache/images/rendered/' . basename($symlink_value);
-
-						// new symlink value
-						$new_symlink_arr = explode('app/_cache/', $symlink_value);
-						$new_symlink_value = '../../../_cache/' . $new_symlink_arr[1];
-
-						// new symlink path
-						$new_symlink_path = '_cache/images/request/' . basename($symlink);
-
-						if(!file_exists($new_image_path) && 
-							!file_exists($new_symlink_path) && 
-							@copy($symlink_value, $new_image_path) && 
-							@symlink($new_symlink_value, $new_symlink_path)){
-								$symlinks_success ++;
-						}
-					}
-				}
-			}
-
-			// output
-			if($symlinks_total > 0 && $symlinks_success > 0){
-				$success .= addItem("success", 'Successfully migrated ' . $symlinks_success . ' image _cache requests', 'Successfully moved ' . $symlinks_success . ' resized images to <strong>/_cache/images/render</strong>, and converted ' . $symlinks_success . ' symlinks into <strong>/_cache/images/render</strong>.');
-			}
-		}
-	}*/
 
 	// LEGACY X3.23.0 :: Remove unused app/_cache
 	if(file_exists('app/_cache')){
@@ -470,7 +419,7 @@ if($posted){
 			} else if(!isset($_GET["htaccess_patch"]) && is_writable('./.htaccess') && $has_mod_rewrite && !$mod_rewrite_working && (!$current_rewritebase || $current_rewritebase !== $rewrite_base) && @file_put_contents('.htaccess', PHP_EOL . PHP_EOL . '# Added by x3 diagnostics on ' . date('r') . PHP_EOL . 'RewriteBase ' . $rewrite_base . PHP_EOL, FILE_APPEND)){
 				get_rewrite_flags();
 				if($mod_rewrite_working){
-					$success .= addItem('success', 'Successfully added RewriteBase ' . $rewrite_base . 'We added the following line to your <strong>.htaccess</strong> file, which allows X3 <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html" target="_blank">rewrite</a> rules to work properly:<br><br><code>RewriteBase ' . $rewrite_base . '</code>');
+					$success .= addItem('success', 'Successfully added RewriteBase ' . $rewrite_base, 'We added the following line to your <strong>.htaccess</strong> file, which allows X3 <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html" target="_blank">rewrite</a> rules to work properly:<br><br><code>RewriteBase ' . $rewrite_base . '</code>');
 				} else {
 					$warning .= addItem('warning', 'Mod_rewrite not working as expected', 'Although we have successfully detected the <a href="http://httpd.apache.org/docs/current/mod/mod_rewrite.html" target="_blank">mod_rewrite</a> extension on your server, it does not seem to be working as expected. This extension is necessary in X3 for links to work, and for resized images to load. You may need to add the below to your root <strong>.htaccess</strong> file:<br><br><code>RewriteBase ' . $rewrite_base . '</code>' . patchHtaccesslink());
 				}
@@ -519,7 +468,11 @@ if($posted){
 		$content_writeable = is_writeable($file_path . '/content');
 		if(!$content_writeable){
 			$warning .= addItem('warning', 'Content folder is not writeable', 'Your main <code>/content</code> folder is not writeable. You need to set write permissions on this folder if you want to use the X3 Panel to manage your website.');
-		}
+
+		// Add content/.htaccess
+		} /*else if($server_is_like_apache && !isset($_SERVER["X3_SERVER_CONFIG"]) && !file_exists('./content/.htaccess') && file_exists('./app/resources/deny.php.htaccess')){
+			if(@copy('./app/resources/deny.php.htaccess', './content/.htaccess')) $success .= addItem('success', '/content/.htaccess created', 'We have created a .htaccess file inside your content directory that blocks PHP execution. There should not exist PHP files in your content directory, but this is just an additional layer of security.');
+		}*/
 
 		// folders.json
 		if(!file_exists('./content/folders.json')){
@@ -612,7 +565,15 @@ if($posted){
 
 	# Recommend upgrading PHP 5.3
 	if(phpversion() < 5.4 && phpversion() >= 5.3) {
-		$warning .= addItem('warning', 'Deprecated PHP Version 5.3', 'Your server is running an old <strong>PHP version ' . phpversion() . '</strong>. Although X3 supports the PHP 5.3 branch, you should check in your hosting control panel if you can upgrade to a newer version of PHP (5.5+).<br><em>* Upgrading your PHP will ensure best compatibility, security and performance.</em>');
+		$warning .= addItem('warning', 'Deprecated PHP Version 5.3', 'Your server is running an old <strong>PHP version ' . phpversion() . '</strong>. Although X3 supports the PHP 5.3 branch, you should check in your hosting control panel if you can upgrade to a newer version of PHP, preferably latest PHP 7.x.<br><em>* Upgrading your PHP will ensure best compatibility, security and performance.</em>');
+
+	// recommend update to PHP 7
+	} else if(phpversion() < 7){
+		$warning .= addItem('neutral', 'PHP Version ' . phpversion(), 'Your server is running an older <strong>PHP version ' . phpversion() . '</strong>. Although X3 will still work fine, we recommend upgrading to latest <strong>PHP 7.x</strong> for best compatibility, security and performance. Normally, you can login to your hosting control panel and update the PHP version from your PHP settings.');
+
+	// PHP 7.3 bug (solved in 7.3.3 according to reports)
+	} else if(X3Config::$config["back"]["use_iptc"] && version_compare(PHP_VERSION, '7.3') >= 0 && version_compare(PHP_VERSION, '7.3.3') < 0) {
+		$warning .= addItem('warning', 'PHP ' . phpversion() . ' Bug', 'Your PHP version ' . phpversion() . ' has a <a href="https://bugs.php.net/bug.php?id=77546" target="_blank">bug</a> that could affect X3. See <a href="https://forum.photo.gallery/viewtopic.php?f=51&t=9732" target="_blank">this post</a> for more info.');
 	}
 
 	# Check database panel login
@@ -861,6 +822,12 @@ if($posted){
 		# VALUES
 		$info .= infoHeader('Values');
 
+		# server name
+		$info .= addInfo('Server name', getServerEnv('SERVER_NAME'), getServerEnv('SERVER_NAME') !== 'undefined' ? '' : false);
+
+		# Server Software
+		$info .= addInfo('Server software', getServerEnv('SERVER_SOFTWARE'), getServerEnv('SERVER_SOFTWARE') !== 'undefined' ? '' : false);
+
 		# PHP interface
 		$info .= addInfo('PHP Interface', empty($php_interface) ? 'undetectable' : $php_interface);
 
@@ -908,19 +875,19 @@ if($posted){
 		if(!empty($session_gc_maxlifetime)) $info .= addInfo('Session maxlifetime', $session_gc_maxlifetime, 'neutral');
 
 		# VARIABLES
-		$info .= infoHeader('Variables');
+		//$info .= infoHeader('Variables');
 
 		# Server Name
 		$info .= addInfo('SERVER_NAME', getServerEnv('SERVER_NAME'), getServerEnv('SERVER_NAME') !== 'undefined' ? '' : false);
 
 		# Document Root
-		$info .= addInfo('DOCUMENT_ROOT', getServerEnv('DOCUMENT_ROOT'), getServerEnv('DOCUMENT_ROOT') !== 'undefined' ? '' : false);
+		//$info .= addInfo('DOCUMENT_ROOT', getServerEnv('DOCUMENT_ROOT'), getServerEnv('DOCUMENT_ROOT') !== 'undefined' ? '' : false);
 
 		# Script Name
-		$info .= addInfo('SCRIPT_NAME', getServerEnv('SCRIPT_NAME'), getServerEnv('SCRIPT_NAME') !== 'undefined' ? '' : false);
+		//$info .= addInfo('SCRIPT_NAME', getServerEnv('SCRIPT_NAME'), getServerEnv('SCRIPT_NAME') !== 'undefined' ? '' : false);
 
 		# Script Filename
-		$info .= addInfo('SCRIPT_FILENAME', getServerEnv('SCRIPT_FILENAME'), getServerEnv('SCRIPT_FILENAME') !== 'undefined' ? '' : false);
+		//$info .= addInfo('SCRIPT_FILENAME', getServerEnv('SCRIPT_FILENAME'), getServerEnv('SCRIPT_FILENAME') !== 'undefined' ? '' : false);
 
 		# Server Software
 		$info .= addInfo('SERVER_SOFTWARE', getServerEnv('SERVER_SOFTWARE'), getServerEnv('SERVER_SOFTWARE') !== 'undefined' ? '' : false);

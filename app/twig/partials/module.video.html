@@ -37,18 +37,17 @@
 	{# Meta #}
 	{% for item in items %}
 		{% if item == 'title' %}
-			<h2 class='title' itemprop='caption'>{{ title_pseudo }}</h2>
+			<h2 class="title" itemprop="caption">{{ title_pseudo }}</h2>
 		{% elseif item == 'description' and description is not empty %}
-		<p itemprop='description'>{{ description_pseudo }}</p>
+		<p itemprop="description">{{ description_pseudo }}</p>
 		{% elseif item == 'date' %}
-			<h6 class=date>{{time_tag}}</h6>
+			<h6 class="date">{{time_tag}}</h6>
+		{% elseif item == 'preview' %}
+			<video width="100%" preload="metadata" class="x3-style-frame" controls{% if page.settings.prevent_context %} controlsList="nodownload"{% endif %}>
+				<source src="{{ assetspath ~ (gallery.file_path ~ "/" ~ video.file_name)|trim(".") }}" type="video/mp4">
+			</video>
 		{% endif %}
 	{% endfor %}
-
-	{# embed #}
-	<video width="100%" preload="metadata" class="x3-style-frame" controls{% if page.settings.prevent_context %} controlsList="nodownload"{% endif %}>
-		<source src="{{ assetspath ~ (gallery.file_path ~ "/" ~ video.file_name)|trim(".") }}" type="video/mp4">
-	</video>
 
 	{# container end #}
 	</div>

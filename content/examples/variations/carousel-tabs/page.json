@@ -1,0 +1,30 @@
+{
+    "title": "Carousel Tabs",
+    "description": "Use carousel tabs in combination with split-view to display gallery images in a linear context.",
+    "image": "examples\/assets\/turntable.jpg",
+    "gallery": {
+        "layout": "carousel",
+        "carousel": {
+            "amount": 1,
+            "background": true,
+            "tabs": true,
+            "nav": false
+        },
+        "split": {
+            "enabled": true
+        },
+        "crop": {
+            "enabled": true
+        },
+        "classes": "frame,hover,landscape,scrollbutton",
+        "width": "wide",
+        "items": "preview,title,description",
+        "title_size": "large",
+        "image": {
+            "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed dictum, arcu vel bibendum convallis, sem sapien rutrum erat, vel porttitor nulla arcu sed ante. Sed ac ligula ex. Aenean eleifend pulvinar convallis. Mauris orci purus, ultrices vel diam non, congue vestibulum turpis. ",
+            "description_include": "append"
+        },
+        "assets": "examples\/assets\/",
+        "limit": 10
+    }
+}

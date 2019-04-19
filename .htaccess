@@ -102,6 +102,7 @@ AddDefaultCharset utf-8
 # Remove ETags as resources are sent with far-future expires headers.
 <IfModule mod_headers.c>
 	Header unset ETag
+	Header set X-Content-Type-Options nosniff
 </IfModule>
 FileETag None
 

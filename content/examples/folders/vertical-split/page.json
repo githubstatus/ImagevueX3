@@ -1,0 +1,28 @@
+{
+    "title": "Vertical Split Layout",
+    "label": "Vertical Split",
+    "description": "Split the image and context into two side-by-side columns.",
+    "image": "examples\/assets\/city-lights.jpg",
+    "layout": {
+        "width": "narrow"
+    },
+    "context": {
+        "classes": "separator"
+    },
+    "folders": {
+        "layout": "vertical",
+        "split": {
+            "enabled": true
+        },
+        "classes": "frame,hr,hover",
+        "assets": "examples\/folders\/"
+    },
+    "plugins": {
+        "video_background": {
+            "autoplay": false,
+            "toggleplay": false,
+            "loop": false,
+            "muted": false
+        }
+    }
+}

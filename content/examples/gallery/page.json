@@ -1,0 +1,33 @@
+{
+    "title": "Gallery Layouts",
+    "label": "Gallery",
+    "description": "Demonstrating several gallery layout examples.",
+    "image": "examples\/assets\/blossom.jpg",
+    "layout": {
+        "width": "narrow"
+    },
+    "context": {
+        "classes": "separator"
+    },
+    "folders": {
+        "layout": "vertical",
+        "split": {
+            "enabled": true
+        },
+        "crop": {
+            "enabled": true
+        },
+        "classes": "hr,frame,hover"
+    },
+    "gallery": {
+        "classes": "[none]"
+    },
+    "plugins": {
+        "video_background": {
+            "autoplay": false,
+            "toggleplay": false,
+            "loop": false,
+            "muted": false
+        }
+    }
+}

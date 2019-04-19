@@ -1,0 +1,23 @@
+{
+    "title": "Folders Carousel",
+    "description": "The carousel method displays multiple items in a carousel-like layout.",
+    "image": "examples\/assets\/sunflower-bee.jpg",
+    "folders": {
+        "layout": "carousel",
+        "carousel": {
+            "margin": 25,
+            "background": true,
+            "show_timer": false
+        },
+        "crop": {
+            "enabled": true
+        },
+        "classes": "frame,text-center,hover",
+        "width": "wide",
+        "items": "title,preview",
+        "caption": {
+            "items": "description,amount"
+        },
+        "assets": "examples\/folders\/"
+    }
+}

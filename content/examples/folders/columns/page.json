@@ -1,0 +1,19 @@
+{
+    "title": "Folder Columns",
+    "description": "Use the columns method to create a vertical masonry-style layout.",
+    "image": "examples\/assets\/corn-field.jpg",
+    "folders": {
+        "items": "preview,title,description",
+        "layout": "columns",
+        "columns": {
+            "column_width": 350,
+            "space": 20
+        },
+        "caption": {
+            "enabled": true,
+            "items": "folders_amount"
+        },
+        "classes": "card,hover",
+        "assets": "examples\/folders\/"
+    }
+}

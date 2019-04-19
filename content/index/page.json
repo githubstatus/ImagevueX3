@@ -1,0 +1,39 @@
+{
+    "title": "X3 Demo Website",
+    "label": "Home",
+    "description": "Welcome to the X3 photo gallery demo website.",
+    "image": "1.yosemite.jpg",
+    "context": {
+        "classes": "separator"
+    },
+    "folders": {
+        "crop": {
+            "enabled": true
+        },
+        "items": "title,description,preview",
+        "caption": {
+            "enabled": true,
+            "items": "amount"
+        },
+        "assets": "galleries\/",
+        "limit": 3
+    },
+    "gallery": {
+        "layout": "slideshow",
+        "slideshow": {
+            "background": true,
+            "button_down": true,
+            "loop": true,
+            "autoplay": true
+        }
+    },
+    "1.yosemite.jpg": {
+        "description": "Yosemite national park."
+    },
+    "2.ocean.jpg": {
+        "description": "Ocean color scene."
+    },
+    "3.prairie.jpg": {
+        "description": "Plains of grass."
+    }
+}

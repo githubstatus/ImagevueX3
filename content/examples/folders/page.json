@@ -1,0 +1,22 @@
+{
+    "title": "Folder Layouts",
+    "label": "Folders",
+    "description": "Demonstrating several folder (album) layout examples.",
+    "image": "examples\/assets\/wheat.jpg",
+    "layout": {
+        "width": "narrow"
+    },
+    "context": {
+        "classes": "separator"
+    },
+    "folders": {
+        "crop": {
+            "enabled": true
+        },
+        "layout": "vertical",
+        "split": {
+            "enabled": true
+        },
+        "classes": "hr,frame,x3-hover-icon-asterisk-primary"
+    }
+}

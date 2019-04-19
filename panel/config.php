@@ -4,9 +4,9 @@
 
 // Get config
 require_once dirname(__DIR__) . "/app/x3.config.inc.php";
-X3Config::$config["x3_version"] = '3.26.0';
-X3Config::$config["x3_version_date"] = 1544339270230;
-X3Config::$config["x3_panel_version"] = '3.26.0';
+X3Config::$config["x3_version"] = '3.27.6';
+X3Config::$config["x3_version_date"] = 1551789126985;
+X3Config::$config["x3_panel_version"] = '3.27.6';
 $x3_panel_config = X3Config::$config["back"]["panel"];
 $x3_mail = X3Config::$config["back"]["mail"];
 
@@ -91,11 +91,11 @@ define("ROOT_DIR_NAME", "../content");
 
 // Allow Extensions
 global $ALLOW_EXTENSIONS;
-$ALLOW_EXTENSIONS = array('rar','zip','txt','html','pdf','jpg','jpeg','png','gif','bmp','psd','flv','mp3','ogg','mp4','svg', 'webp', 'js', 'css', 'gpx', 'eot', 'ttf', 'woff', 'woff2', 'otf');
+$ALLOW_EXTENSIONS = array('rar','zip','txt','html','pdf','jpg','jpeg','png','gif','bmp','psd','flv','mp3','ogg','mp4','svg', 'webp', 'js', 'css', 'gpx', 'eot', 'ttf', 'woff', 'woff2', 'otf', 'xml');
 
 // Allow Uploader Extensions
 global $ALLOW_UPLOADER;
-$ALLOW_UPLOADER = array('rar','zip','txt','html','pdf','jpg','jpeg','png','gif','bmp','psd','flv','mp3','ogg','mp4','svg', 'webp', 'js', 'css', 'gpx', 'eot', 'ttf', 'woff', 'woff2', 'otf');
+$ALLOW_UPLOADER = array('rar','zip','txt','html','pdf','jpg','jpeg','png','gif','bmp','psd','flv','mp3','ogg','mp4','svg', 'webp', 'js', 'css', 'gpx', 'eot', 'ttf', 'woff', 'woff2', 'otf', 'xml');
 
 // Mime type of upload extensions
 global $MIME_TYPES;
@@ -124,7 +124,8 @@ $MIME_TYPES = array(
     "avi" => array("video/avi", "video/msvideo", "video/x-msvideo", "image/avi", "video/xmpg2", "application/x-troff-msvideo", "audio/aiff", "audio/avi", "application/octet-stream"),
     "js" => array("application/javascript"),
     "css" => array("text/css"),
-    "gpx" => array("application/gpx", "application/gpx+xml", "application/xml")
+    "gpx" => array("application/gpx", "application/gpx+xml", "application/xml"),
+    "xml" => array("text/xml", "application/xml")
 );
 
 // Hide AUTH page.

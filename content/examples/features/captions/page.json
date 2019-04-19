@@ -1,0 +1,35 @@
+{
+    "title": "Html Captions",
+    "label": "Html Captions",
+    "description": "It's cool to use some html in your image titles and descriptions!",
+    "image": "1.spectacles.jpg",
+    "context": {
+        "classes": "separator"
+    },
+    "gallery": {
+        "layout": "vertical",
+        "split": {
+            "enabled": true
+        },
+        "crop": {
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "width": "narrow",
+        "items": "preview,title,description"
+    },
+    "1.spectacles.jpg": {
+        "title": "<i class=\"fa fa-venus\"><\/i> Girl with spectacles",
+        "description": "Hey, it's <s>nice<\/s> <em>cool<\/em> to use some <i class=\"fa fa-code\"><\/i> html in your image captions. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tristique quis justo luctus pulvinar. Nulla venenatis lacus eget sapien pretium dignissim. Duis feugiat magna vitae fermentum euismod. <span class=\"toggle-content\">Sed venenatis finibus lorem. Phasellus vel ante nibh. Praesent nec metus condimentum, vulputate ex vel, molestie sem. Praesent molestie tortor in mi tristique, at commodo lorem volutpat. Integer elementum facilisis erat, in pellentesque turpis venenatis ac. Morbi tincidunt nisi neque, non gravida nunc cursus in. Aenean at neque velit. Praesent vitae metus imperdiet, suscipit nunc semper, convallis dui. Nunc porta viverra venenatis. Donec vestibulum rutrum erat quis volutpat.<\/span><br><a href=# class=toggle-button data-close-text=\"See less\">See more<\/a>"
+    },
+    "2.hair.jpg": {
+        "title": "She uses shampoo",
+        "description": "Don't worry, you can also add <a href=\"https:\/\/www.photo.gallery\" target=\"_blank\">links<\/a> directly in your descriptions. Want to open link in a <a href=\"https:\/\/flamepix.com\" target=\"_blank\" data-popup-window>popup window<\/a>? <em>No problem.<\/em>"
+    },
+    "leaves.jpg": {
+        "title": "Beautiful leaves",
+        "description": "<a class=\"button button-buy\" href=\"https:\/\/www.flamepix.com\/?{file_name}\" data-popup-window>Buy {file_name} now!<\/a>"
+    }
+}

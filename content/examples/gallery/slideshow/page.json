@@ -1,0 +1,17 @@
+{
+    "title": "Slideshow Layout",
+    "description": "The slideshow layout comes with many settings.",
+    "image": "examples\/assets\/earrings.jpg",
+    "gallery": {
+        "width": "wide",
+        "layout": "slideshow",
+        "slideshow": {
+            "nav": "thumbs",
+            "fit": "contain",
+            "captions": true,
+            "captions_hover": true
+        },
+        "classes": "landscape,scrollbutton",
+        "assets": "examples\/assets\/"
+    }
+}

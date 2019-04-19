@@ -290,7 +290,7 @@ if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) AND strtolower($_SERVER['HTTP_X_REQ
                                                         	$iptc_data = X3::get_iptc_data($iptc);
 
                                                         	// reference_date 047
-                                                        	if(isset($iptc["2#047"][0]) && !empty($iptc["2#047"][0])) $reference_date = $iptc["2#047"][0];
+                                                        	if(isset($iptc["2#047"][0]) && is_numeric($iptc["2#047"][0])) $reference_date = $iptc["2#047"][0];
                                                         }
                                                     }
                                                 }

@@ -114,8 +114,8 @@
             "crop": {
               "type": "array",
               "items": {
-                "type": "number",
-                "minimum": 0.2,
+                "type": "integer",
+                "minimum": 1,
                 "maximum": 5
               }
             }
@@ -202,8 +202,8 @@
               "title": "Crop Aspect",
               "type": "array",
               "items": {
-                "type": "number",
-                "minimum": 0.2,
+                "type": "integer",
+                "minimum": 1,
                 "maximum": 5
               }
             }
@@ -343,8 +343,8 @@
               "title": "Crop Aspect",
               "type": "array",
               "items": {
-                "type": "number",
-                "minimum": 0.2,
+                "type": "integer",
+                "minimum": 1,
                 "maximum": 5
               }
             }
@@ -713,8 +713,8 @@
               "title": "Crop Aspect",
               "type": "array",
               "items": {
-                "type": "number",
-                "minimum": 0.2,
+                "type": "integer",
+                "minimum": 1,
                 "maximum": 5
               }
             }
@@ -1572,18 +1572,18 @@
 				                {
 								          "key": "menu.crop.enabled",
 								          "notitle": true,
-								          "inlinetitle": "Crop Preview Images <a href=# class=show-help></a><div class=hidden><h3>Crop Preview Images</h3><p>Set a crop ratio for preview-images displaying in the carousel menu for a uniform layout.</p><p><em>* Crop should always be enabled for the carousel-menu, unless preview-images already have identical aspect-ratios.</em></p></div>",
+								          "inlinetitle": "Crop Preview Images <a href=# class=show-help></a><div class=hidden><h3>Crop Preview Images</h3><p>Set a crop ratio for preview-images displaying in the carousel menu for a uniform layout.</p><p><em>* If disabled, images will crop at 2:1.</em></p></div>",
 								          "toggleNext": 2
 								        },
 								        {
 								          "key": "menu.crop.crop[0]",
 								          "htmlClass": "inline-group",
-								          "step": 0.1
+								          "step": 1
 								        },
 								        {
 								          "key": "menu.crop.crop[1]",
 								          "htmlClass": "inline-group",
-								          "step": 0.1
+								          "step": 1
 								        }
 				              ]
 				            },
@@ -1681,12 +1681,12 @@
 		            {
 		              "key": "context.crop.crop[0]",
 		              "htmlClass": "inline-group",
-		              "step": 0.1
+		              "step": 1
 		            },
 		            {
 		              "key": "context.crop.crop[1]",
 		              "htmlClass": "inline-group",
-		              "step": 0.1
+		              "step": 1
 		            },
 		            {
 		              "key": "context.caption.enabled",
@@ -1752,14 +1752,14 @@
 	            {
 	              "type": "help",
 	              "htmlClass": "section-title",
-	              "helpvalue": "Grid Layout <a href=# class=show-help></a><div class=hidden><h3>Grid Layout</h3><p>Use the grid method to create robust grid layouts which can respond to different screen sizes. Unless your images are all the same aspect, you should use the <code>crop</code> setting to achieve a uniform layout. There are <em>two</em> ways to configure the grid layout:</p><h4>Set Amount</h4><p>Set a fixed amount of columns for your grid.</p><h4>Set Width</h4><p>Set a <em>target width</em> for columns in the grid. The amount of columns created, will depend on the horizontal space available (layout width and screen size). By using this setting, you will get a progressive amount of columns.</p></div>"
+	              "helpvalue": "Grid Layout <a href=# class=show-help></a><div class=hidden><h3>Grid Layout</h3><p>Use the grid method to create robust grid layouts which can respond to different screen sizes. Unless your images are all the same aspect, you should use the <code>crop</code> setting to achieve a uniform layout. There are <em>two</em> ways to configure the grid layout:</p><h4>Set column amount</h4><p>Set a fixed amount of columns for your grid.</p><h4>Set colomn width</h4><p>Set a <em>target width</em> for columns in the grid. The amount of columns created, will depend on the horizontal space available (layout width and screen size). By using this setting, you will get a progressive amount of columns.</p></div>"
 	            },
 	            {
 	              "key": "folders.grid.use_width",
 	              "type": "selectfieldset",
 	              "titleMap": {
-	              	"false": "Set Amount",
-					        "true": "Set Width"
+	              	"false": "Set column amount",
+					        "true": "Set column width"
 					      },
 	              "items": [
 	              	{
@@ -1828,14 +1828,14 @@
 	            {
 	              "type": "help",
 	              "htmlClass": "section-title",
-	              "helpvalue": "Columns Layout <a href=# class=show-help></a><div class=hidden><h3>Columns Layout</h3><p>Use the columns layout <a href=\"https://demo.photo.gallery/examples/folders/columns/\" target=\"_blank\">[Demo]</a> to create a vertical masonry-style layout which emphasizes portrait aspect images. This layout will scale images within the columns to allow an elegant layout which fills the space available. There are two ways to configure the columns layout:</p><h4>Set Amount</h4><p>Set the amount of columns.</p><h4>Set Width</h4><p><code>Recommended</code> This setting allows you to set a column target-width, which decides how many columns are able to fit into the layout. This setting is <em>recommended</em> because the amount of columns displaying will depend on the width of screen, making the layout responsive.</p></div>"
+	              "helpvalue": "Columns Layout <a href=# class=show-help></a><div class=hidden><h3>Columns Layout</h3><p>Use the columns layout <a href=\"https://demo.photo.gallery/examples/folders/columns/\" target=\"_blank\">[Demo]</a> to create a vertical masonry-style layout which emphasizes portrait aspect images. This layout will scale images within the columns to allow an elegant layout which fills the space available. There are two ways to configure the columns layout:</p><h4>Set column amount</h4><p>Set the amount of columns.</p><h4>Set column width</h4><p><code>Recommended</code> This setting allows you to set a column target-width, which decides how many columns are able to fit into the layout. This setting is <em>recommended</em> because the amount of columns displaying will depend on the width of screen, making the layout responsive.</p></div>"
 	            },
 	            {
 	              "key": "folders.columns.use_width",
 	              "type": "selectfieldset",
 	              "titleMap": {
-	              	"true": "Set Width",
-	              	"false": "Set Amount"
+	              	"true": "Set column width",
+	              	"false": "Set column amount"
 					      },
 	              "items": [
 	              	{
@@ -1962,12 +1962,12 @@
             {
               "key": "folders.crop.crop[0]",
               "htmlClass": "inline-group",
-              "step": 0.1
+              "step": 1
             },
             {
               "key": "folders.crop.crop[1]",
               "htmlClass": "inline-group",
-              "step": 0.1
+              "step": 1
             }
           ]
         },
@@ -2146,14 +2146,14 @@
 		            {
 		              "type": "help",
 		              "htmlClass": "section-title",
-		              "helpvalue": "Grid Layout <a href=# class=show-help></a><div class=hidden><h3>Grid Layout</h3><p>Use the grid method to create robust grid layouts which can respond to different screen sizes. Unless your images are all the same aspect, you should use the <code>crop</code> setting to achieve a uniform layout. There are <em>two</em> ways to configure the grid layout:</p><h4>Set Amount</h4><p>Set a fixed amount of columns for your grid.</p><h4>Set Width</h4><p>Set a <em>target width</em> for columns in the grid. The amount of columns created will depend on the horizontal space available (gallery width and screen size). By using this setting, you will get a progressive amount of columns.</p></div>"
+		              "helpvalue": "Grid Layout <a href=# class=show-help></a><div class=hidden><h3>Grid Layout</h3><p>Use the grid method to create robust grid layouts which can respond to different screen sizes. Unless your images are all the same aspect, you should use the <code>crop</code> setting to achieve a uniform layout. There are <em>two</em> ways to configure the grid layout:</p><h4>Set column amount</h4><p>Set a fixed amount of columns for your grid.</p><h4>Set column width</h4><p>Set a <em>target width</em> for columns in the grid. The amount of columns created will depend on the horizontal space available (gallery width and screen size). By using this setting, you will get a progressive amount of columns.</p></div>"
 		            },
 		            {
 		              "key": "gallery.grid.use_width",
 		              "type": "selectfieldset",
 		              "titleMap": {
-		              	"false": "Set Amount",
-						        "true": "Set Width"
+		              	"false": "Set column amount",
+						        "true": "Set column width"
 						      },
 		              "items": [
 		              	{
@@ -2531,12 +2531,12 @@
             {
               "key": "gallery.crop.crop[0]",
               "htmlClass": "inline-group",
-              "step": 0.1
+              "step": 1
             },
             {
               "key": "gallery.crop.crop[1]",
               "htmlClass": "inline-group",
-              "step": 0.1
+              "step": 1
             }
           ]
         },
@@ -2593,7 +2593,7 @@
 						  	{
 				          "key": "gallery.items",
 				          "htmlClass": "settings_selectize",
-				          "title": "Inline Caption <a href=# class=show-help></a><div class=hidden><h3>Inline Caption Items</h3><p>This setting is used to set inline caption items for images in the gallery, and in which order the items display. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code><code>preview</code></span>.</p><p><code>Important!</code><br><em>Justified</em> and <em>Columns</em> layouts do not support inline captions, because they use a masonry-like layout that stacks images and does not support text. If you require captions for these layouts, you need to use <em>caption overlay</em> or <em>tooltip caption</em>.</p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard</em></p><h4>Items</h4><p><code>title</code> displays the title for each image.</p><p><code>date</code> displays the image date.</p><p><code>preview</code> displays a preview of the actual image.</p><p><code>description</code> displays the image description, if it exists.</p><h4>Examples</h4><p>Default gallery items, shows only a preview for each image (no caption).<span class=code-line><code>preview</code></span></p><p>You can add image title and description by adding these items before the preview. <span class=code-line><code>title</code><code>description</code><code>preview</code></span></p><p>Display date below the preview image.<span class=code-line><code>preview</code><code>date</code></span></p><p><em>* Items do not apply for the slideshow layout.</em></p></div><span class='hidden selectize-items'>title,date,description,maplink,preview</span>",
+				          "title": "Inline Caption <a href=# class=show-help></a><div class=hidden><h3>Inline Caption Items</h3><p>This setting is used to set inline caption items for images in the gallery, and in which order the items display. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code><code>preview</code></span>.</p><p><code>Important!</code><br><em>Justified</em> and <em>Columns</em> layouts do not support inline captions, because they use a masonry-like layout that stacks images and does not support text. If you require captions for these layouts, you need to use <em>caption overlay</em> or <em>tooltip caption</em>.</p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard</em></p><h4>Items</h4><p><code>title</code> displays the title for each image.</p><p><code>date</code> displays the image date.</p><p><code>preview</code> displays a preview of the actual image.</p><p><code>description</code> displays the image description, if it exists.</p><p><code>maplink</code> creates a button to open Google maps if the image contains geo data.</p><h4>Examples</h4><p>Default gallery items, shows only a preview for each image (no caption).<span class=code-line><code>preview</code></span></p><p>You can add image title and description by adding these items before the preview. <span class=code-line><code>title</code><code>description</code><code>preview</code></span></p><p>Display date below the preview image.<span class=code-line><code>preview</code><code>date</code></span></p><p><em>* Items do not apply for the slideshow layout.</em></p></div><span class='hidden selectize-items'>title,date,description,maplink,preview</span>",
 				          "description": "Add the caption items you want to display in addition to the preview image."
 				        },
 				        {
@@ -2626,7 +2626,7 @@
 		            },
 		            {
 		              "key": "gallery.caption.items",
-		              "title": "Caption Items <span>[tags]</span><a href=# class=show-help></a><div class=hidden><h3>Caption Overlay Items</h3><p>Select default items to display in the caption overlay. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code></span></p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard.</em></p></div><span class='hidden selectize-items'>title,date,description,maplink</span>",
+		              "title": "Caption Items <span>[tags]</span><a href=# class=show-help></a><div class=hidden><h3>Caption Overlay Items</h3><p>Select default items to display in the caption overlay. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code><code>maplink</code></span></p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard.</em></p></div><span class='hidden selectize-items'>title,date,description,maplink</span>",
 		          		"htmlClass": "settings_selectize"
 		            },
 		            {
@@ -3112,7 +3112,7 @@
             {
               "key": "plugins.video_background.autoplay",
               "notitle": true,
-              "inlinetitle": "Autoplay <a href=# class=show-help></a><div class=hidden><h3>Autoplay</h3><p>Sets the video to autoplay once it is partially loaded.</p><p><em>* Mobile devices only allow autoplay if the \"muted\" setting is checked, or your video has no audio.</em></p></div>"
+              "inlinetitle": "Autoplay <a href=# class=show-help></a><div class=hidden><h3>Autoplay</h3><p>Sets the video to autoplay once it is partially loaded.</p><p><em>* Mobile devices only allow autoplay if the \"muted\" setting is checked, or your video has no audio.<br>* If you disable [toggle play button], video will always autoplay. How else is the video supposed to play?</em></p></div>"
             },
             {
               "key": "plugins.video_background.toggleplay",

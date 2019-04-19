@@ -1,172 +1,234 @@
 {
-    "1.index": {
-        "url": "index"
+    "index": {
+        "url": "index",
+        "index": 3
     },
-    "2.galleries": {
-        "url": "galleries"
+    "galleries": {
+        "url": "galleries",
+        "index": 4
     },
-    "3.examples": {
-        "url": "examples"
+    "examples": {
+        "url": "examples",
+        "index": 5
     },
-    "3.examples\/1.gallery": {
-        "url": "examples\/gallery"
-    },
-    "2.galleries\/1.landscapes": {
-        "url": "galleries\/landscapes"
-    },
-    "2.galleries\/2.nature": {
-        "url": "galleries\/nature"
-    },
-    "2.galleries\/3.femme": {
-        "url": "galleries\/femme"
-    },
-    "2.galleries\/4.style": {
-        "url": "galleries\/style"
-    },
-    "2.galleries\/5.food": {
-        "url": "galleries\/food"
-    },
-    "2.galleries\/6.human": {
-        "url": "galleries\/human"
-    },
-    "3.examples\/1.gallery\/1.vertical": {
-        "url": "examples\/gallery\/vertical"
-    },
-    "3.examples\/1.gallery\/2.grid": {
-        "url": "examples\/gallery\/grid"
-    },
-    "3.examples\/1.gallery\/3.justified": {
-        "url": "examples\/gallery\/justified"
-    },
-    "3.examples\/1.gallery\/4.columns": {
-        "url": "examples\/gallery\/columns"
-    },
-    "3.examples\/1.gallery\/5.slideshow": {
-        "url": "examples\/gallery\/slideshow"
-    },
-    "3.examples\/1.gallery\/6.carousel": {
-        "url": "examples\/gallery\/carousel"
-    },
-    "3.examples\/1.gallery\/7.screenbox": {
-        "url": "examples\/gallery\/screenbox"
-    },
-    "3.examples\/2.variations\/1.split": {
-        "url": "examples\/variations\/split"
-    },
-    "3.examples\/2.variations\/2.grid-tooltip": {
-        "url": "examples\/variations\/grid-tooltip"
-    },
-    "3.examples\/2.variations\/3.justified": {
-        "url": "examples\/variations\/justified"
-    },
-    "3.examples\/2.variations\/4.columns": {
-        "url": "examples\/variations\/columns"
-    },
-    "3.examples\/2.variations\/5.slideshow": {
-        "url": "examples\/variations\/slideshow"
-    },
-    "3.examples\/2.variations\/6.carousel": {
-        "url": "examples\/variations\/carousel"
-    },
-    "3.examples\/2.variations\/7.crop": {
-        "url": "examples\/variations\/crop"
-    },
-    "3.examples\/2.variations\/8.carousel-tabs": {
-        "url": "examples\/variations\/carousel-tabs"
-    },
-    "3.examples\/2.variations": {
-        "url": "examples\/variations"
-    },
-    "3.examples\/3.folders\/1.vertical-split": {
-        "url": "examples\/folders\/vertical-split"
-    },
-    "3.examples\/3.folders\/2.grid": {
-        "url": "examples\/folders\/grid"
-    },
-    "3.examples\/3.folders\/3.justified": {
-        "url": "examples\/folders\/justified"
-    },
-    "3.examples\/3.folders\/4.columns": {
-        "url": "examples\/folders\/columns"
-    },
-    "3.examples\/3.folders\/5.carousel-tabs": {
-        "url": "examples\/folders\/carousel-tabs"
-    },
-    "3.examples\/3.folders\/6.list": {
-        "url": "examples\/folders\/list"
-    },
-    "3.examples\/3.folders\/carousel": {
-        "url": "examples\/folders\/carousel",
-        "hidden": true
-    },
-    "3.examples\/3.folders": {
-        "url": "examples\/folders"
-    },
-    "3.examples\/4.features\/1.sample": {
-        "url": "examples\/features\/sample"
-    },
-    "3.examples\/4.features\/2.post": {
-        "url": "examples\/features\/post"
-    },
-    "3.examples\/4.features\/3.exif": {
-        "url": "examples\/features\/exif"
-    },
-    "3.examples\/4.features\/4.image-links": {
-        "url": "examples\/features\/image-links"
-    },
-    "3.examples\/4.features\/5.captions": {
-        "url": "examples\/features\/captions"
-    },
-    "3.examples\/4.features\/7.link": {
-        "url": "examples\/features\/link"
-    },
-    "3.examples\/4.features\/8.popup-link": {
-        "url": "examples\/features\/popup-link"
-    },
-    "3.examples\/4.features\/password": {
-        "url": "examples\/features\/password",
-        "hidden": true
-    },
-    "3.examples\/4.features": {
-        "url": "examples\/features"
-    },
-    "3.examples\/5.plugins\/1.intro-image": {
-        "url": "examples\/plugins\/intro-image"
-    },
-    "3.examples\/5.plugins\/2.intro-gradient": {
-        "url": "examples\/plugins\/intro-gradient"
-    },
-    "3.examples\/5.plugins\/3.slideshow-intro": {
-        "url": "examples\/plugins\/slideshow-intro"
-    },
-    "3.examples\/5.plugins\/4.video-intro": {
-        "url": "examples\/plugins\/video-intro"
-    },
-    "3.examples\/5.plugins\/7.comparison-slider": {
-        "url": "examples\/plugins\/comparison-slider"
-    },
-    "3.examples\/5.plugins\/8.carousel": {
-        "url": "examples\/plugins\/carousel"
-    },
-    "3.examples\/5.plugins\/9.popup": {
-        "url": "examples\/plugins\/popup"
-    },
-    "3.examples\/5.plugins\/background-image": {
-        "url": "examples\/plugins\/background-image",
-        "hidden": true
-    },
-    "3.examples\/5.plugins\/intro-pattern": {
-        "url": "examples\/plugins\/intro-pattern",
-        "hidden": true
-    },
-    "3.examples\/5.plugins": {
-        "url": "examples\/plugins"
-    },
-    "3.examples\/assets": {
+    "examples\/assets": {
         "url": "examples\/assets",
+        "hidden": true,
+        "index": 6
+    },
+    "contact": {
+        "url": "contact",
+        "index": 6
+    },
+    "galleries\/landscapes": {
+        "url": "galleries\/landscapes",
+        "index": 1
+    },
+    "galleries\/nature": {
+        "url": "galleries\/nature",
+        "index": 2
+    },
+    "galleries\/femme": {
+        "url": "galleries\/femme",
+        "index": 3
+    },
+    "galleries\/style": {
+        "url": "galleries\/style",
+        "index": 4
+    },
+    "galleries\/food": {
+        "url": "galleries\/food",
+        "index": 5
+    },
+    "galleries\/human": {
+        "url": "galleries\/human",
+        "index": 6
+    },
+    "examples\/gallery": {
+        "url": "examples\/gallery",
+        "index": 1
+    },
+    "examples\/variations": {
+        "url": "examples\/variations",
+        "index": 2
+    },
+    "examples\/folders\/carousel": {
+        "url": "examples\/folders\/carousel",
+        "hidden": true,
+        "index": 7
+    },
+    "examples\/folders": {
+        "url": "examples\/folders",
+        "index": 3
+    },
+    "examples\/features\/password": {
+        "url": "examples\/features\/password",
+        "index": 8,
         "hidden": true
     },
-    "4.contact": {
-        "url": "contact"
+    "examples\/features": {
+        "url": "examples\/features",
+        "index": 4
+    },
+    "examples\/plugins\/background-image": {
+        "url": "examples\/plugins\/background-image",
+        "hidden": true,
+        "index": 8
+    },
+    "examples\/plugins\/intro-pattern": {
+        "url": "examples\/plugins\/intro-pattern",
+        "hidden": true,
+        "index": 9
+    },
+    "examples\/plugins": {
+        "url": "examples\/plugins",
+        "index": 5
+    },
+    "examples\/gallery\/vertical": {
+        "url": "examples\/gallery\/vertical",
+        "index": 1
+    },
+    "examples\/gallery\/grid": {
+        "url": "examples\/gallery\/grid",
+        "index": 2
+    },
+    "examples\/gallery\/justified": {
+        "url": "examples\/gallery\/justified",
+        "index": 3
+    },
+    "examples\/gallery\/columns": {
+        "url": "examples\/gallery\/columns",
+        "index": 4
+    },
+    "examples\/gallery\/slideshow": {
+        "url": "examples\/gallery\/slideshow",
+        "index": 5
+    },
+    "examples\/gallery\/carousel": {
+        "url": "examples\/gallery\/carousel",
+        "index": 6
+    },
+    "examples\/gallery\/screenbox": {
+        "url": "examples\/gallery\/screenbox",
+        "index": 8
+    },
+    "examples\/variations\/split": {
+        "url": "examples\/variations\/split",
+        "index": 1
+    },
+    "examples\/variations\/grid-tooltip": {
+        "url": "examples\/variations\/grid-tooltip",
+        "index": 2
+    },
+    "examples\/variations\/justified": {
+        "url": "examples\/variations\/justified",
+        "index": 3
+    },
+    "examples\/variations\/columns": {
+        "url": "examples\/variations\/columns",
+        "index": 4
+    },
+    "examples\/variations\/slideshow": {
+        "url": "examples\/variations\/slideshow",
+        "index": 5
+    },
+    "examples\/variations\/carousel": {
+        "url": "examples\/variations\/carousel",
+        "index": 6
+    },
+    "examples\/variations\/crop": {
+        "url": "examples\/variations\/crop",
+        "index": 7
+    },
+    "examples\/variations\/carousel-tabs": {
+        "url": "examples\/variations\/carousel-tabs",
+        "index": 8
+    },
+    "examples\/folders\/vertical-split": {
+        "url": "examples\/folders\/vertical-split",
+        "index": 1
+    },
+    "examples\/folders\/grid": {
+        "url": "examples\/folders\/grid",
+        "index": 2
+    },
+    "examples\/folders\/justified": {
+        "url": "examples\/folders\/justified",
+        "index": 3
+    },
+    "examples\/folders\/columns": {
+        "url": "examples\/folders\/columns",
+        "index": 4
+    },
+    "examples\/folders\/carousel-tabs": {
+        "url": "examples\/folders\/carousel-tabs",
+        "index": 5
+    },
+    "examples\/folders\/list": {
+        "url": "examples\/folders\/list",
+        "index": 6
+    },
+    "examples\/features\/sample": {
+        "url": "examples\/features\/sample",
+        "index": 1
+    },
+    "examples\/features\/exif": {
+        "url": "examples\/features\/exif",
+        "index": 3
+    },
+    "examples\/features\/post": {
+        "url": "examples\/features\/post",
+        "index": 2
+    },
+    "examples\/features\/image-links": {
+        "url": "examples\/features\/image-links",
+        "index": 4
+    },
+    "examples\/features\/captions": {
+        "url": "examples\/features\/captions",
+        "index": 5
+    },
+    "examples\/features\/link": {
+        "url": "examples\/features\/link",
+        "index": 6
+    },
+    "examples\/features\/popup-link": {
+        "url": "examples\/features\/popup-link",
+        "index": 7
+    },
+    "examples\/plugins\/intro-image": {
+        "url": "examples\/plugins\/intro-image",
+        "index": 1
+    },
+    "examples\/plugins\/intro-gradient": {
+        "url": "examples\/plugins\/intro-gradient",
+        "index": 2
+    },
+    "examples\/plugins\/slideshow-intro": {
+        "url": "examples\/plugins\/slideshow-intro",
+        "index": 3
+    },
+    "examples\/plugins\/video-intro": {
+        "url": "examples\/plugins\/video-intro",
+        "index": 4
+    },
+    "examples\/plugins\/comparison-slider": {
+        "url": "examples\/plugins\/comparison-slider",
+        "index": 5
+    },
+    "examples\/plugins\/carousel": {
+        "url": "examples\/plugins\/carousel",
+        "index": 6
+    },
+    "examples\/plugins\/popup": {
+        "url": "examples\/plugins\/popup",
+        "index": 7
+    },
+    "examples\/gallery\/auto-popup": {
+        "url": "examples\/gallery\/auto-popup",
+        "index": 7
+    },
+    "examples\/plugins\/panorama": {
+        "url": "examples\/plugins\/panorama"
     }
 }

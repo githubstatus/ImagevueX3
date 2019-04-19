@@ -154,13 +154,17 @@ Class Menu {
   static function get_preview($dir, $path){
 
 		# set $page_image
-		if(!empty($path)){
+		if(!empty($path)){	
 
 			# trim
 			$page_image = trim($path, ' ./');
 
+			# custom {{files}} path
+			if(strpos($page_image, '{{files}}') === 0){
+				$page_image = str_replace('{{files}}', './content/custom/files', $page_image);
+
 			# full path is defined
-			if(strpos($page_image, '/') !== false){
+			} else if(strpos($page_image, '/') !== false){
 				$page_image = './content/' . preg_replace('/^content\//', '', $page_image);
 
 			# file in current dir
@@ -175,15 +179,6 @@ Class Menu {
   	# image is set
 		if(isset($page_image) && file_exists($page_image)){
 			$preview = $page_image;
-
-		# get first image (should not be necessary, as "preview" is applied when uploading images to dir)
-		/*} else if(X3Config::$config["settings"]["menu_images"]){
-
-			# first image in folder
-			$files = self::get_images($dir);
-			if(count($files) > 0) {
-				$preview = current($files);
-			}*/
 
 		# preview.jpg
 		} else if(file_exists($dir . '/preview.jpg')){

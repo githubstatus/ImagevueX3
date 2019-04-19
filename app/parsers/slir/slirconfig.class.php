@@ -52,14 +52,16 @@ class SLIRConfig {
 						is_bool($user_config["back"]["image_resizer"]["copy_icc_profile"])) self::$copyICCProfile = $user_config["back"]["image_resizer"]["copy_icc_profile"];
 
 					// use request cache
-					if(isset($user_config["back"]["image_resizer"]["use_request_cache"]) && 
-						is_bool($user_config["back"]["image_resizer"]["use_request_cache"])) self::$useRequestCache = $user_config["back"]["image_resizer"]["use_request_cache"];
+					if((defined('PHP_OS') && (stripos(PHP_OS, 'win') === 0 || stripos(PHP_OS, 'CYGWIN_NT') !== false)) || stripos($_SERVER['SERVER_SOFTWARE'], 'iis') !== false) {
+						self::$useRequestCache = FALSE;
+					} else if(isset($user_config["back"]["image_resizer"]["use_request_cache"])){
+						self::$useRequestCache = $user_config["back"]["image_resizer"]["use_request_cache"];
+					}
+					/*if(isset($user_config["back"]["image_resizer"]["use_request_cache"]) && 
+						is_bool($user_config["back"]["image_resizer"]["use_request_cache"])) self::$useRequestCache = $user_config["back"]["image_resizer"]["use_request_cache"];*/
 				}
 			}
 		}
-
-		// ALWAYS Disable request cache on IIS because of symlink permission issues
-		if(stripos($_SERVER['SERVER_SOFTWARE'], 'iis') !== false) self::$useRequestCache = FALSE;
 
 		// Define error log path
     self::$errorLogPath = __DIR__ . '/slir-error-log';

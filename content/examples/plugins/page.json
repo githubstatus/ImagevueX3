@@ -1,0 +1,34 @@
+{
+    "title": "Plugins",
+    "label": "Plugins",
+    "description": "X3 offers a range of plugins that are available for pages, or in your content.",
+    "image": "galleries\/landscapes\/mountains.jpg",
+    "context": {
+        "classes": "separator"
+    },
+    "folders": {
+        "grid": {
+            "columns": "2,2,1"
+        },
+        "split": {
+            "enabled": true
+        },
+        "crop": {
+            "enabled": true,
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "classes": "frame,text-left,hover,hr",
+        "width": "narrow",
+        "items": "preview,title,description"
+    },
+    "plugins": {
+        "image_background": {
+            "src": "radial-gradient(farthest-side, gold, transparent), repeating-linear-gradient(gold 0px, darkorange 1px)",
+            "height": "240px",
+            "below_menu": false
+        }
+    }
+}

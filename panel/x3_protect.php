@@ -13,29 +13,29 @@ if ($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower
 
 	// vars
 	$folder = '../config';
-	$file = '../config/protect.php';
+	$file = '../config/protect.json';
+	$file2 = '../config/protect.php';
 	header('Content-Type: application/json');
 
-	if(isset($_POST['protect'])) {
+
+	if(isset($_POST['action'])) {
 
 		// exit if guest
 		if($core->is_guest()) exit('{ "error": "Guest user cannot make changes." }');
 
 		// write
-		function write_protect($file){
-			$ob = get_magic_quotes_gpc() ? json_decode(stripslashes($_POST['protect']), TRUE) : json_decode($_POST['protect'], TRUE);
-			$json = (phpversion() < 5.4) ? json_encode($ob) : json_encode($ob, JSON_PRETTY_PRINT);
-			$content = '<?php'.PHP_EOL.'$protect = \''.PHP_EOL.$json.PHP_EOL.'\';'.PHP_EOL.'?>';
-			if(file_put_contents($file, $content)){
-				echo json_encode($ob);
-			} else {
-				echo '{ "error": "Can\'t write to file ' . $file . '" }';
-			}
+		function write_protect($file, $file2){
+			$json_data = false;
+			if(isset($_POST['protect']) && !empty($_POST['protect'])) $json_data = phpversion() < 5.4 ? @json_encode($_POST['protect']) : @json_encode($_POST['protect'], JSON_PRETTY_PRINT|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+			$json = $json_data ? $json_data : '{}';
+			$success = @file_put_contents($file, $json);
+			if($json_data && $success && @file_exists($file2)) @unlink($file2);
+			echo $success ? $json : '{ "error": "Can\'t write to file ' . $file . '" }';
 		}
 
 		// Check write
 		if(file_exists($file) && is_readable($file) && is_writable($file)) {
-			write_protect($file);
+			write_protect($file, $file2);
 
 		} else if(file_exists($file) && is_writable($file)) {
 			echo '{ "error": "Can\'t read file ' . $file . '" }';
@@ -53,9 +53,8 @@ if ($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower
   		if(!is_writable($file)) {
 				echo '{ "error": "File '. $file .' is not writeable" }';
 			} else {
-				write_protect($file);
+				write_protect($file, $file2);
 			}
-
 		} else {
 			echo '{ "error": "Can\'t write ' . $file . '" }';
 		}
@@ -63,22 +62,18 @@ if ($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower
 	// Get settings
 	} else {
 
-		if(file_exists($file) && is_readable($file)) {
-	  	require_once $file;
-			echo $protect;
-		} else if(file_exists($file)) {
-			echo '{ "error": "Can\'t read file ' . $file . '" }';
-		} else {
-			$default_protect = '{"access":{"examples\/other\/password\/":{"username":"guest","password":"guest","users":["demouser1"]},"some\/folder\/":{"users":["demouser1","demouser2"]}},"users":{"superuser*":"superman","demouser1":"batman","demouser2":"hulk"}}';
-			echo $default_protect;
+		// protect.json
+		if(file_exists($file) && is_readable($file)){
+			$protect = @file_get_contents($file);
+
+		// protect.php (legacy)
+		} else if(file_exists($file2) && is_readable($file2)){
+			require_once $file2;
 		}
 
+		// echo
+		echo isset($protect) && !empty($protect) ? trim($protect) : '{}';
 	}
 }
-
-
-
-
-
 
 ?>

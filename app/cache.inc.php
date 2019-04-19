@@ -23,7 +23,7 @@ Class Cache {
     $content = 'content:' . filemtime(Config::$content_folder);
 
     # app updated
-    $app = 'app:' . filemtime(Config::$app_folder.'/stacey.inc.php');
+    $app = 'app:' . filemtime(Config::$app_folder.'/x3.inc.php');
 
     # touch file (optional)
     $touch = Config::$root_folder.'config/touch.txt';
@@ -65,8 +65,6 @@ Class Cache {
   function delete_old_caches() {
     # collect a list of all cache files matching the same file_path hash and delete them
     $old_caches = glob(Config::$cache_folder.'/pages/'.$this->cache_prefix.$this->path_hash.'-*', GLOB_NOSORT);
-    //foreach($old_caches as $file) unlink($file);
-		//foreach((array)$old_caches as $file) @unlink($file);
 		if($old_caches && count($old_caches)) {
 			foreach($old_caches as $file) @unlink($file);
 		}
@@ -109,26 +107,17 @@ Class Cache {
     # create page
     $page = new Page($route, false, $file_path, $current_page, $this->is_protected);
 
-    # start output buffer
-    //ob_start();
-
     # output
-    //echo $page->parse_template();
     $data = $page->parse_template();
     global $time_pre;
     header('X3-Page: [created] ' . (microtime(true) - $time_pre) . ' seconds.');
     echo $data;
 
     # write to cache
-    //if(!$page->data['bypass_cache']) $this->write_cache($data);
     if(!$page->data['bypass_cache']) {
       file_put_contents($this->cachefile, $data);
       if($current_page && $route !== 'custom/404') $this->auto_cache($page, $data);
     }
-
-    # end buffer
-    //ob_end_flush();
-    //return '';
   }
 
   function expired() {
@@ -146,11 +135,12 @@ Class Cache {
     $exists = @file_exists($cache_file);
     $writeable = ($exists && @is_writable($cache_file)) || (!$exists && @is_writable('./content'));
     
-    // not writeable or cache > 1mb
-    if(!$writeable || @filesize($cache_file) > 1000000) return false;
+    // not writeable or cache > 2mb
+    if(!$writeable || @filesize($cache_file) > 2000000) return false;
 
     // append page json fragment
     $permalink = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/') . '/' . ltrim($page->data['permalink'], '/');
+    //$permalink = '/' . ltrim($page->data['permalink'], '/');
     $outdated = $exists && (filemtime($cache_file) < $page->data['site_updated']);
     $json_content = $exists && !$outdated ? @file_get_contents($cache_file) : false;
     $is_empty = empty($json_content);

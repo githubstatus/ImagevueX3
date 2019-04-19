@@ -1,0 +1,25 @@
+{
+    "title": "Carousel Layout",
+    "label": "Carousel",
+    "description": "The carousel method displays multiple items in a carousel-like layout.",
+    "image": "examples\/assets\/headphones.jpg",
+    "gallery": {
+        "width": "wide",
+        "items": "preview,title,description",
+        "crop": {
+            "enabled": true,
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "layout": "carousel",
+        "carousel": {
+            "margin": 30,
+            "background": true
+        },
+        "title_size": "small",
+        "classes": "frame,scrollbutton",
+        "assets": "examples\/assets\/"
+    }
+}

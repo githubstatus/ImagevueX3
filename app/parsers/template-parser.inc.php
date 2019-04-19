@@ -21,7 +21,7 @@ Class TemplateParser {
       'auto_reload' => false,
       'autoescape' => false
     ));
-    $twig->addExtension(new Stacey_Twig_Extension());
+    $twig->addExtension(new X3_Twig_Extension());
     $twig->addExtension(new Imagevue_Twig_Extension());
 
     return $twig->render($template, array('page' => $data));

@@ -24,6 +24,11 @@ class __TwigTemplate_1663a4e388acb7b52561c30d23f0ed9ed7115e5eeb372600d419476e495
         return "file.html";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
         return array (  19 => 1,);

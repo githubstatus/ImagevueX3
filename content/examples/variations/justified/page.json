@@ -1,0 +1,20 @@
+{
+    "title": "Justified Comfy",
+    "label": "Justified Comfy",
+    "description": "A justified layout with larger images, more space, frames and captions.",
+    "image": "examples\/assets\/straight-road.jpg",
+    "gallery": {
+        "width": "wide",
+        "justified": {
+            "row_height": 350,
+            "space": 15
+        },
+        "caption": {
+            "enabled": true,
+            "items": "title,description",
+            "hover": true
+        },
+        "classes": "frame",
+        "assets": "examples\/assets\/"
+    }
+}

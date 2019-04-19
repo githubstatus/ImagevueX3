@@ -7,30 +7,44 @@ class X3 {
 
 	// get iptc data
 	public static function get_iptc_data($iptc){
-  	$data = self::iptc_data($iptc, '005', 'title', true)
-					. self::iptc_data($iptc, '120', 'description', true);
+  	$data = self::iptc_data($iptc, '005', 'title')
+					. self::iptc_data($iptc, '120', 'description');
 
 		// only add X3 IPTC if "use iptc"
-  	if(X3Config::$config['back']['use_iptc']) $data .= self::iptc_data($iptc, '217', 'link', true)
-					. self::iptc_data($iptc, '218', 'link-target', false)
-					. self::iptc_data($iptc, '220', 'params', true)
-					. self::iptc_data($iptc, '219', 'hidden', false)
-					. self::iptc_data($iptc, '216', 'custom', false)
-					. self::iptc_data($iptc, '216', 'index', false);
+		if(X3Config::$config['back']['use_iptc']) {
+			$data .= self::iptc_data($iptc, '217', 'link')
+						. self::iptc_data($iptc, '220', 'params');
+
+			// link target
+			if(isset($iptc['2#218'][0]) && in_array($iptc['2#218'][0], array('auto','_self','_blank','popup','x3_popup'))) $data .= self::get_iptc_data_attribute('link-target', $iptc['2#218'][0]);
+
+			// hidden
+			if(isset($iptc["2#219"][0]) && $iptc["2#219"][0] == '1') $data .= self::get_iptc_data_attribute('hidden', '1');
+
+			// index/custom
+			if(isset($iptc["2#216"][0]) && is_numeric($iptc["2#216"][0])) {
+				$data .= self::get_iptc_data_attribute('custom', $iptc["2#216"][0]);
+				$data .= self::get_iptc_data_attribute('index', $iptc["2#216"][0]);
+			}
+		}
 
 		return $data;
   }
 
   // utf8 validate
   private static function utf8_validate($string){
-  	//return preg_match('!!u', $string) ? $string : mb_convert_encoding($string, 'UTF-8', 'pass');
-		return htmlspecialchars(preg_match('!!u', $string) ? $string : mb_convert_encoding($string, 'UTF-8', 'pass'), ENT_QUOTES);
+		return htmlspecialchars(@mb_detect_encoding($string, 'UTF-8', true) ? $string : @utf8_encode($string), ENT_QUOTES);
   }
 
   // iptc data string
-  private static function iptc_data($iptc, $val, $att, $utf8){
-  	if(!isset($iptc["2#" . $val][0]) || empty($iptc["2#" . $val][0])) return '';
-  	return ' data-' . $att . '="' . ($utf8 ? self::utf8_validate($iptc["2#" . $val][0]) : $iptc["2#" . $val][0]) . '"';
+  private static function iptc_data($iptc, $id, $name){
+  	if(!isset($iptc['2#' . $id][0]) || empty($iptc['2#' . $id][0])) return '';
+  	return self::get_iptc_data_attribute($name, self::utf8_validate($iptc['2#' . $id][0]));
+  }
+
+  //
+  private static function get_iptc_data_attribute($name, $val){
+  	return ' data-' . $name . '="' . $val . '"';
   }
 
 
@@ -138,12 +152,14 @@ class X3 {
 
   // get dirs
   public static function get_dirs($dir){
+  	$basename = basename($dir);
+  	if($basename[0] === '_') return;
   	$arr = array();
   	$dirs = glob($dir . '/*', GLOB_ONLYDIR|GLOB_NOSORT);
   	if(empty($dirs)) return $arr;
 		foreach($dirs as $dir){
 			$content_path = self::get_content_path($dir);
-			if($content_path === 'custom' || !$content_path/* || strpos(basename($dir), '_') === 0*/) continue;
+			if($content_path === 'custom' || !$content_path) continue;
 			$arr[$content_path]['url'] = preg_replace('/\d+?\./', '', $content_path);
 			foreach (self::get_dirs($dir) as $key => $value) {
 				$arr[$key] = $value;
@@ -220,21 +236,15 @@ class X3 {
 			// menu html
 	    $menu .= '<ul>';
 			foreach($dir_object as $dir => $val){
-				$menu_id = '_' . trim(preg_replace('/\_+/', '_', str_replace(str_split(' .,()[]/"“’\\\'!?#`~@-$%^&*+=:;<>{}'), '_', $val['content_path'])), '_');
+				$content_path = $val['content_path'];
+				$menu_id = '_' . trim(preg_replace('/\_+/', '_', str_replace(str_split(' .,()[]/"“’\\\'!?#`~@-$%^&*+=:;<>{}'), '_', $content_path)), '_');
 				$dir_escaped = htmlspecialchars($dir);
 				$name = basename($dir_escaped);
-				$menu .= '<li data-sort="' . $val['sort'] . '" data-custom="' . $val['custom'] . '" data-content-path="' . htmlspecialchars($val['content_path']) . '" data-dir="' . $dir_escaped . '" data-name="' . $name . '" id="' . $menu_id . '"><a href="#" data-href="' . $dir_escaped . '" rel="nofollow">' . $name . '</a>' . self::make_dir_tree($dir . '/*') . '</li>';
+				$submenu = $name[0] === '_' ? '' : self::make_dir_tree($dir . '/*');
+				$menu .= '<li data-sort="' . $val['sort'] . '" data-custom="' . $val['custom'] . '" data-content-path="' . htmlspecialchars($content_path) . '" data-dir="' . $dir_escaped . '" data-name="' . $name . '" id="' . $menu_id . '"><a href="#" data-href="' . $dir_escaped . '" rel="nofollow">' . $name . '</a>' . $submenu . '</li>';
 				self::add_data($dir);
 			}
 			$menu .= '</ul>';
-
-			/*$menu .= '<ul>';
-			$zindex = 0;
-			foreach($dirs as $dir){
-				$menu .= '<li data-sort="' . $zindex++ . '" data-content-path="' . self::get_content_path($dir) . '"><a href="#" data-href="' . $dir . '" rel="nofollow">' . basename($dir) . '</a>' . self::make_dir_tree($dir . '/*', $folders) . '</li>';
-				self::add_data($dir);
-			}
-			$menu .= '</ul>';*/
 		}
 		return $menu;
 	}

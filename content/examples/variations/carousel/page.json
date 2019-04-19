@@ -1,0 +1,21 @@
+{
+    "title": "Carousel Height",
+    "label": "Carousel Height",
+    "description": "Optional Carousel layout limited by height, without cropping images.",
+    "image": "examples\/assets\/felagi.jpg",
+    "gallery": {
+        "layout": "carousel",
+        "carousel": {
+            "use_height": true,
+            "target_height": 400
+        },
+        "classes": "hover,scrollbutton",
+        "width": "wide",
+        "caption": {
+            "enabled": true,
+            "items": "title,description",
+            "hover": true
+        },
+        "assets": "examples\/assets\/"
+    }
+}

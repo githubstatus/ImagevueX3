@@ -122,57 +122,57 @@ class __TwigTemplate_d004bd64c82959c74ad96030eed1b38adb44f11c884c77d15a0c11fcdf6
                 echo "\t\t";
                 if (((isset($context["item"]) ? $context["item"] : null) == "title")) {
                     // line 40
-                    echo "\t\t\t<h2 class='title' itemprop='caption'>";
+                    echo "\t\t\t<h2 class=\"title\" itemprop=\"caption\">";
                     echo (isset($context["title_pseudo"]) ? $context["title_pseudo"] : null);
                     echo "</h2>
 \t\t";
                 } elseif ((((isset($context["item"]) ? $context["item"] : null) == "description") && (!call_user_func_array($this->env->getTest('empty')->getCallable(), array((isset($context["description"]) ? $context["description"] : null)))))) {
                     // line 42
-                    echo "\t\t<p itemprop='description'>";
+                    echo "\t\t<p itemprop=\"description\">";
                     echo (isset($context["description_pseudo"]) ? $context["description_pseudo"] : null);
                     echo "</p>
 \t\t";
                 } elseif (((isset($context["item"]) ? $context["item"] : null) == "date")) {
                     // line 44
-                    echo "\t\t\t<h6 class=date>";
+                    echo "\t\t\t<h6 class=\"date\">";
                     echo (isset($context["time_tag"]) ? $context["time_tag"] : null);
                     echo "</h6>
 \t\t";
+                } elseif (((isset($context["item"]) ? $context["item"] : null) == "preview")) {
+                    // line 46
+                    echo "\t\t\t<video width=\"100%\" preload=\"metadata\" class=\"x3-style-frame\" controls";
+                    if ($this->getAttribute($this->getAttribute((isset($context["page"]) ? $context["page"] : null), "settings"), "prevent_context")) {
+                        echo " controlsList=\"nodownload\"";
+                    }
+                    echo ">
+\t\t\t\t<source src=\"";
+                    // line 47
+                    echo ((isset($context["assetspath"]) ? $context["assetspath"] : null) . call_user_func_array($this->env->getFilter('trim')->getCallable(), array((($this->getAttribute((isset($context["gallery"]) ? $context["gallery"] : null), "file_path") . "/") . $this->getAttribute((isset($context["video"]) ? $context["video"] : null), "file_name")), ".")));
+                    echo "\" type=\"video/mp4\">
+\t\t\t</video>
+\t\t";
                 }
-                // line 46
+                // line 50
                 echo "\t";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['item'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 47
+            // line 51
             echo "
 \t";
-            // line 49
-            echo "\t<video width=\"100%\" preload=\"metadata\" class=\"x3-style-frame\" controls";
-            if ($this->getAttribute($this->getAttribute((isset($context["page"]) ? $context["page"] : null), "settings"), "prevent_context")) {
-                echo " controlsList=\"nodownload\"";
-            }
-            echo ">
-\t\t<source src=\"";
-            // line 50
-            echo ((isset($context["assetspath"]) ? $context["assetspath"] : null) . call_user_func_array($this->env->getFilter('trim')->getCallable(), array((($this->getAttribute((isset($context["gallery"]) ? $context["gallery"] : null), "file_path") . "/") . $this->getAttribute((isset($context["video"]) ? $context["video"] : null), "file_name")), ".")));
-            echo "\" type=\"video/mp4\">
-\t</video>
-
-\t";
-            // line 54
+            // line 53
             echo "\t</div>
 
 \t";
-            // line 57
+            // line 56
             echo "\t";
             if (($this->getAttribute((isset($context["loop"]) ? $context["loop"] : null), "index") < call_user_func_array($this->env->getFilter('length')->getCallable(), array($this->env, (isset($context["gallery_videos"]) ? $context["gallery_videos"] : null))))) {
-                // line 58
+                // line 57
                 echo "\t\t<hr>
 \t";
             }
-            // line 60
+            // line 59
             echo "
 ";
             ++$context['loop']['index0'];
@@ -187,7 +187,7 @@ class __TwigTemplate_d004bd64c82959c74ad96030eed1b38adb44f11c884c77d15a0c11fcdf6
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['video'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 63
+        // line 62
         echo "
 </section>";
     }
@@ -204,6 +204,6 @@ class __TwigTemplate_d004bd64c82959c74ad96030eed1b38adb44f11c884c77d15a0c11fcdf6
 
     public function getDebugInfo()
     {
-        return array (  191 => 63,  176 => 60,  172 => 58,  169 => 57,  165 => 54,  159 => 50,  152 => 49,  149 => 47,  143 => 46,  137 => 44,  131 => 42,  125 => 40,  122 => 39,  117 => 38,  113 => 35,  110 => 33,  107 => 32,  104 => 31,  101 => 30,  98 => 29,  95 => 28,  92 => 27,  89 => 26,  86 => 25,  83 => 24,  80 => 22,  77 => 21,  74 => 20,  71 => 19,  68 => 18,  65 => 17,  62 => 16,  59 => 15,  56 => 14,  53 => 12,  50 => 11,  47 => 10,  44 => 8,  27 => 7,  22 => 3,  21 => 2,  19 => 1,);
+        return array (  191 => 62,  176 => 59,  172 => 57,  169 => 56,  165 => 53,  162 => 51,  156 => 50,  150 => 47,  143 => 46,  137 => 44,  131 => 42,  125 => 40,  122 => 39,  117 => 38,  113 => 35,  110 => 33,  107 => 32,  104 => 31,  101 => 30,  98 => 29,  95 => 28,  92 => 27,  89 => 26,  86 => 25,  83 => 24,  80 => 22,  77 => 21,  74 => 20,  71 => 19,  68 => 18,  65 => 17,  62 => 16,  59 => 15,  56 => 14,  53 => 12,  50 => 11,  47 => 10,  44 => 8,  27 => 7,  22 => 3,  21 => 2,  19 => 1,);
     }
 }

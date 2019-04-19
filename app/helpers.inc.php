@@ -63,7 +63,7 @@ Class Helpers {
   		$location = $val;
   	} else {
   		$uri = $val[0] !== '/' ? $_SERVER['REQUEST_URI'] : ''; // is relative to current path
-  		$location = Stacey::$server_protocol . $_SERVER['HTTP_HOST'] . $uri . $val;
+  		$location = X3::$server_protocol . $_SERVER['HTTP_HOST'] . $uri . $val;
   	}
   	header("HTTP/1.1 301 Moved Permanently");
   	header("Location: ".$location, true, 301);
@@ -152,7 +152,7 @@ Class Helpers {
     	self::$file_cache[$dir] = array();
     }
   }
-
+  
   static function list_files($dir, $regex, $folders_only = false, $sort = true) {
     $files = array();
     //if(!$regex && $folders_only) $regex = X3Config::$config["settings"]["hide_folders"] ? '\/\d+?\.[^\/]+$/' : '\/[^_][^\/]+$/';
@@ -192,7 +192,7 @@ Class Helpers {
   	$content = filemtime(Config::$content_folder);
 
 		# app updated
-		$app = filemtime(Config::$app_folder.'/stacey.inc.php');
+		$app = filemtime(Config::$app_folder.'/x3.inc.php');
 
 		# touch file (optional)
     $touch = Config::$root_folder.'config/touch.txt';

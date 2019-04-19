@@ -318,11 +318,11 @@
     	"audioplayer":{
     		"enabled": false,
     		"autoplay": false,
-    		"autoplay_mobile": false,
     		"loop": true,
     		"volume": 1.0,
     		"shuffle": false,
-    		"disabled_mobile": true
+    		"disabled_mobile": true,
+            "folders": true
     	},
     	"disqus":{
     		"image": true
@@ -344,7 +344,7 @@
             "enabled": false,
             "index": true,
             "title": true,
-            "buttons": "deviceorientation,rotate,fullscreen,close",
+            "buttons": "deviceorientation,rotate,fullscreen",
             "scene_nav": true,
             "scene_loop": true,
             "zoom": "auto",
@@ -367,6 +367,8 @@
             "maxres_multiplier": 1,
             "max_vfov": 1.75,
             "max_hfov": 0,
+            "pitch_min": -90,
+            "pitch_max": 90,
             "reset_view": true,
             "autorotate_start": true,
             "autorotate_restart": false,
@@ -374,8 +376,9 @@
             "autorotate_speed": 0.03,
             "flat_tile_size": 512,
             "flat_url_format": "l{z}/{y}/l{z}_{y}_{x}.jpg",
-            "flat_zero_padding": 2,
-            "flat_index_start": 1
+            "flat_zero_padding": 0,
+            "flat_index_start": 0,
+            "flat_pin_levels": 2
         }
     },
     "accounts": {

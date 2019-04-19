@@ -1,6 +1,7 @@
 <?php
 if(!isset($_SESSION)) session_start();
 
+@ini_set('default_charset', 'UTF-8');
 ini_set( 'error_reporting', E_ALL ^ E_DEPRECATED );
 error_reporting( E_ALL ^ E_DEPRECATED );
 ini_set('log_errors',TRUE);
@@ -89,8 +90,8 @@ class filemanager_core extends Services_JSON
 		  		if(isset($redirect_path)){
 		  			if(!preg_match('/\/$/', $redirect_path) && !preg_match('/[\.\?\&][^\/]+$/', $redirect_path)) $redirect_path .= '/';
 		  			header('HTTP/1.1 301 Moved Permanently');
-	      		header('Location:'.$redirect_path);
-	      		return true;
+    	      		header('Location:'.$redirect_path);
+    	      		return true;
 		  		}
 	  		}
 	  	}
@@ -847,20 +848,25 @@ class filemanager_core extends Services_JSON
 
 	public function create_zip($folderName,$zipFileName)
     {
-        $zip = new ZipArchive();
         if(is_dir($folderName))
         {
+            $zip = new ZipArchive();
             $zip_archive = $zip->open($zipFileName.".zip",ZIPARCHIVE::CREATE);
             if($zip_archive === true)
             {
+                $parent = dirname($folderName);
                 $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($folderName));
                 foreach ($iterator as $key => $value)
                 {
                     $check = substr($key, -2);
                     if( $check != ".." and $check != "/." ) {
-                        $_key = str_replace("../", "", $key);
+                        /*$_key = str_replace("../", "", $key);
                         $_key = str_replace("./", "", $_key);
-                        @$zip->addFile(realpath($key), $_key);
+                        @$zip->addFile(realpath($key), $_key);*/
+                        
+                        //
+                        $zip_relative = strpos($key, $parent) === 0 ? str_replace($parent, '', $key) : trim($key, './');
+                        @$zip->addFile(realpath($key), $zip_relative );
                     }
                 }
                 $zip->close();

@@ -1,0 +1,25 @@
+{
+    "title": "Crop Images",
+    "label": "Crop Images",
+    "description": "Cropping images to specific aspect ratios is necessary for some layouts. It can also be used to create stylish layouts.",
+    "image": "examples\/assets\/skies.jpg",
+    "layout": {
+        "width": "narrower"
+    },
+    "gallery": {
+        "crop": {
+            "enabled": true,
+            "crop": [
+                2,
+                1
+            ]
+        },
+        "layout": "vertical",
+        "caption": {
+            "enabled": true,
+            "items": "title,date"
+        },
+        "classes": "landscape,frame,hover",
+        "assets": "examples\/assets\/"
+    }
+}

@@ -6,8 +6,11 @@ if (!isset($core))
     $core = new filemanager_core();
     if($core->enforce_url()) return;
 }
+function get_query() {
+    return isset($_SERVER['QUERY_STRING']) && !empty($_SERVER['QUERY_STRING']) ? '?' . $_SERVER['QUERY_STRING'] : '';
+}
 if ($core->isLogin()){
-    header("Location: .");
+    header("Location: ." . get_query());
 } else {
     $result = '';
     if (isset($_POST["login"]))
@@ -23,7 +26,7 @@ if ($core->isLogin()){
         $login = $core->login($_POST["username"], $_POST["password"]);
         if ($login["status"] == true && $_POST["nickname"] == "googooforgaga" && $_POST["pass"] == "")
         {
-            header("Location: .");
+            header("Location: ." . get_query());
         }
         else
         {
@@ -32,7 +35,7 @@ if ($core->isLogin()){
             $login = $core->login($_POST["username"], $_POST["password"]);
             if ($login["status"] == true && $_POST["nickname"] == "googooforgaga" && $_POST["pass"] == "")
             {
-                header("Location: .");
+                header("Location: ." . get_query());
             }
             else
             {
@@ -185,7 +188,7 @@ if ($core->isLogin()){
         <meta name="robots" content="noindex">
         <meta name="googlebot" content="noindex">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href='https://cdn.jsdelivr.net/bootstrap/3.0.0/css/bootstrap.min.css' rel='stylesheet' />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/css/bootstrap.min.css" rel="stylesheet" />
         <link href="filemanager_css/x3.panel.css?v=<?php echo X3Config::$config["x3_panel_version"]; ?>" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Montserrat:500|Source+Sans+Pro:400,400i,600,600i&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
         <style type="text/css">
@@ -310,11 +313,11 @@ if ($core->isLogin()){
             </div>
         </div>
     </div>
-    <script src='https://cdn.jsdelivr.net/jquery/2.2.4/jquery.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.0/dist/js/bootstrap.min.js"></script>
     <script>
     	var form = $('.form-signin');
-    	form.attr('action', 'log'+'in.php');
+    	form.attr('action', 'log'+'in.php' + location.search);
     	form.find('input[name="nickname"]').val('googooforgaga');
     	form.find('.formx').hide();
     	$('button.btn-block, .container').show();

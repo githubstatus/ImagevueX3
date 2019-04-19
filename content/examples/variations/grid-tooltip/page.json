@@ -1,0 +1,31 @@
+{
+    "description": "A small grid using 200 px column width and tooltips enabled.\r\n",
+    "image": "examples\/assets\/face.jpg",
+    "context": {
+        "classes": "separator"
+    },
+    "gallery": {
+        "crop": {
+            "enabled": true,
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "layout": "grid",
+        "grid": {
+            "use_width": true,
+            "column_width": 200,
+            "space": 15
+        },
+        "caption": {
+            "items": "title,date",
+            "align": "caption-top-left"
+        },
+        "tooltip": {
+            "enabled": true
+        },
+        "classes": "frame",
+        "assets": "examples\/assets\/"
+    }
+}

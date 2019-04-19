@@ -2,10 +2,10 @@
 require_once Config::$app_folder.'/parsers/Twig/ExtensionInterface.php';
 require_once Config::$app_folder.'/parsers/Twig/Extension.php';
 
-class Stacey_Twig_Extension extends Twig_Extension {
+class X3_Twig_Extension extends Twig_Extension {
 
   public function getName() {
-    return 'Stacey';
+    return 'X3';
   }
 
   public function getFilters() {
@@ -104,18 +104,20 @@ class Stacey_Twig_Extension extends Twig_Extension {
   	// sibling previous
   	if($index > 0) {
   		$prev_dir = $keys[$index - 1];
-  		//$slug = $dir_object[$prev_dir]['slug'];
-      $slug = str_replace(' ', '_', $dir_object[$prev_dir]['slug']);
-  		$result[0] = array('slug' => $slug, 'label' => $slug);
+  		$dir_slug = $dir_object[$prev_dir]['slug'];
+      $slug = str_replace(' ', '_', $dir_slug);
+      $label = ucwords(str_replace(array('_', '-'), ' ', $dir_slug));
+  		$result[0] = array('slug' => $slug, 'label' => $label);
   	}
   	// sibling next
   	if($index < (count($keys) - 1)){
   		$next_dir = $keys[$index + 1];
-  		//$slug = $dir_object[$next_dir]['slug'];
-      $slug = str_replace(' ', '_', $dir_object[$next_dir]['slug']);
-  		$result[1] = array('slug' => $slug, 'label' => $slug);
+  		$dir_slug = $dir_object[$next_dir]['slug'];
+      $slug = str_replace(' ', '_', $dir_slug);
+      $label = ucwords(str_replace(array('_', '-'), ' ', $dir_slug));
+  		$result[1] = array('slug' => $slug, 'label' => $label);
   	}
-
+    
   	return $result;
   }
 

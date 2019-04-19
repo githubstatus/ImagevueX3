@@ -63,6 +63,7 @@
 	{# Crop #}
 	{% if context.crop.enabled %}
 		{% set crop_ratio = context.crop.crop[1] / context.crop.crop[0] * 100 %}
+		{% set data_crop = ' data-crop="' ~ context.crop.crop[0] ~ ':' ~ context.crop.crop[1] ~ '"' %}
 	{% endif %}
 
 	{# preview url #}
@@ -79,10 +80,10 @@
 
 	{# Output #}
 	<div class="preview-image x-frame-medium-up images">
-		<a class="img-link item-link item popup" data-options="w:{{ imgInfo[0] }};h:{{ imgInfo[1] }}" href="." data-popup-href="{{ preview_image_url|e }}" data-image="{{ preview_image_url|e }}"{% if crop_ratio %} data-crop="true"{% endif %}>
+		<a class="img-link item-link item popup" data-width="{{ imgInfo[0] }}" data-height="{{ imgInfo[1] }}" href="." data-popup-href="{{ preview_image_url|e }}" data-image="{{ preview_image_url|e }}">
 			<figure>
 				<div class="image-container" style="padding-bottom:{{ image_ratio }}%;">
-					<img data-src="{{ preview_image_url|e }}" alt="">
+					<img data-src="{{ preview_image_url|e }}" data-width="{{ imgInfo[0] }}"{{ data_crop }} alt="">
 				</div>
 
 			{# Caption #}

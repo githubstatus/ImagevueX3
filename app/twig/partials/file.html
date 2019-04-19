@@ -50,19 +50,29 @@
 {% endif %}
 
 {# EXIF and GEO #}
+{% set data_exif = '' %}
 {% set meta = '' %}
-{% set exif = '' %}
+{% set data_geo = '' %}
 {% if myimage.exif %}
 
 	{# caption and meta EXIF #}
 	{% if parent.popup.caption.exif %}
 		{% set exif_items = parent.popup.caption.exif_items|split(',') %}
 		{% if exif_items|length > 0 %}
-			{% for key in exif_items if myimage.exif[key] %}
+
+			{#{% for key in exif_items if myimage.exif[key] %}
 		    {% set exif = exif ~ key ~ ':' ~ myimage.exif[key] ~ ';' %}
 		    {% set meta = meta ~ '<div class="row file-exif-' ~ key ~ '"><div class="small-6 columns file-exif-key"><span>' ~ key|title|replace({'_':' '}) ~ '</span></div><div class="small-6 columns file-exif-value styled">' ~ myimage.exif[key] ~ '</div></div>' %}
 			{% endfor %}
-			{% if exif %}{% set exif = ' data-exif="' ~ exif ~ '"' %}{% endif %}
+			{% if exif %}{% set exif = ' data-exif="' ~ exif ~ '"' %}{% endif %}#}
+
+			{% set exif_array = [] %}
+			{% for key in exif_items if myimage.exif[key] %}
+		    {% set exif_array = exif_array|merge({ (key): myimage.exif[key] }) %}
+		    {% set meta = meta ~ '<div class="row file-exif-' ~ key ~ '"><div class="small-6 columns file-exif-key"><span>' ~ key|title|replace({'_':' '}) ~ '</span></div><div class="small-6 columns file-exif-value styled">' ~ myimage.exif[key] ~ '</div></div>' %}
+			{% endfor %}
+			{% if exif_array|length %}{% set data_exif = ' data-exif="' ~ exif_array|json_encode()|e('html_attr') ~ '"' %}{% endif %}
+
 		{% endif %}
 	{% endif %}
 
@@ -103,7 +113,7 @@
 
 	{# Image element #}
 	<div class="gallery">
-		<a class="item img-link item-link{% if page.popup.enabled == true %} x3-popup{% endif %}"{{ exif }}{{ data_geo }} id="image-{{ page.slug|attribute_friendly|default('1') }}" data-options="w:{{ myimage.width }};h:{{ myimage.height }}" href="{{ image_page }}" data-image="{{ preview_image_url|e }}" data-title="{{ page_title|e('html') }}" data-description="{{ image_description|e('html') }}" data-date="{{ date|date("d F Y") }}">
+		<a class="item img-link item-link{% if page.popup.enabled == true %} x3-popup{% endif %}"{{ data_exif }}{{ data_geo }} id="image-{{ page.slug|attribute_friendly|default('1') }}" data-width="{{ myimage.width }}" data-height="{{ myimage.height }}" href="{{ image_page }}" data-image="{{ preview_image_url|e }}" data-title="{{ page_title|e('html') }}" data-description="{{ image_description|e('html') }}" data-date="{{ date|date("d F Y") }}">
 			<figure>
 				<div class="image-container" style="padding-bottom:{{ image_ratio }}%;">
 					<img data-src="{{ preview_image_url|e }}" alt="{{ page_title|striptags|e }}">

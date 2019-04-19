@@ -304,7 +304,8 @@ class Twig_Node_Module extends Twig_Node
         //
         // Put another way, a template can be used as a trait if it
         // only contains blocks and use statements.
-        $traitable = null === $this->getNode('parent') && 0 === count($this->getNode('macros'));
+        //$traitable = null === $this->getNode('parent') && 0 === count($this->getNode('macros'));
+        $traitable = !$this->hasNode('parent') && 0 === count($this->getNode('macros'));
         if ($traitable) {
             if ($this->getNode('body') instanceof Twig_Node_Body) {
                 $nodes = $this->getNode('body')->getNode(0);
@@ -317,7 +318,7 @@ class Twig_Node_Module extends Twig_Node
             }
 
             foreach ($nodes as $node) {
-                if (!count($node)) {
+                if (!@count($node)) {
                     continue;
                 }
 

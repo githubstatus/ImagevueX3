@@ -1,0 +1,34 @@
+{
+    "title": "Blog Post",
+    "label": "Blog Post",
+    "description": "An example of a typical blog post.",
+    "date": "2015-11-01",
+    "image": "examples\/assets\/toscana.jpg",
+    "content": "This page is an example of a typical blog-post layout. Basically, it is just a normal page, where we have added the following items to page context module: `title` `description` `date` `preview` and `content`. You may also wish to enable the [Disqus](https:\/\/disqus.com\/) comments module if you have typical blog pages.\n\n## That's not all!\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eget lacus dolor. Vivamus suscipit id ante vitae porta. Proin luctus et elit vel lacinia. Etiam ullamcorper finibus massa. Praesent feugiat tincidunt ante, sit amet auctor ligula rutrum ac. Sed viverra consectetur velit eu maximus. Ut in lectus sit amet dolor hendrerit ultricies non ut arcu. Nam dignissim, ex quis porta pulvinar, elit diam viverra elit, ut bibendum turpis magna quis ante.\n\nSuspendisse dictum, odio quis dictum molestie, elit purus tristique mauris, ut varius quam eros a augue. Aenean tincidunt mauris non velit interdum, tristique sodales mi aliquet. Mauris semper risus quis tellus laoreet feugiat. Nam ipsum neque, sagittis in eleifend quis, dapibus vestibulum lorem. Etiam cursus molestie arcu, a mollis eros. Suspendisse eu imperdiet velit. Donec quis commodo dui, id ullamcorper arcu. Nulla dignissim, lectus id ultricies rhoncus, ipsum purus scelerisque sapien, et pulvinar ante ipsum sed est. Duis convallis pharetra turpis, vel tempus augue rhoncus in.\n\n## If you thought that was everything, you were wrong!\nDonec convallis dignissim ex ut dictum. Vestibulum condimentum odio sed ipsum auctor, nec malesuada eros convallis. Nunc lorem mauris, dignissim at orci quis, elementum maximus quam. Vestibulum interdum eros a facilisis venenatis. Cras malesuada in est tempor placerat. Aliquam eu posuere lacus. Morbi at fermentum massa. Cras lobortis convallis magna non lacinia. Sed vitae justo vel ex commodo commodo.\n\n*You may of course include a gallery into any page as usual:*",
+    "layout": {
+        "disqus": true
+    },
+    "context": {
+        "items": "title,date,description,preview,content",
+        "caption": {
+            "enabled": true,
+            "items": "date",
+            "align": "caption-top-left"
+        }
+    },
+    "gallery": {
+        "width": "wide",
+        "crop": {
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "justified": {
+            "row_height": 120,
+            "space": 1
+        },
+        "classes": "x3-hover-scale",
+        "assets": "examples\/assets\/"
+    }
+}

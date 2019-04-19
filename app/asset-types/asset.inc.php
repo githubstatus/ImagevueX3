@@ -19,7 +19,8 @@ Class Asset {
   # X3 validate utf8 for IPTC outputs (image.inc.php)
   # http://stackoverflow.com/questions/4407854/how-to-detect-if-have-to-apply-utf8-decode-or-encode-on-a-string
   function utf8_validate($string){
-  	return preg_match('!!u', $string) ? $string : mb_convert_encoding($string, 'UTF-8', 'pass');
+    // return preg_match('!!u', $string) ? $string : mb_convert_encoding($string, 'UTF-8', 'pass');
+    return @mb_detect_encoding($string, 'UTF-8', true) ? $string : @utf8_encode($string);
   }
 
   function set_default_data($file_path) {

@@ -24,6 +24,11 @@ class __TwigTemplate_4f1b98b7288def701ce11f8f6371b9fcc811c1d797759178b18fe4783d2
         return "file.json";
     }
 
+    public function isTraitable()
+    {
+        return false;
+    }
+
     public function getDebugInfo()
     {
         return array (  19 => 1,);

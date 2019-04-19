@@ -1,60 +1,70 @@
-[10-Oct-2018 15:14:50 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 15:14:50 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 15:14:50 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:44:47 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:44:47 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:46:48 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:46:48 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:46:53 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:46:53 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:46:54 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:46:54 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:46:55 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:46:55 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:46:56 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:46:56 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:14 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:14 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:16 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:16 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:17 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:17 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:17 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:17 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:18 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:18 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:19 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:19 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:20 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:47:20 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:49:14 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:49:14 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:49:15 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:49:15 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:49:16 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:49:16 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:49:41 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:49:41 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:00 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:00 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:01 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:01 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:01 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:01 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:02 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:02 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:03 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:03 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:03 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:03 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:04 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:04 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:04 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:04 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:06 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:31 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:31 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:48 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:48 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:49 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
-[10-Oct-2018 21:50:49 Asia/Bangkok] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, boolean given in /Users/karlward/sites/x3_new/panel/filemanager_core.php on line 255
+[04-Mar-2019 16:09:53 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'SD' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 16:09:54 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'SD' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 16:09:54 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'SD' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 16:09:54 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'SD' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 16:09:55 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'SD' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 16:09:55 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'SD' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 16:09:56 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'SD' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 16:09:56 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'SD' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 16:09:56 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'SD' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:06 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:08 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:09 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:10 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:10 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:12 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:12 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:13 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:14 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:15 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:16 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:17 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:18 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:19 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:20 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:21 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:22 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:23 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:26 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:27 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:28 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:29 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:30 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:31 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:32 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:33 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:34 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:35 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:36 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:37 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:38 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'a' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:49 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'A54uT' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:50 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'A54uT' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:51 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'A54uT' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:26:52 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'A54uT' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:28:33 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'A54uT' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:28:34 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'A54uT' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:28:35 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'A54uT' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:28:36 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'A54uT' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:28:37 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'A54uT' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 17:28:38 Asia/Bangkok] PHP Parse error:  syntax error, unexpected 'A54uT' (T_STRING) in /Users/karlward/sites/x3_new/config/protect.php on line 14
+[04-Mar-2019 21:01:26 Asia/Bangkok] PHP Notice:  Array to string conversion in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 75
+[04-Mar-2019 21:01:27 Asia/Bangkok] PHP Notice:  Array to string conversion in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 75
+[04-Mar-2019 21:01:28 Asia/Bangkok] PHP Notice:  Array to string conversion in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 75
+[05-Mar-2019 16:18:55 Asia/Bangkok] PHP Notice:  Undefined index: protect in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 44
+[05-Mar-2019 16:19:40 Asia/Bangkok] PHP Notice:  Undefined index: protect in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 44
+[05-Mar-2019 16:19:57 Asia/Bangkok] PHP Notice:  Undefined index: protect in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 44
+[05-Mar-2019 17:05:48 Asia/Bangkok] PHP Notice:  Undefined variable: file in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 45
+[05-Mar-2019 17:06:39 Asia/Bangkok] PHP Notice:  Undefined variable: file in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 45
+[05-Mar-2019 17:06:39 Asia/Bangkok] PHP Warning:  file_put_contents(): Filename cannot be empty in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 45
+[05-Mar-2019 17:06:39 Asia/Bangkok] PHP Notice:  Undefined variable: file in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 48
+[05-Mar-2019 17:07:46 Asia/Bangkok] PHP Notice:  Undefined variable: file in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 45
+[05-Mar-2019 17:07:46 Asia/Bangkok] PHP Warning:  file_put_contents(): Filename cannot be empty in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 45
+[05-Mar-2019 17:07:46 Asia/Bangkok] PHP Notice:  Undefined variable: file in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 48
+[05-Mar-2019 17:07:51 Asia/Bangkok] PHP Notice:  Undefined variable: file in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 45
+[05-Mar-2019 17:07:51 Asia/Bangkok] PHP Warning:  file_put_contents(): Filename cannot be empty in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 45
+[05-Mar-2019 17:07:51 Asia/Bangkok] PHP Notice:  Undefined variable: file in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 48
+[05-Mar-2019 17:09:28 Asia/Bangkok] PHP Notice:  Undefined variable: file in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 45
+[05-Mar-2019 17:09:28 Asia/Bangkok] PHP Warning:  file_put_contents(): Filename cannot be empty in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 45
+[05-Mar-2019 18:43:58 Asia/Bangkok] PHP Notice:  Undefined variable: file2 in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 34
+[05-Mar-2019 18:45:22 Asia/Bangkok] PHP Notice:  Undefined variable: file2 in /Users/karlward/sites/x3_new/panel/x3_protect.php on line 34

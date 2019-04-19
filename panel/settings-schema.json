@@ -448,8 +448,8 @@
               "title": "Crop Aspect",
               "type": "array",
               "items": {
-                "type": "number",
-                "minimum": 0.2,
+                "type": "integer",
+                "minimum": 1,
                 "maximum": 5
               }
             }
@@ -590,8 +590,8 @@
               "title": "Crop Aspect",
               "type": "array",
               "items": {
-                "type": "number",
-                "minimum": 0.2,
+                "type": "integer",
+                "minimum": 1,
                 "maximum": 5
               }
             }
@@ -910,8 +910,8 @@
               "title": "Crop Aspect",
               "type": "array",
               "items": {
-                "type": "number",
-                "minimum": 0.2,
+                "type": "integer",
+                "minimum": 1,
                 "maximum": 5
               }
             }
@@ -1541,9 +1541,6 @@
 		        "autoplay": {
 		          "type": "boolean"
 		        },
-		        "autoplay_mobile": {
-		          "type": "boolean"
-		        },
 		        "loop": {
 		          "type": "boolean"
 		        },
@@ -1557,7 +1554,10 @@
 		        },
 		        "disabled_mobile": {
 		          "type": "boolean"
-		        }
+		        },
+            "folders": {
+              "type": "boolean"
+            }
       		}
       	},
       	"disqus":{
@@ -1717,6 +1717,16 @@
               "minimum": 0,
               "maximum": 3.14
             },
+            "pitch_min": {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 0
+            },
+            "pitch_max": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 90
+            },
             "reset_view": {
               "type": "boolean"
             },
@@ -1749,7 +1759,11 @@
             "flat_index_start": {
               "type": "integer",
               "minimum": 0
-            }
+            },
+            "flat_pin_levels": {
+              "type": "integer",
+              "minimum": 1
+            } 
           }
         }
       }
@@ -2511,12 +2525,12 @@
                 {
                   "key": "context.crop.crop[0]",
                   "htmlClass": "inline-group",
-                  "step": 0.1
+                  "step": 1
                 },
                 {
                   "key": "context.crop.crop[1]",
                   "htmlClass": "inline-group",
-                  "step": 0.1
+                  "step": 1
                 },
                 {
                   "key": "context.caption.enabled",
@@ -2797,12 +2811,12 @@
                 {
                   "key": "folders.crop.crop[0]",
                   "htmlClass": "inline-group",
-                  "step": 0.1
+                  "step": 1
                 },
                 {
                   "key": "folders.crop.crop[1]",
                   "htmlClass": "inline-group",
-                  "step": 0.1
+                  "step": 1
                 }
               ]
             },
@@ -3333,12 +3347,12 @@
                 {
                   "key": "gallery.crop.crop[0]",
                   "htmlClass": "inline-group",
-                  "step": 0.1
+                  "step": 1
                 },
                 {
                   "key": "gallery.crop.crop[1]",
                   "htmlClass": "inline-group",
-                  "step": 0.1
+                  "step": 1
                 }
               ]
             },
@@ -3395,7 +3409,7 @@
 				          	{
 				              "key": "gallery.items",
 				              "htmlClass": "settings_selectize",
-				              "title": "Inline Caption <a href=# class=show-help></a><div class=hidden><h3>Inline Caption Items</h3><p>This setting is used to set inline caption items for images in the gallery, and in which order the items display. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code><code>preview</code></span>.</p><p><code>Important!</code><br><em>Justified</em> and <em>Columns</em> layouts do not support inline captions, because they use a masonry-like layout that stacks images and does not support text. If you require captions for these layouts, you need to use <em>caption overlay</em> or <em>tooltip caption</em>.</p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard</em></p><h4>Items</h4><p><code>title</code> displays the title for each image.</p><p><code>date</code> displays the image date.</p><p><code>preview</code> displays a preview of the actual image.</p><p><code>description</code> displays the image description, if it exists.</p><h4>Examples</h4><p>Default gallery items, shows only a preview for each image (no caption).<span class=code-line><code>preview</code></span></p><p>You can add image title and description by adding these items before the preview. <span class=code-line><code>title</code><code>description</code><code>preview</code></span></p><p>Display date below the preview image.<span class=code-line><code>preview</code><code>date</code></span></p><p><em>* Items do not apply for the slideshow layout.</em></p></div><span class='hidden selectize-items'>title,date,description,preview</span>",
+				              "title": "Inline Caption <a href=# class=show-help></a><div class=hidden><h3>Inline Caption Items</h3><p>This setting is used to set inline caption items for images in the gallery, and in which order the items display. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code><code>preview</code></span>.</p><p><code>Important!</code><br><em>Justified</em> and <em>Columns</em> layouts do not support inline captions, because they use a masonry-like layout that stacks images and does not support text. If you require captions for these layouts, you need to use <em>caption overlay</em> or <em>tooltip caption</em>.</p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard</em></p><h4>Items</h4><p><code>title</code> displays the title for each image.</p><p><code>date</code> displays the image date.</p><p><code>preview</code> displays a preview of the actual image.</p><p><code>description</code> displays the image description, if it exists.</p><p><code>maplink</code> creates a button to open Google maps if the image contains geo data.</p><h4>Examples</h4><p>Default gallery items, shows only a preview for each image (no caption).<span class=code-line><code>preview</code></span></p><p>You can add image title and description by adding these items before the preview. <span class=code-line><code>title</code><code>description</code><code>preview</code></span></p><p>Display date below the preview image.<span class=code-line><code>preview</code><code>date</code></span></p><p><em>* Items do not apply for the slideshow layout.</em></p></div><span class='hidden selectize-items'>title,date,description,maplink,preview</span>",
 				          		"description": "Add the caption items you want to display in addition to the preview image."
 				            },
 				            {
@@ -3429,7 +3443,7 @@
 		                {
 		                  "key": "gallery.caption.items",
 		                  "htmlClass": "settings_selectize",
-		                  "title": "Caption Items <span>[tags]</span><a href=# class=show-help></a><div class=hidden><h3>Caption Overlay Items</h3><p>Select default items to display in the caption overlay. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code></span></p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard.</em></p></div><span class='hidden selectize-items'>title,date,description</span>"
+		                  "title": "Caption Items <span>[tags]</span><a href=# class=show-help></a><div class=hidden><h3>Caption Overlay Items</h3><p>Select default items to display in the caption overlay. The following items are available: <span class=code-inline-block><code>title</code><code>date</code><code>description</code><code>maplink</code></span></p><p><em>* Add items by typing them in order, and hitting enter/return or comma on keyboard.</em></p></div><span class='hidden selectize-items'>title,date,description,maplink</span>"
 		                },
 		                {
 		                  "key": "gallery.caption.align",
@@ -3633,43 +3647,37 @@
 	            "items": [
 	              {
 	                "type": "help",
-	                "helpvalue": "Use the <a href=# class='text-help'>Audio player</a> plugin to include audio on your website.<div class=hidden><h2>Audio Player</h2><p>Simply upload one or more <code>mp3</code> files to the folder <code>custom/audio</code>, and enable the audio player plugin. If you add multiple files, the tracks will be played as a playlist.</p><h4>Warning</h4><ul><li>Only include audio if you really need to. Audio on websites is not considered good practice <a href=\"https://www.zigpress.com/2009/10/30/10-reasons-websites-should-not-play-music/\" target=\"_blank\">[ref]</a>, and will hog the bandwidth of your visitors.</li><li>Recommended to use subtle audio tracks at minimal file size.</li><li>If your server is limited to 2MB <code>max_filesize</code> for uploads, you will need to upload <code>mp3</code> files to the <code>content/custom/audio</code> folder by FTP.</li></ul></div>"
+	                "helpvalue": "Use the <a href=# class='text-help'>Audio player</a> plugin to include audio on your website.<div class=hidden><h2>Audio Player</h2><p>Upload one or more <code>mp3</code> files to the folder <code>custom/audio</code> and enable the audioplayer plugin. If you upload multiple files, tracks will be played as a playlist. You can also upload mp3 files directly into your pages, in which case they will play when the specific page is visited.</p><h4>Warning</h4><ul><li>Only include audio if you really need to. Audio on websites is not considered good practice <a href=\"https://www.zigpress.com/2009/10/30/10-reasons-websites-should-not-play-music/\" target=\"_blank\">[ref]</a> and will hog the bandwidth of your visitors.</li><li>It is recommended to use subtle audio tracks at minimal file size.</li><li>If your server is limited to 2MB <code>max_filesize</code> for uploads, you will need to upload <code>mp3</code> files to the <code>content/custom/audio</code> folder by FTP.</li></ul></div>"
 	              },
 	              {
 		              "key": "plugins.audioplayer.enabled",
 		              "inlinetitle": "Enabled",
-		              "toggleNext": 5
+		              "toggleNext": 6
 		            },
+                {
+                  "key": "plugins.audioplayer.disabled_mobile",
+                  "inlinetitle": "Disable for small mobile devices <span>* Recommended</span><a href=# class=show-help></a><div class=hidden><h3>Disable for small mobile devices</h3><p>It is recommended to disable the audio player for small mobile devices (smartphones).</p><h4>Why is this recommended?</h4><ul><li>Audio player will hog bandwidth, which is significant if the user is not on wifi.</li><li>Audio player will drain battery power.</li><li>Audio quality is relatively poor and may not reflect beneficially for your website.</li><li>Unlikely that visitors will want to play audio from their smartphone.</li><li>Audioplayer button crowds the user interface on small screens.</li></ul><p><em>* Audioplayer will still display on large phones (typically iPhone 6 plus) and tablets.</em></p></div>"
+                },
+                {
+                  "key": "plugins.audioplayer.folders",
+                  "inlinetitle": "Play audio from folders <a href=# class=show-help></a><div class=hidden><h3>Play audio from folders</h3><p>When enabled, X3 will look for and play audio (mp3) files uploaded to the current page. If the current page does not contain audio tracks, default audio from <strong>custom > audio</strong> will play.</p><p>If disabled, the audioplayer will only look for tracks in the default <strong>custom > audio</strong> directory.</p></div>"
+                },
 		            {
-				          "type": "section",
-				          "items": [
-								    {
-				              "key": "plugins.audioplayer.autoplay",
-				              "inlinetitle": "Autoplay <span>* only works in some browsers</span><a href=# class=show-help></a><div class=\"hidden\"><h3>Audio autoplay</h3><p>Audio will attempt to autoplay on page-load.</p><h4>Limitations</h4><ul><li>Audio autoplay is <strong>only supported by some browsers</strong>, and may not work in any browsers in the future. Audio autoplay has already been blocked in Google Chrome since version 66 (March 2018) <a href=\"https://developers.google.com/web/updates/2017/09/autoplay-policy-changes\" target=\"_blank\">[ref1]</a> <a href=\"https://techcrunch.com/2018/04/18/google-chrome-now-mutes-annoying-videos-that-autoplay-with-sound/?guccounter=1\" target=\"_blank\">[ref2]</a>.</li><li>Autoplay only works if the browser window/tab is in focus.</li></li><li>It is considered \"bad practice\" to autoplay audio <a href=\"http://www.punkchip.com/autoplay-is-bad-for-all-users/\" target=\"_blank\">[ref]</a>.</li><li>The autoplay setting will be nullified by the visitors last play-state (stored in browser). If the visitor stopped the audio player on their previous visit, the audio player will not autoplay when they re-visit the website.</li></ul></p></div>",
-				              "toggleNext": 1
-				            },
-				            {
-				              "key": "plugins.audioplayer.autoplay_mobile",
-				              "inlinetitle": "Autoplay on mobile devices <span><em>* Requires user touch</em></span><a href=# class=show-help></a><div class=hidden><h3>Autoplay on mobile devices</h3><p>Normally, audio autoplay is <strong>not allowed</strong> in mobile browsers (for many reasons). This setting allows the audio to play immediately when visitor \"touches\" the screen. This is basically a hack, and may not work for all mobile devices.</p></div>"
-				            }
-								  ]
-								},
+                  "key": "plugins.audioplayer.autoplay",
+                  "inlinetitle": "Autoplay <span>* see restrictions in help</span><a href=# class=show-help></a><div class=\"hidden\"><h2>Audio autoplay</h2><p>Attempt to autoplay audio on page-load.</p><h3>About autoplay</h3><p>There are several conditions that come into play when attempting to autoplay audio, including mobile restrictions, browser restrictions, stored play state and browser window focus.</p><h4>Visitor's previous play state</h4><p>If X3 detects that the visitor has already interacted with the audioplayer (clicked to play or stop audio), the visitor's last play state will be given priority before the autoplay setting. For example, if the visitor has STOPPED the audio on previous visit, audio will NOT attempt to autoplay. If the visitor was PLAYING audio on previous visit, audio will attempt to autoplay (even if autoplay option is disabled). If visitor has not yet interacted with the audioplayer button (all new visitors), the autoplay setting will be used.</p><h4>Autoplay browser restrictions</h4><p>All mobile browsers and some desktop browsers (notably Chrome and Safari) will <strong>block</strong> audio autoplay <a href=\"https://developers.google.com/web/updates/2017/09/autoplay-policy-changes\" target=\"_blank\">[read more]</a>, until the visitor interacts with the website by click or touch. For browsers that do not allow immediate autoplay, X3 will autoplay audio after the visitor interacts with the website by click or touch within 1 minute after the website loads.</p><h4>Browser window focus</h4><p>Autoplay requires that the website's browser tab is in focus when the website loads. If the visitor is viewing a different website/tab, they would not want audio to autoplay from a background tab. Similar to above, X3 will instead autoplay audio after the visitor interacts with the website within 1 minute after the website loads.</p><h4>Mobile autoplay</h4><p>Audio will only autoplay on mobile devices if the visitor has previously interacted with the audioplayer and left it in PLAY state. Even then, because of mobile browser restrictions, autoplay will only be able to trigger once the visitor interacts with the website by touch. Autoplay on mobile devices is a bad idea, because mobile visitors don't expect audio to blast from their device just because they touch the screen, and not to mention unexpected bandwidth usage and poor sound quality. If they really want audio, they will click the play button.</p></div>"
+                },
 		            {
 		              "key": "plugins.audioplayer.loop",
 		              "inlinetitle": "Loop <a href=# class=show-help></a><div class=hidden><h3>Loop</h3><p>Loops the audio track or playlist.</p></div>"
 		            },
 		            {
 		              "key": "plugins.audioplayer.shuffle",
-		              "inlinetitle": "Shuffle Playlist <a href=# class=show-help></a><div class=hidden><h3>Shuffle</h3><p>Shuffle playlist. When disabled, playlist will be sorted alphabetically by file name.</p><p><em>* This setting has no effect if there is only one track.</em></p></div>"
+		              "inlinetitle": "Shuffle Playlist <a href=# class=show-help></a><div class=hidden><h3>Shuffle</h3><p>When enabled, tracks in a playlist will be shuffled.</em></p></div>"
 		            },
 		            {
 		              "key": "plugins.audioplayer.volume",
 		              "title": "Volume <span>[0.1 - 1.0]</span> <a href=# class=show-help></a><div class=hidden><h3>Volume</h3><p>Set relative volume for the audio player. We recommend keeping this to default, since you have no way of knowing the visitors device volume, and they can normally adjust the volume themselves.</p></div>",
 		              "step": 0.1
-		            },
-		            {
-		              "key": "plugins.audioplayer.disabled_mobile",
-		              "inlinetitle": "Disable for small mobile devices <span>* Recommended</span><a href=# class=show-help></a><div class=hidden><h3>Disable for small mobile devices</h3><p>It is recommended to disable the audio player for small mobile devices (smartphones).</p><h4>Why is this recommended?</h4><ul><li>Audio player will hog bandwidth, which is significant if the user is not on wifi.</li><li>Audio player will drain battery power.</li><li>Audio quality is relatively poor and may not reflect beneficially for your website.</li><li>Unlikely that visitors will want to play audio from their smartphone.</li><li>Audio player button crowds the user interface on small screens.</li></ul><p><em>* This setting does not affect tablets/ipad etc.</em></p></div>"
 		            }
 	            ]
 	          },
@@ -3878,7 +3886,7 @@
                     {
                       "key": "plugins.panorama.buttons",
                       "htmlClass": "settings_selectize",
-                      "title": "Interface controls <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Interface control buttons</h3><p>Select interface control buttons to display in top right corner of the interface.</p><p><code>close</code><br>Close the panorama modal popup.</p><code>fullscreen</code><br>Toggle fullscreen mode.<em>* Only displays for devices that support native fullscreen mode.</em></p><p><code>deviceorientation</code><br>Toggle deviceorientation gyroscope view mode.<em>* Only displays for spherical panoramas on mobile devices that support deviceorientation.</em></p><p><code>reset-view</code><br>Reset the view of current scene to it's original view coordinates.</p></div><span class='hidden selectize-items'>reset-view,deviceorientation,rotate,fullscreen,close</span>"
+                      "title": "Interface controls <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Interface control buttons</h3><p>Select interface control buttons to display in top right corner of the interface.</p><p><code>info</code><br>Displays additional info about the panorama, including title, date, EXIF, description and map.<br><em>* This feature is also triggered when clicking the panorama title.<br>* The info button will only display for panoramas that have at least one of the following attributes: EXIF, description or geo data (google maps).</em></p><p><code>reset-view</code><br>Reset the view of current scene to it's original view coordinates.</p><p><code>deviceorientation</code><br>Toggle deviceorientation gyroscope view mode.<em>* Only displays for spherical panoramas on mobile devices that support deviceorientation.</em></p><p><code>rotate</code><br>Button to toggle play/pause autorotate.</p><p><code>fullscreen</code><br>Toggle fullscreen mode. <em>* Only displays for devices that support native fullscreen mode.</em></p><p><em>* Close button is always displayed.</em><p></div><span class='hidden selectize-items'>info,reset-view,deviceorientation,rotate,fullscreen</span>"
                     },
                     {
                       "key": "plugins.panorama.nav",
@@ -4039,12 +4047,21 @@
                           "key": "plugins.panorama.max_hfov",
                           "title": "Max Horizontal FOV <span>[0 - π] (0 = disabled, inherit from maxVFov)</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Max Horizontal FOV</h3><p>Maximum horizontal field of view. By default, this option is disabled [0] and max horizontal FOV will be inherited from max vertical FOV.</p><p>Optionally, you can assign maxHFov directly from a panorama's parameters:<br><code>maxHFov=2.1</code></p></div>",
                           "step": 0.01
+                        },
+                        {
+                          "key": "plugins.panorama.pitch_min",
+                          "title": "Pitch limit <span>degrees [-90, 90]</span> <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Pitch limit</h3><p>Constrain the vertical viewing angle (pitch) of spherical panoramas. Default values [-90, 90] allows viewing from TOP [-90 degrees] to BOTTOM [90 degrees]. Set values [0,0] to entirely block vertical viewing.</p><p>Optionally, you can assign pitch_min and pitch_max directly from a panorama's parameters:<br><code>pitch_min=-45&pitch_max=45</code></p></div>",
+                          "step": 1
+                        },
+                        {
+                          "key": "plugins.panorama.pitch_max",
+                          "step": 1
                         }
                       ]
                     },
                     {
                       "type": "section",
-                      "htmlClass": "help-title group-bg",
+                      "htmlClass": "help-title group-bg clear-node",
                       "items": [
                         {
                           "type": "help",
@@ -4078,20 +4095,24 @@
                         },
                         {
                           "key": "plugins.panorama.flat_tile_size",
-                          "title": "Tile size <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Tile size</h3><p>Tilesize value can normally be found the exported projects XML file.</p></div>"
+                          "title": "Tile size <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Tile size</h3><p>Tilesize value can normally be found the exported projects XML file.</p><p>tilesize can be assigned directly from a panorama's parameters:<br><code>tilesize=1024</code></p></div>"
                         },
                         {
                           "key": "plugins.panorama.flat_url_format",
-                          "title": "Url format <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Url format</h3><p>Url format can normally be extrapolated from the exported projects XML file. For example krpano url's like <code>l5/%0v/l5_%0v_%0h.jpg</code> would require an url format <code>l{z}/{y}/l{z}_{y}_{x}.jpg</code>, which is the default.</p></div>"
+                          "title": "Url format <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Url format</h3><p>Url format for flat panorama. If you are exporting from tools like KRPano or Pano2VR, you can normally copy-paste from <code>url</code> or <code>leveltileurl</code> from the <strong>pano.xml</strong> config file. X3 will convert formats like <code>l1/%0v/l5_%0v_%0h.jpg</code> into native format <code>l{z}/{y}/l{z}_{y}_{x}.jpg</code>, and will also extrapolate options <code>zero_padding</code> and <code>index_start</code> from the url_format.</p><p>url_format can be assigned directly from a panorama's parameters:<br><code>url_format=pano.tiles/l5_%0v_%0h.jpg</code></p></div>"
                         },
                         {
                           "key": "plugins.panorama.flat_zero_padding",
-                          "title": "Zero padding <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Zero padding</h3><p>The amount of ciphers used in the project's numbering structure padded by 0. For example <code>/03/l4_03_04.jpg</code> is padded by 2 ciphers, while <code>/003/l4_003_004.jpg</code> is padded by 3.</p></div>"
+                          "title": "Zero padding <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Zero padding</h3><p>The amount of ciphers used in the project's numbering structure padded by 0. For example <code>/03/l4_03_04.jpg</code> is padded by 2 ciphers, while <code>/003/l4_003_004.jpg</code> is padded by 3. This setting can normally be ignored if you are already using <code>url_format</code> or zero_padding is 0.</p><p>zero_padding can be assigned directly from a panorama's parameters:<br><code>zero_padding=1</code></p></div>"
                         },
                         {
                           "key": "plugins.panorama.flat_index_start",
-                          "title": "Index start <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Index start</h3><p>Some projects start count from 1 (krpano example <code>l1/01/l1_01_01.jpg</code>), while others start from 0 (pano2vr example <code>l_0/c_0/tile_0.jpg</code>).</p></div>"
-                        }
+                          "title": "Index start <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Index start</h3><p>Some projects start levels count from 1 (krpano example <code>l1/01/l1_01_01.jpg</code>), while others start from 0 (pano2vr example <code>l_0/c_0/tile_0.jpg</code>). This setting can normally be ignored if you are already using <code>url_format</code> or index_start is 0.</p><p>index_start can be assigned directly from a panorama's parameters:<br><code>index_start=1</code></p></div>"
+                        },
+                        {
+                          "key": "plugins.panorama.flat_pin_levels",
+                          "title": "Pin levels <a href=\"#\" class=\"show-help\"></a><div class=\"hidden\"><h3>Pin levels</h3><p>The number of levels to preload into panorama texture. Pinned levels will always remain in memory as fallback while loading higher level tiles, and will not be evicted. By default, TWO levels are preloaded.</p><p>Be careful with this setting. If you attempt to preload too many levels, you could force a visitor to start loading several 100 MB of files, which will be awfully slow obviously.</p><p>pin_levels can be assigned directly from a panorama's parameters:<br><code>pin_levels=3</code></p></div>"
+                        }   
                       ]
                     }
                   ]
@@ -4350,7 +4371,7 @@
 	            {
 	              "key": "plugins.video_background.autoplay",
 	              "notitle": true,
-	              "inlinetitle": "Autoplay <a href=# class=show-help></a><div class=hidden><h3>Autoplay</h3><p>Sets the video to autoplay once it is partially loaded.</p><p><em>* Mobile devices only allow autoplay if the \"muted\" setting is checked, or your video has no audio.</em></p></div>"
+	              "inlinetitle": "Autoplay <a href=# class=show-help></a><div class=hidden><h3>Autoplay</h3><p>Sets the video to autoplay once it is partially loaded.</p><p><em>* Mobile devices only allow autoplay if the \"muted\" setting is checked, or your video has no audio.<br>* If you disable the [toggle play button], viddeo will always autoplay. How else is the video supposed to play?</em></p></div>"
 	            },
 	            {
 	              "key": "plugins.video_background.toggleplay",
@@ -4531,7 +4552,7 @@
         },
         {
           "key": "back.mail.to",
-          "title": "Recipient <a href=# class=show-help></a><div class=hidden><h3>Mail Recipient</h3><p>This is where incoming e-mails will be directed. Add your e-mail address here.</p><p><strong>Multiple Recipients</strong><br>Separate multiple recipients by commas. For example:</p><p><code>john@doe.com, peter@gmail.com</code></p></div>",
+          "title": "Recipient <a href=# class=show-help></a><div class=hidden><h3>Mail Recipient</h3><p>This is where incoming e-mails will be directed. Add your e-mail address here.</p><p><strong>Multiple Recipients</strong><br>Separate multiple recipients by commas. For example:</p><p><code>john@doe.com, peter@gmail.com</code></p><p><strong>BCC Recipients</strong><br>Include BCC (blind copy) recipients by prepending <code>BCC:</code> to the email address. For example:</p><p><code>john@doe.com, BCC:myself@gmail.com</code></p></div>",
           "placeholder": "you@youremail.com"
         },
         {
@@ -4546,7 +4567,7 @@
         },
         {
           "key": "back.mail.template",
-          "title": "Mail Body <span>[template]</span><a href=# class=show-help></a><div class=hidden><h3>Body Template</h3><p>Add your mail body here using template values <code>%name%</code>, <code>%email%</code> and <code>%message%</code>. You can use basic <code>html</code> tags in the e-mail template.</p></div>",
+          "title": "Mail Body <span>[template]</span><a href=# class=show-help></a><div class=hidden><h3>Body Template</h3><p>Add your mail body here using template values <code>%name%</code>, <code>%email%</code>, <code>%message%</code> and <code>%ip%</code>. You can use basic <code>html</code> tags in the e-mail template.</p></div>",
           "type": "ace",
           "aceMode": "html",
           "aceTheme": "tomorrow_night",
@@ -4819,7 +4840,7 @@
 		        },
 		        {
 		          "key": "back.image_resizer.use_request_cache",
-		          "inlinetitle": "Symlink request cache <a href=# class=show-help></a><div class=hidden><h3>Symlink request cache</h3><p>When enabled, image cache requests are stored on server as symlinks for improved performance. Disable if your server is having problems with image symlink requests (hosts like Aruba and Microsoft IIS servers).</p></div>"
+		          "inlinetitle": "Symlink request cache <a href=# class=show-help></a><div class=hidden><h3>Symlink request cache</h3><p>When enabled, image cache requests are stored on server as symlinks for improved performance. Disable if your server is having problems with image symlink requests (hosts like Aruba).</p><p><em>* Symlink request cache is always disabled on <strong>Windows OS</strong>, because Windows only supports absolute symlink paths, and there are often errors with permissions.</em></p></div>"
 		        }
 		      ]
 		    },

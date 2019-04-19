@@ -1,0 +1,21 @@
+{
+    "title": "Vertical Split",
+    "label": "Vertical Split",
+    "description": "Using split-view in combination with the vertical layout.",
+    "image": "examples\/assets\/puppy.jpg",
+    "layout": {
+        "width": "narrow"
+    },
+    "context": {
+        "classes": "separator"
+    },
+    "gallery": {
+        "items": "title,description,preview",
+        "layout": "vertical",
+        "split": {
+            "enabled": true
+        },
+        "classes": "frame,hover",
+        "assets": "examples\/assets\/"
+    }
+}

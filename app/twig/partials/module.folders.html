@@ -3,7 +3,7 @@
 
 {# GLOBAL VARS #}
 {% set folders = page.folders %}
-{% set assets = folder %}
+{#{% set assets = folder %}#}
 {% set items = folders.items|split(',') %}
 {% set limit = folders.limit %}
 {% if limit is empty or limit < 1 %}{% set limit = 99999 %}{% endif %}
@@ -19,30 +19,43 @@
 {% endif %}
 
 {# Set crop ratio if defined #}
-{% if folders.crop.enabled %}
+{% if folders.crop.enabled and folders.layout != "justified" and folders.layout != "columns" %}
 	{% set crop_ratio = folders.crop.crop[1] / folders.crop.crop[0] * 100 %}
-{% endif %}
-
-{# Set block-grid #}
-{% if folders.layout == "grid" %}
-	{% if folders.grid.use_width %}
-		{% set block_grid = ['3','2','1'] %}
-	{% else %}
-		{% set block_grid = folders.grid.columns|split(",") %}
-	{% endif %}
-	{% set columns_limit = min(limit, assets.children_count) %}
-	{% set small_grid = min(block_grid[2]|default(block_grid[1])|default(block_grid[0])|default('1'), columns_limit) %}
-	{% set medium_grid = min(block_grid[1]|default(block_grid[0])|default('2'), columns_limit) %}
-	{% set large_grid = min(block_grid[0]|default('3'), columns_limit) %}
-
-	{% set ul_open = '<ul class="small-block-grid-' ~ small_grid ~ ' medium-block-grid-' ~ medium_grid ~ ' large-block-grid-' ~ large_grid ~ ' items">' %}
-	{% set li_open = '<li>' %}
-	{% set li_close = '</li>' %}
-	{% set ul_close = '</ul>' %}
+	{% set data_crop = ' data-crop="' ~ folders.crop.crop[0]|round ~ ':' ~ folders.crop.crop[1]|round ~ '"' %}
 {% endif %}
 
 {# Set sort #}
 {% set children = sortby(folder.children, page.folders.sortby, (page.folders.sort == 'desc' ? true : false)) %}
+
+{# Set block-grid #}
+{% if folders.layout == "grid" %}
+
+	{# custom grid space style #}
+	{% if folders.grid.space > -1 %}
+		{% set ul_style = ' style="margin: 0 ' ~ (width == 'wide' ? folders.grid.space / 2 : - folders.grid.space / 4 ) ~ 'px"' %}
+		{% set li_style = ' style="padding: 0 ' ~ folders.grid.space / 2 ~ 'px ' ~ folders.grid.space ~ 'px"' %}
+	{% endif %}
+
+	{# use width #}
+	{% if folders.grid.use_width %}
+		{% set ul_open = '<ul class="items"' ~ ul_style ~ '>' %}
+
+	{# use amount #}
+	{% else %}
+		{% set block_grid = folders.grid.columns|replace({' ': ''})|split(",") %}
+		{#{% set columns_max = max(min(limit, assets.children_count|length), 3) %}#}
+		{% set columns_max = max(min(limit, children|length), 3) %}
+		{% set small_grid = min(block_grid[2]|default(block_grid[1])|default(block_grid[0])|default('1'), columns_max) %}
+		{% set medium_grid = min(block_grid[1]|default(block_grid[0])|default('2'), columns_max) %}
+		{% set large_grid = min(block_grid[0]|default('3'), columns_max) %}
+		{% set ul_open = '<ul class="small-block-grid-' ~ small_grid ~ ' medium-block-grid-' ~ medium_grid ~ ' large-block-grid-' ~ large_grid ~ ' items"' ~ ul_style ~ '>' %}
+	{% endif %}
+
+	{# <ul><li> tags #}
+	{% set li_open = '<li' ~ li_style ~ '>' %}
+	{% set li_close = '</li>' %}
+	{% set ul_close = '</ul>' %}
+{% endif %}
 
 {# Do folders loop #}
 {% if children|length > 0 %}
@@ -189,7 +202,6 @@
     {% if preview_img == './app/public/images/default.png' %}
     	{% set imgInfo = [1280, 1280] %}
     	{% set image_ratio = 100 %}
-    	{% set default_preview_class = ' default-preview-image' %}
     {% else %}
 			{% set imgInfo = getimginfo(preview_img) %}
     	{% set image_ratio = crop_ratio|default(imgInfo[1]|default(3)/imgInfo[0]|default(2) * 100) %}
@@ -222,9 +234,9 @@
     {% endif %}
     {% set figure %}
     <figure>
-			<div class="img-link{{ default_preview_class }}">
+			<div class="img-link">
 				<div class="image-container" style="padding-bottom:{{ image_ratio }}%;">
-        	<img data-src="{{ preview_img_url|e }}" alt="{{ title|striptags|e('html') }}">
+        	<img data-src="{{ preview_img_url|e }}" data-width="{{ imgInfo[0] }}"{{ data_crop }} alt="{{ title|striptags|e('html') }}">
         </div>
 
         {% if folders.caption.enabled %}
@@ -245,7 +257,7 @@
 		{% endset %}
 
 		{# default+split layout #}
-		<section data-options="w:{{ imgInfo[0] }};h:{{ imgInfo[1] }}" id="folder-{{ child_id }}" aria-labelledby="title-{{ child_id }}" class="item{% if folders_split_view %} row{% endif %}">
+		<section data-width="{{ imgInfo[0] }}" data-height="{{ imgInfo[1] }}" id="folder-{{ child_id }}" aria-labelledby="title-{{ child_id }}" class="item{% if folders_split_view %} row{% endif %}">
 		{{ href_tag }}
 
 		{# SPLIT #}

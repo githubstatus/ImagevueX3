@@ -1,0 +1,10 @@
+{
+    "title": "Columns Layout",
+    "description": "The columns layout stacks images into columns.",
+    "image": "examples\/assets\/crispy-chocolate.jpg",
+    "gallery": {
+        "layout": "columns",
+        "classes": "hover",
+        "assets": "examples\/assets\/"
+    }
+}

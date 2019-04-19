@@ -1,0 +1,25 @@
+{
+    "description": "Use the popup <strong>auto-open<\/strong> setting to instantly open first gallery image in popup on page load.",
+    "image": "examples\/assets\/sunflower-bee.jpg",
+    "gallery": {
+        "layout": "grid",
+        "grid": {
+            "use_width": true,
+            "column_width": 200,
+            "space": 1
+        },
+        "crop": {
+            "enabled": true,
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "classes": "[none]",
+        "sort": "desc",
+        "assets": "examples\/assets\/"
+    },
+    "popup": {
+        "auto_open": true
+    }
+}

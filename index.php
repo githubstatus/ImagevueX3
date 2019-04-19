@@ -14,7 +14,7 @@ class Config {
 # Includes
 include './app/cache.inc.php';
 include './app/helpers.inc.php';
-include './app/stacey.inc.php';
+include './app/x3.inc.php';
 include './app/x3.config.inc.php';
 include './app/asset-types/page.inc.php';
 
@@ -25,7 +25,7 @@ if(X3Config::$config["settings"]["diagnostics"] || isset($_GET["diagnostics"])) 
 
 # Start X3 App
 } else {
-	new Stacey($_GET);
+	new X3($_GET);
 }
 
 ?>

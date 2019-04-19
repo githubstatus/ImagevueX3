@@ -1,4 +1,4 @@
-# Imagevue X3.26.0
+# Imagevue X3.27.6
 
 
 

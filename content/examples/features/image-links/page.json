@@ -1,0 +1,41 @@
+{
+    "title": "Image Links",
+    "label": "Image Links",
+    "description": "Link to other pages or websites directly from your images. This feature may be useful for portfolio- or product pages.",
+    "image": "1.flamepix.jpg",
+    "context": {
+        "classes": "separator"
+    },
+    "gallery": {
+        "layout": "vertical",
+        "split": {
+            "enabled": true,
+            "ratio": 4
+        },
+        "classes": "frame,x3-hover-icon-plus-primary",
+        "width": "narrow",
+        "items": "title,description,preview",
+        "caption": {
+            "items": "title,description"
+        },
+        "image": {
+            "title_include": "prepend"
+        }
+    },
+    "1.flamepix.jpg": {
+        "title": "flamepix.com",
+        "description": "Highly optimized and available high-performance X3 Hosting from the people who brought you X3.",
+        "link": "https:\/\/www.flamepix.com"
+    },
+    "2.mjau-mjau.jpg": {
+        "title": "mjau-mjau.com",
+        "description": "Technology, say hello to design — Interactive design blog and playground.",
+        "link": "https:\/\/mjau-mjau.com"
+    },
+    "www.photo.gallery.jpg": {
+        "title": "www.photo.gallery",
+        "description": "X3 is a complete website tool for photographers & artists to create their online portfolio. Designed to look amazing across all devices, X3 comes loaded with features!",
+        "link": "https:\/\/www.photo.gallery",
+        "target": "_blank"
+    }
+}

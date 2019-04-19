@@ -58,7 +58,7 @@ class Iptc
     const LOCAL_CAPTION                   = '121';
     const CAPTION_WRITER                  = '122';
 
-    const X3_INDEX					      = '216';
+    const X3_INDEX                        = '216';
     const X3_LINK                         = '217';
     const X3_LINK_TARGET                  = '218';
     const X3_HIDDEN                       = '219';
@@ -144,7 +144,7 @@ class Iptc
             );
         }
 
-        $size           = getimagesize($filename, $imageinfo);
+        $size           = @getimagesize($filename, $imageinfo);
         $this->_hasMeta = isset($imageinfo["APP13"]);
         if ($this->_hasMeta) {
             $this->_meta = iptcparse($imageinfo["APP13"]);
@@ -165,99 +165,18 @@ class Iptc
      */
     public function set($tag, $data)
     {
-        //$data = $this->_charset_decode($data);
         $this->_meta["2#{$tag}"] = array($data);
         $this->_hasMeta        = true;
         return $this;
     }
 
-    /**
-     * adds an item at the beginning of the array
-     *
-     * @param Integer|const $tag  - Code or const of tag
-     * @param array|mixed   $data - Value of tag
-     *
-     * @return Iptc object
-     * @access public
-     */
-    public function prepend($tag, $data)
-    {
-        $data = $this->_charset_decode($data);
-        if ( ! empty($this->_meta["2#{$tag}"])) {
-            array_unshift($this->_meta["2#{$tag}"], $data);
-            $data = $this->_meta["2#{$tag}"];
-        }
-        $this->_meta["2#{$tag}"] = array( $data );
-        $this->_hasMeta        = true;
-        return $this;
-    }
-
-    /**
-     * adds an item at the end of the array
-     *
-     * @param Integer|const $tag  - Code or const of tag
-     * @param array|mixed   $data - Value of tag
-     *
-     * @return Iptc object
-     * @access public
-     */
-    public function append($tag, $data)
-    {
-        $data = $this->_charset_decode($data);
-        if ( ! empty($this->_meta["2#{$tag}"])) {
-            array_push($this->_meta["2#{$tag}"], $data);
-            $data = $this->_meta["2#{$tag}"];
-        }
-        $this->_meta["2#{$tag}"] = array( $data );
-        $this->_hasMeta        = true;
-        return $this;
-    }
-
-    /**
-     * Return fisrt IPTC tag by tag name
-     *
-     * @param Integer|const $tag - Name of tag
-     *
-     * @example $iptc->fetch(Iptc::KEYWORDS);
-     *
-     * @access public
-     * @return mixed|false
-     */
+    // Return fisrt IPTC tag by tag name
     public function fetch($tag)
     {
         if (isset($this->_meta["2#{$tag}"])) {
-            return $this->_meta["2#{$tag}"][0];//$this->_charset_encode($this->_meta["2#{$tag}"][0]);
+            return $this->_meta["2#{$tag}"][0];
         }
         return false;
-    }
-
-    /**
-     * Return all IPTC tags by tag name
-     *
-     * @param Integer|const $tag - Name of tag
-     *
-     * @example $iptc->fetchAll(Iptc::KEYWORDS);
-     *
-     * @access public
-     * @return mixed|false
-     */
-    public function fetchAll($tag)
-    {
-        if (isset($this->_meta["2#{$tag}"])) {
-            return $this->_charset_encode($this->_meta["2#{$tag}"]);
-        }
-        return false;
-    }
-
-    /**
-     * debug that returns all the IPTC tags already in the image
-     *
-     * @access public
-     * @return string
-     */
-    public function dump()
-    {
-        return $this->_charset_encode(print_r($this->_meta, true));
     }
 
     /**
@@ -324,24 +243,16 @@ class Iptc
             );
         }
 
+        // !$content
+        if(!$content) return;
+
+        // PHP 7.3 bug https://bugs.php.net/bug.php?id=77546, affects PHP 7.3.0, 7.3.1 and 7.3.2
+        // detect if image is corrupt before writing
+        if(version_compare(PHP_VERSION, '7.3') >= 0 && version_compare(PHP_VERSION, '7.3.3') < 0 && !@getimagesizefromstring($content)) return;
+
+        // unlink and put new file
         @unlink($this->_filename);
         return file_put_contents($this->_filename, $content) !== false;
-    }
-
-    /**
-     * completely remove all tags "IPTC" image
-     *
-     * @access public
-     * @return void
-     */
-    public function removeAllTags()
-    {
-        $this->_hasMeta = false;
-        $this->_meta    = Array();
-        $impl           = implode(file($this->_filename));
-        $img            = imagecreatefromstring($impl);
-        unlink($this->_filename);
-        imagejpeg($img, $this->_filename, 100);
     }
 
     /**
@@ -367,44 +278,6 @@ class Iptc
             chr(($len >> 16) & 0xff) .
             chr(($len >> 8 ) & 0xff) .
             chr(($len ) & 0xff);
-    }
-
-    /**
-     * Decode charset utf8 before being saved
-     *
-     * @param String $data
-     * @access private
-     * @return string decoded string
-     */
-    private function _charset_decode($data) {
-        $result = array();
-        if (is_array($data)) {
-            foreach(new RecursiveIteratorIterator(new RecursiveArrayIterator($data)) as $value) {
-                $result[] = utf8_decode($value);
-            }
-        } else {
-            return utf8_decode($data);
-        }
-        return $result;
-    }
-
-    /**
-     * Encode charset to utf8 before being saved
-     *
-     * @param String $data
-     * @access private
-     * @return string encoded string
-     */
-    private function _charset_encode($data) {
-        $result = array();
-        if (is_array($data)) {
-            foreach(new RecursiveIteratorIterator(new RecursiveArrayIterator($data)) as $value) {
-                $result[] = utf8_encode($value);
-            }
-        } else {
-            return utf8_encode($data);
-        }
-        return $result;
     }
 }
 

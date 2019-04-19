@@ -1,0 +1,37 @@
+{
+    "title": "Features",
+    "label": "Features",
+    "description": "A few examples, demonstrating specific features.",
+    "image": "examples\/assets\/buffet.jpg",
+    "layout": {
+        "width": "narrow"
+    },
+    "context": {
+        "classes": "separator"
+    },
+    "folders": {
+        "width": "narrow",
+        "items": "preview,title,description",
+        "crop": {
+            "enabled": true,
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "grid": {
+            "columns": "2,2,1"
+        },
+        "split": {
+            "enabled": true
+        },
+        "classes": "hr,frame,x3-hover-icon-asterisk-primary"
+    },
+    "plugins": {
+        "image_background": {
+            "src": "radial-gradient(farthest-side, gold, transparent), repeating-linear-gradient(gold 0px, darkorange 1px)",
+            "height": "240px",
+            "below_menu": false
+        }
+    }
+}

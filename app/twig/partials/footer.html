@@ -53,7 +53,6 @@ function jsFail(){
 
 {# X3 JS App #}
 <script src="{{ core_js }}"{% if page.settings.cdn_core %} onerror="jsFail()"{% endif %} onload="imagevue{% if page.settings.cdn_core %}_{% endif %}();"></script>
-{#<script src="{{ cdn_core }}/js/{{ page.stacey_version }}/x3.min.js"{% if page.settings.cdn_core %} onerror="jsFail()"{% endif %} onload="imagevue{% if page.settings.cdn_core %}_{% endif %}();"></script>#}
 
 </body>
 </html>

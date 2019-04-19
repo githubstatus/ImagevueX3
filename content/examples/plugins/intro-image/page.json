@@ -1,0 +1,21 @@
+{
+    "title": "Intro Image",
+    "label": "Intro Image",
+    "description": "Attach an image as an introduction to the page.",
+    "image": "background.jpg",
+    "content": "## Page Intro Plugin\n\nThe page *intro plugin* allows you to add an image, color or gradient as an introduction at the top of the page. The intro can display behind- or below the menu, at any height, and you can include page context items. In this example, we have set an image to display at 100% browser viewport height, with fixed scroll.\n\n * *You can enable intro-plugin from **page › plugins › page intro**.*\n\n## Options\n\n**Source**\nSet the source of the intro as either an image, gradient or solid color.\n\n**Show in Intro**\nChoose to show title, description and content within the intro area.\n \n**Height**\nSet the height of the intro area in px or %. If disabled, height will automatically adjust to size of image. You should always use a height for gradients, colors and repeating background patterns.\n \n**Fixed**\nCreates a cool effect where the background image remains fixed when scrolling.\n \n**Overlay Menu**\nWhen enabled, menu will overlay the intro, which is attached to top of page. When disabled, the intro is attached below the menu.",
+    "plugins": {
+        "image_background": {
+            "enabled": true,
+            "src": "background.jpg",
+            "height": "100%",
+            "position": "50% 0%",
+            "fixed": true,
+            "menu_style": "menu-absolute-50",
+            "button_down": true
+        }
+    },
+    "background.jpg": {
+        "hidden": true
+    }
+}

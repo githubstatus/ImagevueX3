@@ -17,13 +17,15 @@
 
 	{% if siblings[1] %}
 		{% set href_next = href_base ~ siblings[1].slug ~ '/' %}
-		<a href="{{ href_next|e }}" class="next"><span>{{ siblings[1].label|title }}</span></a>
+		<a href="{{ href_next|e }}" class="next"><span>{{ siblings[1].label }}</span></a>
 	{% endif %}
 
 	{% if siblings[0] %}
 		{% set href_prev = href_base ~ siblings[0].slug ~ '/' %}
-		<a href="{{ href_prev|e }}" class="previous"><span>{{ siblings[0].label|title }}</span></a>
+		<a href="{{ href_prev|e }}" class="previous"><span>{{ siblings[0].label }}</span></a>
 	{% endif %}
+
+	{#replace({'%this%': foo, '%that%': "bar"})#}
 
 	{#{% if not page.next_sibling[0] is empty %}
 		{% set next = getSibling(page.next_sibling[0]) %}

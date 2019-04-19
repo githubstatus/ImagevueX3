@@ -23,9 +23,9 @@ Class BasicAuth {
   		if(!empty($d)) list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = explode(':', base64_decode(substr($d, 6)));
   	}
 
-  	// Get x3_users from config/protect.php
+  	// Get x3_users from config/protect
   	global $protect_ob;
-    $x3_users = $protect_ob["users"];
+    $x3_users = isset($protect_ob["users"]) && !empty($protect_ob["users"]) ? $protect_ob["users"] : array();
 
     // check
     if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) || 

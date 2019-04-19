@@ -1,0 +1,53 @@
+{
+    "title": "Eternal Style",
+    "description": "A few images displaying in a standard grid.",
+    "image": "typewriter.jpg",
+    "context": {
+        "classes": "separator"
+    },
+    "gallery": {
+        "crop": {
+            "enabled": true,
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "layout": "grid",
+        "caption": {
+            "items": "title,description",
+            "hover": true
+        },
+        "classes": "frame,x3-hover-scale"
+    },
+    "automobile.jpg": {
+        "description": "Shiny metal."
+    },
+    "girl.jpg": {
+        "description": "She came from the field."
+    },
+    "piano.jpg": {
+        "description": "Vintage sounds."
+    },
+    "sheep.jpg": {
+        "title": "Sheep",
+        "description": "Can you count them?"
+    },
+    "sunset-hair.jpg": {
+        "description": "Let the sun shine."
+    },
+    "thank-you.jpg": {
+        "title": "Thank You",
+        "description": "Thank you very much!"
+    },
+    "transmission.jpg": {
+        "title": "Transmission",
+        "description": "I'm on a Mexican radio."
+    },
+    "typewriter.jpg": {
+        "description": "Taking notes."
+    },
+    "vintage.jpg": {
+        "description": "Classic armchair."
+    }
+}

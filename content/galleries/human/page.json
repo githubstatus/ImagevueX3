@@ -1,0 +1,53 @@
+{
+    "title": "Human Moods",
+    "description": "A few images displaying in a carousel.",
+    "image": "2.spectacles.jpg",
+    "gallery": {
+        "layout": "carousel",
+        "carousel": {
+            "margin": 40,
+            "background": true
+        },
+        "crop": {
+            "enabled": true,
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "classes": "frame,scrollbutton",
+        "width": "wide",
+        "caption": {
+            "enabled": true,
+            "items": "title,description",
+            "hover": true
+        }
+    },
+    "1.hat.jpg": {
+        "description": "Is the hat really necessary?"
+    },
+    "2.spectacles.jpg": {
+        "description": "Nice glasses dude!"
+    },
+    "3.expression.jpg": {
+        "description": "One Flew Over the Cuckoos Nest."
+    },
+    "4.boy.jpg": {
+        "description": "Blue eyes."
+    },
+    "5.japan.jpg": {
+        "description": "Only in Japan."
+    },
+    "6.mature.jpg": {
+        "description": "My grandmother is cool."
+    },
+    "female.jpg": {
+        "description": "Green eyes."
+    },
+    "field.jpg": {
+        "description": "Girl in field"
+    },
+    "white.jpg": {
+        "description": "Girl with spectacles."
+    }
+}

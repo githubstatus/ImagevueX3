@@ -4,6 +4,7 @@ if(session_id() == '')
     session_start();
 }
 
+@ini_set('default_charset', 'UTF-8');
 ini_set( 'error_reporting', E_ALL ^ E_DEPRECATED );
 error_reporting( E_ALL ^ E_DEPRECATED );
 ini_set('log_errors',TRUE);
@@ -976,9 +977,13 @@ class filemanager_user_core extends Services_JSON
                 {
                     $check = substr($key, -2);
                     if( $check != ".." and $check != "/." ) {
-                        $_key = str_replace("../", "", $key);
+                        /*$_key = str_replace("../", "", $key);
                         $_key = str_replace("./", "", $_key);
-                        @$zip->addFile(realpath($key), $_key);
+                        @$zip->addFile(realpath($key), $_key);*/
+
+                        //
+                        $zip_relative = strpos($key, $parent) === 0 ? str_replace($parent, '', $key) : trim($key, './');
+                        @$zip->addFile(realpath($key), $zip_relative );
                     }
                 }
                 $zip->close();

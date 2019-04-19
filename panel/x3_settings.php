@@ -33,6 +33,9 @@ if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower(
 	// set iptc
 	function set_iptc($files){
 
+		// PHP 7.3 bug https://bugs.php.net/bug.php?id=77546
+		//if(version_compare(PHP_VERSION, '7.3') >= 0 && version_compare(PHP_VERSION, '7.3.3') < 0) return;
+
 		// filter jpg type files and path is defined
 		$files = array_filter($files, function($val){
 			return isset($val['path']) && in_array(strtolower(pathinfo($val['path'], PATHINFO_EXTENSION)), array('jpg', 'jpeg', 'pjpeg'));
@@ -46,7 +49,6 @@ if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower(
 
 		// vars
 		$success = 0;
-		//$count = count($files);
 		$write = 0;
 
 		// loop files
@@ -76,7 +78,6 @@ if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower(
 			}
 
 			// write
-			//$iptc->write()
 			if(!$write || $iptc->write()) $success ++;
 		}
 
@@ -230,8 +231,12 @@ if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower(
 
 		if(isset($_POST['files']) && !empty($_POST['files']) && is_array($_POST['files'])){
 
+			// PHP 7.3 bug https://bugs.php.net/bug.php?id=77546
+			/*if(version_compare(PHP_VERSION, '7.3') >= 0 && version_compare(PHP_VERSION, '7.3.3') < 0) {
+				echo '{ "success": false, "error": "<strong>IPTC save blocked</strong> PHP 7.3 has a bug which corrupts images when using the iptcembed() function <a href=\"https://bugs.php.net/bug.php?id=77546\" target=\"_blank\">[read more]</a>" }';
+
 			// set iptc success
-			if(set_iptc($_POST['files'])){
+			} else */if(set_iptc($_POST['files'])){
 
 				// touch
 				if(!$core->touchme()){
@@ -239,7 +244,6 @@ if($core->isLogin() and isset($_SERVER['HTTP_X_REQUESTED_WITH']) and strtolower(
 
 				// success
 				} else {
-					//$success = $count === $success ? 'Successfully'
 					echo '{ "success": true }';
 				}
 

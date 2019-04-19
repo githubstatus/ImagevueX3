@@ -88,7 +88,6 @@ function cssFail(){
 
   {# Skin #}
   <link rel="stylesheet" id="{{ page.style.skin.skin }}" href="{{ core_css }}"{% if page.settings.cdn_core %} onerror="cssFail();"{% endif %}>
-  {#<link rel="stylesheet" id="{{ page.style.skin.skin }}" href="{{ cdn_core }}/css/{{ page.stacey_version }}/x3.skin.{{ page.style.skin.skin }}.css"{% if page.settings.cdn_core %} onerror="cssFail();"{% endif %}>#}
 
 	{# Google webfonts #}
 	{% if page.style.font.font is not empty and page.style.font.font != 'none' %}

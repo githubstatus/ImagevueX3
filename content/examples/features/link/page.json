@@ -1,0 +1,9 @@
+{
+    "title": "www.photo.gallery",
+    "label": "External Link  <i class=\"fa fa-external-link-square\"><\/i>",
+    "description": "Use the link setting to link- and redirect the page to any url.",
+    "image": "examples\/assets\/playball.jpg",
+    "link": {
+        "url": "https:\/\/www.photo.gallery"
+    }
+}

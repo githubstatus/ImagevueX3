@@ -19,15 +19,15 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 	// get action
 	$action = $_POST['action'];
 
-	// Audio player
-	if($action === 'audio') {
+	// Audio player (added to twig)
+	/*if($action === 'audio') {
 		header('Content-Type: application/json');
 		chdir('../content/custom/audio');
 		$files = glob('*.mp3');
-		echo json_encode($files, JSON_FORCE_OBJECT);
+		echo json_encode($files, JSON_FORCE_OBJECT);*/
 
 	// get cache time for auto-cache
-	} else if($action === 'get_cache_time'){
+	if($action === 'get_cache_time'){
 		$file = '../content/auto-cache.json';
 		if(@file_exists($file) && @filesize($file) > 5){
 			$filetime = @filemtime($file);
@@ -62,23 +62,42 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 				return false;
 			}
 
-			// create to_array
-			$to_array = explode(',', $to_string);
+			// add to email arrays, sanitize and validate
+			$email_array = explode(',', $to_string);
+			$to_array = array();
+			$bcc_array = array();
+			foreach($email_array as $email_entry) {
+				$is_bcc = stripos($email_entry, 'bcc:') !== false;
+				if($is_bcc) $email_entry = str_ireplace('bcc:', '', $email_entry);
+				$sanitized = @filter_var($email_entry, FILTER_SANITIZE_EMAIL);
+				if($sanitized && filter_var($sanitized, FILTER_VALIDATE_EMAIL)) {
+					if($is_bcc) {
+						array_push($bcc_array, $sanitized);
+					} else {
+						array_push($to_array, $sanitized);
+					}
+				}
+			}
 
-			// sanitize emails in array
-			$to_array = array_map(function($val){
-				return filter_var($val, FILTER_SANITIZE_EMAIL);
-			}, $to_array);
-
-			// filter valid emails in array
-			$to_array = array_filter($to_array, function($val){
-				return filter_var($val, FILTER_VALIDATE_EMAIL);
-			});
+			// add to to_array if empty
+			if(empty($to_array) && !empty($bcc_array)) array_push($to_array, array_shift($bcc_array));
 
 			// continue only if $to_array still contains emails after filtering
 			if(empty($to_array)) {
 				echo 'No valid email recipients specified';
 				return false;
+			}
+
+			// get IP
+			function get_client_ip() {
+				$vars = array('HTTP_CF_CONNECTING_IP', 'HTTP_CLIENT_IP', 'HTTP_X_FORWARDED_FOR', 'HTTP_X_FORWARDED', 'HTTP_FORWARDED_FOR', 'HTTP_FORWARDED', 'REMOTE_ADDR');
+				foreach ($vars as $var) {
+					if(isset($_SERVER[$var])) {
+						$ip = filter_var($_SERVER[$var], FILTER_VALIDATE_IP);
+						if($ip) return $ip;
+					}
+				}
+				return 'IP not found';
 			}
 
 			// array_filter_key for custom fields
@@ -125,23 +144,27 @@ if(isset($_SERVER['HTTP_X_REQUESTED_WITH'])
 			if(isset($from)) $mail->setFrom($from);
 
 			// To
-			foreach($to_array as $entry) {
-				$mail->addAddress($entry);
+			foreach($to_array as $to_entry) {
+				$mail->addAddress($to_entry);
+			}
+
+			// Bcc
+			if(!empty($bcc_array)) foreach($bcc_array as $bcc_entry) {
+				$mail->addBCC($bcc_entry);
 			}
 
 			// ReplyTo
-			if($email) $mail->addReplyTo($email, ($name ? $name : '[NO NAME]'));
+			if($email) $mail->addReplyTo($email, ($name ? $name : ''));
+
 			// SUBJECT replace hardcoded
 			$subject = str_replace('%name%', ($name ? $name : '[NO NAME]'), $subject);
 			$subject = str_replace('%email%', ($email ? $email : '[NO EMAIL]'), $subject);
 			$subject = str_replace('%domain%', $_SERVER['HTTP_HOST'], $subject);
+			if(strpos($subject, '%ip%') !== false) $subject = str_replace('%ip%', get_client_ip(), $subject);
 
 			// MESSAGE replace hardcoded
 			$message = $template;
-			/*if($template){ // why this?
-				$message = str_replace('%name%', ($name ? $name : '[NO NAME]'), $template);
-				$message = str_replace('%email%', ($email ? $email : '[NO EMAIL]'), $message);
-			}*/
+			if(strpos($message, '%ip%') !== false) $message = str_replace('%ip%', get_client_ip(), $message);
 
 			// CUSTOM fields
 			$ignore = array('honey1', 'honey2', 'template', 'template_strict', 'template_subject', 'action', 'recipient');

@@ -44,14 +44,14 @@ Class PageData {
     return $parent_path[0] == Config::$content_folder ? array() : $parent_path;
   }
 
-  // X3 get path protected from config/protect.php
+  // X3 get path protected from config/protect
   static function get_protected($route) {
 
   	# get protect object
   	global $protect_ob;
 
   	# Only continue if access is not empty
-    if(empty($protect_ob) || empty($protect_ob["access"])) {
+    if(empty($protect_ob) || !isset($protect_ob["access"]) || empty($protect_ob["access"])) {
     	self::$protect = false;
     	return;
     }
@@ -135,8 +135,8 @@ Class PageData {
     		$page->protected = self::get_protected($page->url_path);
     	}
 
-    	# page.stacey_version
-	    $page->stacey_version = Stacey::$version;
+    	# page.x3_version
+	    $page->x3_version = X3::$version;
 
 	    # page.site_updated
 	    //if(!self::$site_updated) self::$site_updated = Helpers::site_last_modified();

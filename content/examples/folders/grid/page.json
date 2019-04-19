@@ -1,0 +1,28 @@
+{
+    "title": "Folders Grid",
+    "description": "Using the grid, which gracefully responds to screen width.",
+    "image": "examples\/assets\/layered-cake.jpg",
+    "context": {
+        "classes": "separator"
+    },
+    "folders": {
+        "crop": {
+            "enabled": true
+        },
+        "items": "title,preview,description",
+        "caption": {
+            "enabled": true,
+            "items": "folders_amount",
+            "align": "caption-bottom-right"
+        },
+        "assets": "examples\/folders\/"
+    },
+    "plugins": {
+        "video_background": {
+            "autoplay": false,
+            "toggleplay": false,
+            "loop": false,
+            "muted": false
+        }
+    }
+}

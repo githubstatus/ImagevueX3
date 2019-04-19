@@ -1,0 +1,19 @@
+{
+    "title": "Image Comparison Slider",
+    "label": "Comparison Slider",
+    "description": "A content plugin to interactively compare two images visually.",
+    "image": "preview.jpg",
+    "content": "## Example\n\n<div class=\"comparison-slider x3-style-frame\">\n<img src=\"{{path}}image1.jpg\" \/>\n<img src=\"{{path}}image2.jpg\" \/>\n<\/div>\n\n<br>In your content, simply include two images inside an element with the `comparison-slider` class:\n<pre data-lang=\"html\"><code>\n<div class=\"comparison-slider\"><br>\n<img src=\"{{@path}}image1.jpg\" \/><br>\n<img src=\"{{@path}}image2.jpg\" \/><br>\n<\/div>\n<\/code><\/pre>\n\n<div data-alert class=\"alert-box bg2\">\n<h3>Tip!<\/h2>\nUse the <strong>{{<i><\/i>path}}<\/strong> variable to include a dynamic file-path to the current folder.\n<\/div>\n\n## Advanced Settings\n<div class=\"comparison-slider x3-style-frame\" data-orientation=vertical data-offset=0.7 data-hover=false>\n<img src=\"{{path}}image1.jpg\" \/>\n<img src=\"{{path}}image2.jpg\" \/>\n<\/div>\n\n<br><pre data-lang=\"html\"><code>\n<div class=\"comparison-slider x3-style-frame\" data-orientation=\"vertical\" data-offset=\"0.7\" data-hover=\"false\"><br>\n<img src=\"{{@path}}image1.jpg\" \/><br>\n<img src=\"{{@path}}image2.jpg\" \/><br>\n<\/div>\n<\/code><\/pre>\n\n`x3-style-frame` Include this class to display a frame around the images.\n`data-orientation` Set \"horizontal\" (default) or \"vertical\" orientation for the slider.\n`data-offset` Set initial offset position of the slider to any number between 0.0 and 1.0 (default 0.5).\n`data-hover` Enable or disable the *before-after* mouse hover effect. \n\n## Information\n**Identical Image Dimensions**\nFor this plugin to work properly, you need to include two different images with identical dimensions.\n\n**Image Sizes**\nUnlike the X3 gallery module, this plugin will not serve resized images depending on device and screen size. It is therefore recommended that you use a sensible image-size, for example 1024 or 1280 px.\n\n**Plugin Display Width**\nSince the X3 layout is responsive by default, images will automatically scale to the width of the context module. This also means that images will scale to fit the screen width on small devices.\n\n**Hide Page Gallery**\nIf you are displaying images from the current folder, you may want to prevent the same images from also displaying in the page's gallery module. Go to *page › settings › gallery*, and check \"Hide Gallery Module\".\n\n**Plugin loaded On-Demand**\nThe Javascript- and CSS required for the comparison-slider plugin, are loaded \"on-demand\" once the element is detected. This means it *could* take 1-2 seconds before the plugin initiates on first page visit.\n\n**Custom before-after text**\nIf you want to change the *before-after* text on mouse hover, you will need to add custom CSS.\n<pre data-lang=\"css\"><code>\n.comparison-slider .twentytwenty-before-label:before {\n    content: \"Before\";\n}\n.comparison-slider .twentytwenty-after-label:before {\n    content: \"After\";\n}\n<\/code><\/pre>\n_* settings › custom › custom css_\n\n",
+    "gallery": {
+        "hide": true
+    },
+    "plugins": {
+        "image_background": {
+            "enabled": true,
+            "src": "image1.jpg",
+            "height": "280px",
+            "fixed": true,
+            "below_menu": false
+        }
+    }
+}

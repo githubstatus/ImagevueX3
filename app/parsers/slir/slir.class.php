@@ -1056,7 +1056,6 @@ class SLIR
 	 */
 	private function renderedCacheFilename()
 	{
-		//file_put_contents('alibaba.txt', $this->request->fullPath() . ' : ' . serialize($this->rendered->cacheParameters()));
 		return '/' . md5($this->request->fullPath() . serialize($this->rendered->cacheParameters()));
 	}
 
@@ -1179,35 +1178,20 @@ class SLIR
 	 */
 	private function cacheFile($cacheFilePath, $imageData, $copyEXIF = TRUE, $symlinkToPath = NULL)
 	{
-		//$this->initializeCache();
 
 		// Try to create just a symlink to minimize disk space
-		if($symlinkToPath && function_exists('symlink') && (file_exists($cacheFilePath) || symlink($symlinkToPath, $cacheFilePath))){
+		if($symlinkToPath && SLIRConfig::$useRequestCache && function_exists('symlink') && (file_exists($cacheFilePath) || @symlink($symlinkToPath, $cacheFilePath))) return TRUE;
+		/*if($symlinkToPath && function_exists('symlink') && (file_exists($cacheFilePath) || symlink($symlinkToPath, $cacheFilePath))){
 			return TRUE;
-		}
+		}*/
 
 		// Create the file
-		if(!file_put_contents($cacheFilePath, $imageData)){
-			return FALSE;
-		}
-
-		/*if (SLIRConfig::$copyEXIF == TRUE && $copyEXIF && $this->source->isJPEG())
-		{
-			// Copy IPTC data
-			if (isset($this->source->iptc) && !$this->copyIPTC($cacheFilePath))
-			{
-				return FALSE;
-			}
-
-			// Copy EXIF data
-			$imageData	= $this->copyEXIF($cacheFilePath);
-		} // if*/
+		if(!file_put_contents($cacheFilePath, $imageData)) return FALSE;
 
 		// X3 copy ICC color profile
-    if(SLIRConfig::$copyICCProfile && $this->source->isJPEG()) {
-      $imageData = $this->copyICCProfile($cacheFilePath);
-    }
+    if(SLIRConfig::$copyICCProfile && $this->source->isJPEG()) $imageData = $this->copyICCProfile($cacheFilePath);
 
+    // return
 		return $imageData;
 	}
 
@@ -1374,7 +1358,7 @@ class SLIR
 		
 		// If we are serving from the rendered cache, create a symlink in the
 		// request cache to the rendered file
-		if ($cacheType != 'request')
+		if ($cacheType != 'request' && SLIRConfig::$useRequestCache)
 		{
 			$this->cacheRequest($data, FALSE);
 		}

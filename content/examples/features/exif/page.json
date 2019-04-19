@@ -1,0 +1,46 @@
+{
+    "title": "Image GPS and Exif",
+    "label": "Image GPS & Exif",
+    "description": "Display exif meta data and maps for images that contain GPS location data.",
+    "image": "1.thailand.jpg",
+    "gallery": {
+        "layout": "grid",
+        "grid": {
+            "space": 1
+        },
+        "crop": {
+            "enabled": true
+        },
+        "classes": "null",
+        "width": "wide",
+        "caption": {
+            "enabled": true,
+            "items": "title,description,maplink",
+            "align": "caption-bottom-right"
+        }
+    },
+    "popup": {
+        "caption": {
+            "exif": true,
+            "map": true
+        }
+    },
+    "1.thailand.jpg": {
+        "description": "Photo by Pornsak Na Nakorn \/ <em><a href=http:\/\/pornsaknanakorn.com target=_blank>pornsaknanakorn.com<\/a><\/em>"
+    },
+    "2.misty-mountains.jpg": {
+        "description": "Photo by Franck Ehret \/ <em><a href=http:\/\/www.ehretic.com\/ target=_blank>www.ehretic.com<\/a><\/em>"
+    },
+    "3.buddha.jpg": {
+        "description": "Photo by Łukasz Kulicki \/ <em><a href=http:\/\/www.kulicki.com\/ target=_blank>www.kulicki.com<\/a><\/em>"
+    },
+    "Aurlandsfjord.jpeg": {
+        "title": "Aurlandsfjord, Norway"
+    },
+    "kinsarvik-church.jpeg": {
+        "title": "Kinsarvik church, Norway"
+    },
+    "samet-nangshe.jpeg": {
+        "title": "Samet Nangshe viewpoint, Thailand"
+    }
+}

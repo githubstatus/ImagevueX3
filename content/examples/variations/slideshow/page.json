@@ -1,0 +1,23 @@
+{
+    "title": "Slideshow Cover",
+    "label": "Slideshow Cover",
+    "description": "Slideshow layout in cover-mode, starts fullscreen, with dot-nav and crossfade transitions.",
+    "image": "examples\/assets\/tracks.jpg",
+    "gallery": {
+        "width": "wide",
+        "layout": "slideshow",
+        "slideshow": {
+            "menu_style": "menu-absolute-default",
+            "start_fullscreen": true,
+            "autoplay": true,
+            "transition": "dissolve",
+            "duration": 300,
+            "captions": true,
+            "captions_hover": true,
+            "nav": "dots",
+            "button_down_remove": false
+        },
+        "classes": "landscape,scrollbutton",
+        "assets": "examples\/assets\/"
+    }
+}

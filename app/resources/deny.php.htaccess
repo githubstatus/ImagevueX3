@@ -1,0 +1,15 @@
+
+# Deny access to all files in folder
+<IfModule mod_authz_core.c>
+	<Files *.php>
+		Require all denied
+	</Files>
+</IfModule>
+<IfModule !mod_authz_core.c>
+	<Files *.php>
+		Order deny,allow
+		Deny from all
+	</Files>
+</IfModule>
+
+

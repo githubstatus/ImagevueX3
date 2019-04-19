@@ -9,10 +9,6 @@
 # Modified to preserve line breaks, line #675
 # <http://stackoverflow.com/questions/2092966/how-to-treat-single-newline-as-real-line-break-in-php-markdown>
 #
-# Modified to allow user to choose preference (set in extensions/config.php
-# file), line #674-#679
-# <https://github.com/kolber/stacey/issues/82>
-#
 # Original Markdown
 # Copyright (c) 2004-2006 John Gruber  
 # <http://daringfireball.net/projects/markdown/>

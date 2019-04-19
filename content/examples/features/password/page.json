@@ -1,0 +1,7 @@
+{
+    "title": "Password Protect",
+    "label": "Password &nbsp;<i class=\"fa fa-lock\"><\/i>",
+    "description": "This page is password protected with login guest\/guest.",
+    "image": "examples\/assets\/brooklyn-bridge.jpg",
+    "content": "---\n\n<div class=\"row\">\n  <div class=\"medium-3 columns\">\n\t\t<img alt=\"unlocked\" src=\"https:\/\/cdnjs.cloudflare.com\/ajax\/libs\/emojione\/2.2.6\/assets\/svg\/1f513.svg\"\/>\n  <\/div>\n  <div class=\"medium-9 columns\">\n\t<p><span class=\"label warning\">Page unlocked!<\/span><\/p>\n  \t<p>Password-protect any page in X3 by navigating to \"protect\" from the admin panel. Simply locate the page you want to password-protect in the link field, add a username and password, and click save. The specific page will now require login when accessed by any visitor. Password-protection is recursive, which means the login for a specific link will inherit upon child pages..<\/p>\n  <\/div>\n<\/div>"
+}

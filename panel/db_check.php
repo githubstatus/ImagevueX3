@@ -107,7 +107,7 @@ error_reporting(-1);
 <meta name="robots" content="noindex, nofollow">
 <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,600" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-<link href="<?php echo $css_path ?>app/public/css/diagnostics.css?v=3.25.0" rel="stylesheet" type="text/css">
+<link href="<?php echo $css_path ?>app/public/css/diagnostics.css?v=3.27.0" rel="stylesheet" type="text/css">
 <style><!--
 .x3-diagnostics-wrapper {
 	max-width: 500px;
@@ -115,11 +115,11 @@ error_reporting(-1);
 --></style>
 </head>
 <body>
-	<div class=x3-diagnostics>
+	<div class="x3-diagnostics">
 		<h1>X3 Database Connection Checker</h1>
-		<div class=x3-diagnostics-wrapper>
-			<div class=report><div class="x3-diagnostics-item x3-diagnostics-neutral" style="text-align: center;">Database connection diagnostics will appear here.</div></div>
-			<div class=form-container></div>
+		<div class="x3-diagnostics-wrapper">
+			<div class="report"><div class="x3-diagnostics-item x3-diagnostics-neutral" style="text-align: center;">Database connection diagnostics will appear here.</div></div>
+			<div class="form-container"></div>
 		</div>
 	</div>
 <script>

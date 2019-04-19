@@ -112,141 +112,152 @@ class __TwigTemplate_db49246ef100488bf387c704be915976dc53fe33439588b93ef0ac7e41b
         echo "
 ";
         // line 53
-        $context["meta"] = "";
+        $context["data_exif"] = "";
         // line 54
-        $context["exif"] = "";
+        $context["meta"] = "";
         // line 55
+        $context["data_geo"] = "";
+        // line 56
         if ($this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "exif")) {
-            // line 56
+            // line 57
             echo "
 \t";
-            // line 58
+            // line 59
             echo "\t";
             if ($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["parent"]) ? $context["parent"] : null), "popup"), "caption"), "exif")) {
-                // line 59
-                echo "\t\t";
-                $context["exif_items"] = call_user_func_array($this->env->getFilter('split')->getCallable(), array($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["parent"]) ? $context["parent"] : null), "popup"), "caption"), "exif_items"), ","));
                 // line 60
                 echo "\t\t";
+                $context["exif_items"] = call_user_func_array($this->env->getFilter('split')->getCallable(), array($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["parent"]) ? $context["parent"] : null), "popup"), "caption"), "exif_items"), ","));
+                // line 61
+                echo "\t\t";
                 if ((call_user_func_array($this->env->getFilter('length')->getCallable(), array($this->env, (isset($context["exif_items"]) ? $context["exif_items"] : null))) > 0)) {
-                    // line 61
+                    // line 62
+                    echo "
+\t\t\t";
+                    // line 68
+                    echo "
+\t\t\t";
+                    // line 69
+                    $context["exif_array"] = array();
+                    // line 70
                     echo "\t\t\t";
                     $context['_parent'] = (array) $context;
                     $context['_seq'] = twig_ensure_traversable((isset($context["exif_items"]) ? $context["exif_items"] : null));
                     foreach ($context['_seq'] as $context["_key"] => $context["key"]) {
                         if ($this->getAttribute($this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "exif"), (isset($context["key"]) ? $context["key"] : null), array(), "array")) {
-                            // line 62
+                            // line 71
                             echo "\t\t    ";
-                            $context["exif"] = (((((isset($context["exif"]) ? $context["exif"] : null) . (isset($context["key"]) ? $context["key"] : null)) . ":") . $this->getAttribute($this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "exif"), (isset($context["key"]) ? $context["key"] : null), array(), "array")) . ";");
-                            // line 63
+                            $context["exif_array"] = call_user_func_array($this->env->getFilter('merge')->getCallable(), array((isset($context["exif_array"]) ? $context["exif_array"] : null), array((isset($context["key"]) ? $context["key"] : null) => $this->getAttribute($this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "exif"), (isset($context["key"]) ? $context["key"] : null), array(), "array"))));
+                            // line 72
                             echo "\t\t    ";
                             $context["meta"] = ((((((((isset($context["meta"]) ? $context["meta"] : null) . "<div class=\"row file-exif-") . (isset($context["key"]) ? $context["key"] : null)) . "\"><div class=\"small-6 columns file-exif-key\"><span>") . call_user_func_array($this->env->getFilter('replace')->getCallable(), array(call_user_func_array($this->env->getFilter('title')->getCallable(), array($this->env, (isset($context["key"]) ? $context["key"] : null))), array("_" => " ")))) . "</span></div><div class=\"small-6 columns file-exif-value styled\">") . $this->getAttribute($this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "exif"), (isset($context["key"]) ? $context["key"] : null), array(), "array")) . "</div></div>");
-                            // line 64
+                            // line 73
                             echo "\t\t\t";
                         }
                     }
                     $_parent = $context['_parent'];
                     unset($context['_seq'], $context['_iterated'], $context['_key'], $context['key'], $context['_parent'], $context['loop']);
                     $context = array_intersect_key($context, $_parent) + $_parent;
-                    // line 65
+                    // line 74
                     echo "\t\t\t";
-                    if ((isset($context["exif"]) ? $context["exif"] : null)) {
-                        $context["exif"] = ((" data-exif=\"" . (isset($context["exif"]) ? $context["exif"] : null)) . "\"");
+                    if (call_user_func_array($this->env->getFilter('length')->getCallable(), array($this->env, (isset($context["exif_array"]) ? $context["exif_array"] : null)))) {
+                        $context["data_exif"] = ((" data-exif=\"" . call_user_func_array($this->env->getFilter('e')->getCallable(), array($this->env, call_user_func_array($this->env->getFilter('json_encode')->getCallable(), array((isset($context["exif_array"]) ? $context["exif_array"] : null))), "html_attr"))) . "\"");
                     }
-                    // line 66
-                    echo "\t\t";
+                    // line 75
+                    echo "
+\t\t";
                 }
-                // line 67
+                // line 77
                 echo "\t";
             }
-            // line 68
+            // line 78
             echo "
 \t";
-            // line 70
+            // line 80
             echo "\t";
             if (($this->getAttribute($this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "exif"), "latitude") && $this->getAttribute($this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "exif"), "longitude"))) {
-                // line 71
+                // line 81
                 echo "\t\t";
                 $context["geo"] = (($this->getAttribute($this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "exif"), "latitude") . ",") . $this->getAttribute($this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "exif"), "longitude"));
-                // line 72
+                // line 82
                 echo "\t\t";
                 $context["map_embed_src"] = (("https://www.google.com/maps/embed/v1/place?q=" . (isset($context["geo"]) ? $context["geo"] : null)) . "&amp;key=AIzaSyDRp6xla9SxUmTBu6l_kprhjjI9e5-EVZk");
-                // line 73
+                // line 83
                 echo "\t\t";
                 $context["map_link_src"] = ("https://www.google.com/maps/search/?api=1&query=" . (isset($context["geo"]) ? $context["geo"] : null));
-                // line 74
+                // line 84
                 echo "\t\t";
                 $context["map_embed_button_item"] = (((("<button data-href=\"" . (isset($context["map_link_src"]) ? $context["map_link_src"] : null)) . "\" data-popup-href=\"") . (isset($context["map_embed_src"]) ? $context["map_embed_src"] : null)) . "\" class=\"button small button-map\" data-popup-class=\"x3-popup-iframe-full\" data-popup></button>");
-                // line 75
+                // line 85
                 echo "\t\t";
                 $context["map_button_popup"] = (((("<a href=\"" . (isset($context["map_link_src"]) ? $context["map_link_src"] : null)) . "\" data-embed-modal=\"") . (isset($context["map_embed_src"]) ? $context["map_embed_src"] : null)) . "\" class=\"button small button-map\" target=\"_blank\"></a>");
-                // line 76
+                // line 86
                 echo "\t\t";
                 $context["map_link_popup"] = (((("<a href=\"" . (isset($context["map_link_src"]) ? $context["map_link_src"] : null)) . "\" data-embed-modal=\"") . (isset($context["map_embed_src"]) ? $context["map_embed_src"] : null)) . "\" class=\"link-map\" target=\"_blank\"></a>");
-                // line 77
+                // line 87
                 echo "\t\t";
                 $context["map_button"] = (("<a href=\"" . (isset($context["map_link_src"]) ? $context["map_link_src"] : null)) . "\" class=\"button small button-map\" target=\"_blank\"></a>");
-                // line 78
+                // line 88
                 echo "\t\t";
                 $context["map_link"] = (("<a href=\"" . (isset($context["map_link_src"]) ? $context["map_link_src"] : null)) . "\" class=\"link-map\" target=\"_blank\"></a>");
-                // line 79
+                // line 89
                 echo "\t\t";
                 if ($this->getAttribute($this->getAttribute($this->getAttribute((isset($context["parent"]) ? $context["parent"] : null), "popup"), "caption"), "map")) {
                     $context["data_geo"] = ((" data-geo=\"" . (isset($context["geo"]) ? $context["geo"] : null)) . "\"");
                 }
-                // line 80
+                // line 90
                 echo "\t";
             }
         }
-        // line 82
+        // line 92
         echo "
 ";
-        // line 84
+        // line 94
         if ((isset($context["geo"]) ? $context["geo"] : null)) {
-            // line 85
+            // line 95
             echo "\t";
             $context["page_title"] = call_user_func_array($this->env->getFilter('replace')->getCallable(), array((isset($context["page_title"]) ? $context["page_title"] : null), array("{latitude}" => $this->getAttribute($this->getAttribute((isset($context["image"]) ? $context["image"] : null), "exif"), "latitude"), "{longitude}" => $this->getAttribute($this->getAttribute((isset($context["image"]) ? $context["image"] : null), "exif"), "longitude"), "{map_embed_src}" => (isset($context["map_embed_src"]) ? $context["map_embed_src"] : null), "{map_link_src}" => (isset($context["map_link_src"]) ? $context["map_link_src"] : null), "{map_button_popup}" => (isset($context["map_button_popup"]) ? $context["map_button_popup"] : null), "{map_link_popup}" => (isset($context["map_link_popup"]) ? $context["map_link_popup"] : null), "{map_button}" => (isset($context["map_button"]) ? $context["map_button"] : null), "{map_link}" => (isset($context["map_link"]) ? $context["map_link"] : null))));
-            // line 86
+            // line 96
             echo "\t";
             if ((!call_user_func_array($this->env->getTest('empty')->getCallable(), array((isset($context["image_description"]) ? $context["image_description"] : null))))) {
-                // line 87
+                // line 97
                 echo "\t\t";
                 $context["image_description"] = call_user_func_array($this->env->getFilter('replace')->getCallable(), array((isset($context["image_description"]) ? $context["image_description"] : null), array("{latitude}" => $this->getAttribute($this->getAttribute((isset($context["image"]) ? $context["image"] : null), "exif"), "latitude"), "{longitude}" => $this->getAttribute($this->getAttribute((isset($context["image"]) ? $context["image"] : null), "exif"), "longitude"), "{map_embed_src}" => (isset($context["map_embed_src"]) ? $context["map_embed_src"] : null), "{map_link_src}" => (isset($context["map_link_src"]) ? $context["map_link_src"] : null), "{map_button_popup}" => (isset($context["map_button_popup"]) ? $context["map_button_popup"] : null), "{map_link_popup}" => (isset($context["map_link_popup"]) ? $context["map_link_popup"] : null), "{map_button}" => (isset($context["map_button"]) ? $context["map_button"] : null), "{map_link}" => (isset($context["map_link"]) ? $context["map_link"] : null))));
-                // line 88
+                // line 98
                 echo "\t";
             }
         }
-        // line 90
+        // line 100
         echo "
 ";
-        // line 92
+        // line 102
         echo "<div class=\"module row file gallery";
         echo (isset($context["fotomoto"]) ? $context["fotomoto"] : null);
         echo "\"";
         echo (isset($context["fotomoto_collection"]) ? $context["fotomoto_collection"] : null);
         echo ">
   <div data-options=\"caption:\" class=\"images clearfix context small-12 medium-10 large-8 small-centered columns narrower text-center frame";
-        // line 93
+        // line 103
         if (($this->getAttribute($this->getAttribute((isset($context["page"]) ? $context["page"] : null), "popup"), "enabled") == true)) {
             echo " x3-hover-icon-primary";
         }
         echo "\">
 
   ";
-        // line 96
+        // line 106
         echo "
   <h1 class=\"title\">";
-        // line 97
+        // line 107
         echo (isset($context["page_title"]) ? $context["page_title"] : null);
         echo "</h1>
   ";
-        // line 98
+        // line 108
         if ((!call_user_func_array($this->env->getTest('empty')->getCallable(), array((isset($context["image_description"]) ? $context["image_description"] : null))))) {
             echo "<h2 class=\"subheader\">";
             echo (isset($context["image_description"]) ? $context["image_description"] : null);
             echo "</h2>";
         }
-        // line 99
+        // line 109
         echo "  ";
         if ((!call_user_func_array($this->env->getTest('empty')->getCallable(), array((isset($context["date"]) ? $context["date"] : null))))) {
             echo "<h6 class=\"date\"><time itemprop=\"dateCreated\" datetime=\"";
@@ -255,30 +266,30 @@ class __TwigTemplate_db49246ef100488bf387c704be915976dc53fe33439588b93ef0ac7e41b
             echo call_user_func_array($this->env->getFilter('date')->getCallable(), array($this->env, (isset($context["date"]) ? $context["date"] : null), "d F Y"));
             echo "</time></h6>";
         }
-        // line 100
+        // line 110
         echo "
   ";
-        // line 102
+        // line 112
         echo "\t<a href=\"";
         echo call_user_func_array($this->env->getFilter('setpath')->getCallable(), array(call_user_func_array($this->env->getFilter('e')->getCallable(), array($this->env, call_user_func_array($this->env->getFilter('replace')->getCallable(), array($this->getAttribute((isset($context["parent"]) ? $context["parent"] : null), "permalink"), array(" " => "_"))))), (isset($context["rootpath"]) ? $context["rootpath"] : null)));
         echo "\" class=\"file-back\"></a>
 
 \t";
-        // line 105
+        // line 115
         echo "\t<div class=\"gallery\">
 \t\t<a class=\"item img-link item-link";
-        // line 106
+        // line 116
         if (($this->getAttribute($this->getAttribute((isset($context["page"]) ? $context["page"] : null), "popup"), "enabled") == true)) {
             echo " x3-popup";
         }
         echo "\"";
-        echo (isset($context["exif"]) ? $context["exif"] : null);
+        echo (isset($context["data_exif"]) ? $context["data_exif"] : null);
         echo (isset($context["data_geo"]) ? $context["data_geo"] : null);
         echo " id=\"image-";
         echo call_user_func_array($this->env->getFilter('default')->getCallable(), array(call_user_func_array($this->env->getFilter('attribute_friendly')->getCallable(), array($this->getAttribute((isset($context["page"]) ? $context["page"] : null), "slug"))), "1"));
-        echo "\" data-options=\"w:";
+        echo "\" data-width=\"";
         echo $this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "width");
-        echo ";h:";
+        echo "\" data-height=\"";
         echo $this->getAttribute((isset($context["myimage"]) ? $context["myimage"] : null), "height");
         echo "\" href=\"";
         echo (isset($context["image_page"]) ? $context["image_page"] : null);
@@ -293,11 +304,11 @@ class __TwigTemplate_db49246ef100488bf387c704be915976dc53fe33439588b93ef0ac7e41b
         echo "\">
 \t\t\t<figure>
 \t\t\t\t<div class=\"image-container\" style=\"padding-bottom:";
-        // line 108
+        // line 118
         echo (isset($context["image_ratio"]) ? $context["image_ratio"] : null);
         echo "%;\">
 \t\t\t\t\t<img data-src=\"";
-        // line 109
+        // line 119
         echo call_user_func_array($this->env->getFilter('e')->getCallable(), array($this->env, (isset($context["preview_image_url"]) ? $context["preview_image_url"] : null)));
         echo "\" alt=\"";
         echo call_user_func_array($this->env->getFilter('e')->getCallable(), array($this->env, call_user_func_array($this->env->getFilter('striptags')->getCallable(), array((isset($context["page_title"]) ? $context["page_title"] : null)))));
@@ -308,20 +319,20 @@ class __TwigTemplate_db49246ef100488bf387c704be915976dc53fe33439588b93ef0ac7e41b
 \t</div>
 
 \t";
-        // line 116
+        // line 126
         echo "\t";
         if ((isset($context["meta"]) ? $context["meta"] : null)) {
             echo "<div class=\"file-exif\">";
             echo (isset($context["meta"]) ? $context["meta"] : null);
             echo "</div>";
         }
-        // line 117
+        // line 127
         echo "
 \t";
-        // line 119
+        // line 129
         echo "\t";
         if (($this->getAttribute($this->getAttribute((isset($context["page"]) ? $context["page"] : null), "accounts"), "disqus_shortname") && $this->getAttribute($this->getAttribute($this->getAttribute((isset($context["page"]) ? $context["page"] : null), "plugins"), "disqus"), "image"))) {
-            // line 120
+            // line 130
             echo "\t\t<hr>
 \t\t<div id=\"comments\">
 \t\t\t<div>
@@ -331,7 +342,7 @@ class __TwigTemplate_db49246ef100488bf387c704be915976dc53fe33439588b93ef0ac7e41b
 \t\t</div>
 \t";
         }
-        // line 128
+        // line 138
         echo "
 \t</div>
 </div>";
@@ -349,6 +360,6 @@ class __TwigTemplate_db49246ef100488bf387c704be915976dc53fe33439588b93ef0ac7e41b
 
     public function getDebugInfo()
     {
-        return array (  335 => 128,  325 => 120,  322 => 119,  319 => 117,  312 => 116,  301 => 109,  297 => 108,  271 => 106,  268 => 105,  262 => 102,  259 => 100,  250 => 99,  244 => 98,  240 => 97,  237 => 96,  230 => 93,  223 => 92,  220 => 90,  216 => 88,  213 => 87,  210 => 86,  207 => 85,  205 => 84,  202 => 82,  198 => 80,  193 => 79,  190 => 78,  187 => 77,  184 => 76,  181 => 75,  178 => 74,  175 => 73,  172 => 72,  169 => 71,  166 => 70,  163 => 68,  160 => 67,  157 => 66,  152 => 65,  145 => 64,  142 => 63,  139 => 62,  133 => 61,  130 => 60,  127 => 59,  124 => 58,  121 => 56,  119 => 55,  117 => 54,  115 => 53,  112 => 51,  108 => 49,  105 => 48,  102 => 47,  99 => 46,  96 => 45,  93 => 44,  90 => 43,  87 => 42,  85 => 41,  83 => 40,  81 => 39,  78 => 37,  74 => 35,  70 => 23,  62 => 21,  59 => 20,  56 => 19,  53 => 17,  45 => 15,  42 => 14,  39 => 13,  35 => 10,  33 => 9,  30 => 7,  28 => 6,  26 => 5,  24 => 4,  22 => 3,  19 => 1,);
+        return array (  346 => 138,  336 => 130,  333 => 129,  330 => 127,  323 => 126,  312 => 119,  308 => 118,  282 => 116,  279 => 115,  273 => 112,  270 => 110,  261 => 109,  255 => 108,  251 => 107,  248 => 106,  241 => 103,  234 => 102,  231 => 100,  227 => 98,  224 => 97,  221 => 96,  218 => 95,  216 => 94,  213 => 92,  209 => 90,  204 => 89,  201 => 88,  198 => 87,  195 => 86,  192 => 85,  189 => 84,  186 => 83,  183 => 82,  180 => 81,  177 => 80,  174 => 78,  171 => 77,  167 => 75,  162 => 74,  155 => 73,  152 => 72,  149 => 71,  143 => 70,  141 => 69,  138 => 68,  135 => 62,  132 => 61,  129 => 60,  126 => 59,  123 => 57,  121 => 56,  119 => 55,  117 => 54,  115 => 53,  112 => 51,  108 => 49,  105 => 48,  102 => 47,  99 => 46,  96 => 45,  93 => 44,  90 => 43,  87 => 42,  85 => 41,  83 => 40,  81 => 39,  78 => 37,  74 => 35,  70 => 23,  62 => 21,  59 => 20,  56 => 19,  53 => 17,  45 => 15,  42 => 14,  39 => 13,  35 => 10,  33 => 9,  30 => 7,  28 => 6,  26 => 5,  24 => 4,  22 => 3,  19 => 1,);
     }
 }

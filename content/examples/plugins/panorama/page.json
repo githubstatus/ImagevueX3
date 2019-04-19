@@ -1,0 +1,52 @@
+{
+    "title": "Panorama Plugin",
+    "description": "Display spherical <a href=\"https:\/\/demo.photo.gallery\/content\/examples\/plugins\/panorama\/louvre.jpg\" data-panorama=\"yaw=-.2&geo=48.861049,2.335874&geo_zoom=15\" title=\"Musée du Louvre, Paris\" data-description=\"Single-file equirectangular format.\" id=\"equirect\">equirectangular<\/a>, multi-level <a href=\"{{path}}bricks.jpg\" data-panorama=\"path=https:\/\/demo.photo.gallery\/content\/examples\/plugins\/panorama\/_cubes\/tiles\/0-bricks&levels=3&geo=51.208060,3.227697&geo_zoom=15\" title=\"Bridge in Bruges\" data-description=\"Multi-resolution spherical cube format.\" id=\"cube\">cube<\/a>, and <a href=\"{{path}}meteora-monasteries.jpg\" data-panorama=\"path=https:\/\/demo.photo.gallery\/content\/examples\/plugins\/panorama\/_meteora-monasteries&tilesize=2048&width=1024,3072,6144,12288,23552&height=404,1208,2416,4832,9260&geo=39.721563,21.632105&url_format=l1\/%0v\/l1_%0v_%0h.jpg\" title=\"Meteora Monasteries, Greece\" data-description=\"Flat multi-resolution gigapxel image.\" id=\"flat\">flat<\/a> multi-resolution gigapixel images with the X3 panorama plugin.",
+    "image": "ballroom.jpg",
+    "content": "<center><em>* Panorama sample sources are loaded remotely from our <a href=\"https:\/\/demo.photo.gallery\/examples\/plugins\/panorama\/\" target=\"_blank\">X3 panorama demo<\/a>.<\/em><\/center>",
+    "context": {
+        "classes": "separator"
+    },
+    "gallery": {
+        "layout": "vertical",
+        "split": {
+            "enabled": true,
+            "ratio": 4
+        },
+        "crop": {
+            "enabled": true,
+            "crop": [
+                2,
+                1
+            ]
+        },
+        "width": "narrow",
+        "sortby": "custom",
+        "items": "preview,title,description",
+        "caption": {
+            "items": "title,description"
+        }
+    },
+    "plugins": {
+        "panorama": {
+            "enabled": true
+        }
+    },
+    "ballroom.jpg": {
+        "title": "Salle des fêtes musée d'Orsay",
+        "description": "Single-file equirectangular format.<br><span class=\"label primary\">Equirectangular<\/span><span class=\"label bg2\">8192 px<\/span><span class=\"label bg2\">4.6 mb<\/span>",
+        "params": "yaw=2&pitch=-0.05&source=https:\/\/demo.photo.gallery\/content\/examples\/plugins\/panorama\/ballroom_large.jpg&source_4096=https:\/\/demo.photo.gallery\/content\/examples\/plugins\/panorama\/ballroom_4096.jpg&width=8192&geo=48.859970,2.326561&geo_zoom=15&id=salle-des-fetes",
+        "index": 3
+    },
+    "bricks.jpg": {
+        "title": "Bridge in Bruges",
+        "description": "Multi-resolution spherical cube format, contributed by <a href=\"http:\/\/panomagic.eu\/\" target=\"_blank\">George Palov<\/a>.<br><span class=\"label info\">Cube<\/span><span class=\"label bg2\">3 levels<\/span>",
+        "params": "path=https:\/\/demo.photo.gallery\/content\/examples\/plugins\/panorama\/_cubes\/tiles\/0-bricks&levels=3&geo=51.208060,3.227697&geo_zoom=15&id=bridge-in-bruges",
+        "index": 2
+    },
+    "meteora-monasteries.jpg": {
+        "title": "Meteora Monasteries",
+        "description": "Flat multi-resolution gigapixel image, contributed by <a href=\"http:\/\/panomagic.eu\/\" target=\"_blank\">George Palov<\/a>.<br><span class=\"label default\">Flat<\/span><span class=\"label bg2\">5 levels<\/span><span class=\"label bg2\">23552 px<\/span>",
+        "params": "path=https:\/\/demo.photo.gallery\/content\/examples\/plugins\/panorama\/_meteora-monasteries&tilesize=2048&width=1024,3072,6144,12288,23552&height=404,1208,2416,4832,9260&geo=39.721563,21.632105&url_format=l1\/%0v\/l1_%0v_%0h.jpg",
+        "index": 4
+    }
+}

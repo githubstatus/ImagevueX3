@@ -1,0 +1,19 @@
+{
+    "title": "Folders Justified",
+    "description": "A basic example of the justified layout method applied to folders.",
+    "image": "examples\/assets\/prickly.jpg",
+    "folders": {
+        "width": "wide",
+        "items": "preview",
+        "layout": "justified",
+        "justified": {
+            "row_height": 400
+        },
+        "caption": {
+            "enabled": true,
+            "items": "title,description"
+        },
+        "classes": "[none]",
+        "assets": "examples\/folders\/"
+    }
+}

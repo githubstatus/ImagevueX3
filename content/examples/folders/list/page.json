@@ -1,0 +1,25 @@
+{
+    "title": "Folders Grid List",
+    "description": "Split grid layout combination.",
+    "image": "examples\/assets\/madrid.jpg",
+    "context": {
+        "classes": "separator"
+    },
+    "folders": {
+        "crop": {
+            "enabled": true,
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "grid": {
+            "columns": "2,2,1"
+        },
+        "split": {
+            "enabled": true
+        },
+        "classes": "frame,hr,x3-hover-scale",
+        "assets": "examples\/folders\/"
+    }
+}

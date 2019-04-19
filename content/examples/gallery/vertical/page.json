@@ -1,0 +1,26 @@
+{
+    "title": "Vertical Layout",
+    "description": "Vertical gallery images in a narrow layout.",
+    "image": "examples\/assets\/carneval",
+    "layout": {
+        "width": "narrow"
+    },
+    "context": {
+        "classes": "separator"
+    },
+    "gallery": {
+        "layout": "vertical",
+        "classes": "frame,hover,landscape",
+        "width": "narrower",
+        "items": "preview,title,description",
+        "assets": "examples\/assets\/"
+    },
+    "plugins": {
+        "video_background": {
+            "autoplay": false,
+            "toggleplay": false,
+            "loop": false,
+            "muted": false
+        }
+    }
+}

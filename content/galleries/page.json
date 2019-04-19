@@ -1,0 +1,29 @@
+{
+    "title": "Galleries",
+    "description": "A bunch of cool photos from my space travels.",
+    "image": "galleries\/human\/1.hat.jpg",
+    "menu": {
+        "type": "carousel",
+        "crop": {
+            "enabled": false
+        }
+    },
+    "context": {
+        "classes": "separator"
+    },
+    "folders": {
+        "crop": {
+            "enabled": true,
+            "crop": [
+                1,
+                1
+            ]
+        },
+        "classes": "frame,x3-hover-icon-asterisk-primary",
+        "items": "title,preview",
+        "caption": {
+            "enabled": true,
+            "items": "description,amount"
+        }
+    }
+}
